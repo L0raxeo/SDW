@@ -37,7 +37,7 @@ public class MainMenu extends Scene{
 
     @Override
     public void start() {
-        
+
     }
 
     @Override
