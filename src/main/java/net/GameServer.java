@@ -22,7 +22,7 @@ public class GameServer extends Thread
 
     private final List<ClientInfo> connectedClients = new ArrayList<>();
 
-    public GameServer(int port)
+    private GameServer(int port)
     {
         try {
             this.socket = new DatagramSocket(port);

@@ -16,27 +16,28 @@ public class MainMenu extends Scene{
     @Override
     public void init()
     {
-        addGameObject(Prefabs.generate(
-                "Object 1",
-                new Vector2f(),
-                new Vector2f()
-        ));
-
-        addGameObject(Prefabs.generate(
-                "Object 2",
-                new Vector2f(),
-                new Vector2f()
-        ));
-
-        addGameObject(Prefabs.generate(
-                "Object 3",
-                new Vector2f(),
-                new Vector2f()
-        ));
+//        addGameObject(Prefabs.generate(
+//                "Object 1",
+//                new Vector2f(),
+//                new Vector2f()
+//        ));
+//
+//        addGameObject(Prefabs.generate(
+//                "Object 2",
+//                new Vector2f(),
+//                new Vector2f()
+//        ));
+//
+//        addGameObject(Prefabs.generate(
+//                "Object 3",
+//                new Vector2f(),
+//                new Vector2f()
+//        ));
     }
 
     @Override
-    public void start() {
+    public void start()
+    {
 
     }
 

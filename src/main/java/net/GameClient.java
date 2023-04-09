@@ -77,6 +77,11 @@ public class GameClient extends Thread
         }
     }
 
+    public void sendData(String data)
+    {
+        sendData(data.getBytes());
+    }
+
     public static GameClient getInstance()
     {
         return instance;
