@@ -1,5 +1,4 @@
 package com.l0raxeo.sdw;
-
 import com.l0raxeo.sdw.window.Window;
 
 public class MainApp
