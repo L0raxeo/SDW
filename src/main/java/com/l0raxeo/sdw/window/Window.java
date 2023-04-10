@@ -1,7 +1,10 @@
 package com.l0raxeo.sdw.window;
 
+import com.l0raxeo.sdw.input.keyboard.KeyManager;
+import com.l0raxeo.sdw.input.mouse.MouseManager;
 import com.l0raxeo.sdw.scenes.MainMenu;
 import com.l0raxeo.sdw.scenes.Scene;
+import com.l0raxeo.sdw.ui.GuiLayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,9 +29,9 @@ public class Window implements Runnable
     private static final List<Scene> scenes = new ArrayList<>();
     private static Scene currentScene = null;
     private Color backdrop;
-//    private KeyManager keyListener;
-//    private MouseManager mouseListener;
-//    private GuiLayer guiLayer;
+    private KeyManager keyListener;
+    private MouseManager mouseListener;
+    private GuiLayer guiLayer;
 
     private Window()
     {
@@ -119,16 +122,16 @@ public class Window implements Runnable
         frame.pack();
 
         // Create Input Listeners
-        //keyListener = new KeyManager();
-        //mouseListener = new MouseManager();
+        keyListener = new KeyManager();
+        mouseListener = new MouseManager();
 
         // Add Input Listeners
-        //frame.addKeyListener(keyListener);
-        //canvas.addMouseListener(mouseListener);
-        //canvas.addMouseMotionListener(mouseListener);
+        frame.addKeyListener(keyListener);
+        canvas.addMouseListener(mouseListener);
+        canvas.addMouseMotionListener(mouseListener);
 
         // GuiLayer
-        //guiLayer = GuiLayer.getInstance();
+        guiLayer = GuiLayer.getInstance();
 
         setVisible(true);
 
@@ -172,8 +175,8 @@ public class Window implements Runnable
 
     private void update(double dt)
     {
-        //mouseListener.update();
-        //keyListener.update();
+        mouseListener.update();
+        keyListener.update();
         currentScene.update(dt);
     }
 
@@ -196,7 +199,7 @@ public class Window implements Runnable
         g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         currentScene.render(g);
-        //guiLayer.render(g);
+        guiLayer.render(g);
 
         // end drawing
         bs.show();
