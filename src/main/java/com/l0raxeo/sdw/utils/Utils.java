@@ -3,57 +3,55 @@ package com.l0raxeo.sdw.utils;
 public class Utils
 {
 
-    public static String encrypt(String message)
-    {
-        // [0,9]
-        int key = (int) (Math.random() * 9);
-        int tmpKey = key;
-
-        StringBuilder result = new StringBuilder();
-        result.append(message);
-
-        for (int i = 0; i < message.length(); i += 2)
-        {
-            result.setCharAt(i, (char) (result.charAt(i) + tmpKey));
-            tmpKey--;
-            for (int k = 1; k < message.length(); k += 2)
-            {
-                int tmp = tmpKey;
-
-                while (tmp > 0)
-                {
-                    result.setCharAt(k, (char) (result.charAt(k) + 1));
-                    tmp--;
+    public static String encrypt(String message) {
+        StringBuilder scrambled = new StringBuilder();
+        int key = (int) (Math.random() * 10);
+        for (int i = 0; i < message.length(); i++) {
+            char c = message.charAt(i);
+            if (Character.isLetter(c)) {
+                c = (char) (c + key);
+                if (c > 'z') {
+                    c = (char) (c - 26);
+                } else if (c < 'a') {
+                    c = (char) (c + 26);
+                }
+            } else if (Character.isDigit(c)) {
+                c = (char) (c + key);
+                if (c > '9') {
+                    c = (char) (c - 10);
+                } else if (c < '0') {
+                    c = (char) (c + 10);
                 }
             }
+            scrambled.append(c);
         }
-
-        return String.valueOf(key).concat(result.toString());
+        return String.valueOf(key).concat(scrambled.toString());
     }
 
-    public static String decrypt(String message)
-    {
-        StringBuilder result = new StringBuilder();
-        result.append(message.substring(1));
-        int key = Integer.parseInt(message.substring(0, 1));
-
-        for (int i = 0; i < result.length(); i += 2)
-        {
-            result.setCharAt(i, (char) (result.charAt(i) - key));
-            key--;
-            for (int k = 1; k < result.length(); k += 2)
-            {
-                int tmp = key;
-
-                while (tmp > 0)
-                {
-                    result.setCharAt(k, (char) (result.charAt(k) - 1));
-                    tmp--;
+    public static String decrypt(String rawEncryption) {
+        StringBuilder original = new StringBuilder();
+        String encrypted = rawEncryption.substring(1);
+        int key = Integer.parseInt(rawEncryption.substring(0, 1));
+        for (int i = 0; i < encrypted.length(); i++) {
+            char c = encrypted.charAt(i);
+            if (Character.isLetter(c)) {
+                c = (char) (c - key);
+                if (c > 'z') {
+                    c = (char) (c - 26);
+                } else if (c < 'a') {
+                    c = (char) (c + 26);
+                }
+            } else if (Character.isDigit(c)) {
+                c = (char) (c - key);
+                if (c > '9') {
+                    c = (char) (c - 10);
+                } else if (c < '0') {
+                    c = (char) (c + 10);
                 }
             }
+            original.append(c);
         }
-
-        return result.toString();
+        return original.toString();
     }
 
 }

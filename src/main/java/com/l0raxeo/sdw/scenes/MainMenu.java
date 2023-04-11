@@ -50,36 +50,6 @@ public class MainMenu extends Scene{
         ));
     }
 
-    private void joinMenu()
-    {
-        GuiLayer.getInstance().clear();
-        GuiLayer.getInstance().addGuiComponent(new GuiTextField(
-                "IP Address",
-                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 64),
-                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 64),
-                AssetPool.getFont(
-                        "assets/fonts/default_font.ttf", 32
-                ),
-                new Color[]{
-                        Color.gray, Color.lightGray
-                }
-        ));
-
-        GuiLayer.getInstance().addGuiComponent(new GuiTextField(
-                "Port",
-                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 160),
-                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 64),
-                AssetPool.getFont(
-                        "assets/fonts/default_font.ttf", 32
-                ),
-                new Color[]{
-                        Color.gray, Color.lightGray
-                }
-        ));
-
-        addCancelBtn();
-    }
-
     private void hostMenu()
     {
         GuiLayer.getInstance().clear();
@@ -109,7 +79,53 @@ public class MainMenu extends Scene{
                 }
         ));
 
-        addCancelBtn();
+        addCancelBtn(256);
+    }
+
+    private void joinMenu()
+    {
+        GuiLayer.getInstance().clear();
+        GuiLayer.getInstance().addGuiComponent(new GuiTextField(
+                "IP Address",
+                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 64),
+                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 64),
+                AssetPool.getFont(
+                        "assets/fonts/default_font.ttf", 32
+                ),
+                new Color[]{
+                        Color.gray, Color.lightGray
+                }
+        ));
+
+        GuiLayer.getInstance().addGuiComponent(new GuiTextField(
+                "Port",
+                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 160),
+                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 64),
+                AssetPool.getFont(
+                        "assets/fonts/default_font.ttf", 32
+                ),
+                new Color[]{
+                        Color.gray, Color.lightGray
+                }
+        ));
+
+        GuiLayer.getInstance().addGuiComponent(new GuiButton(
+                "Join_btn",
+                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 256),
+                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 64),
+                "Join",
+                AssetPool.getFont("assets/fonts/default_font.ttf", 32),
+                new Color[]{Color.gray, Color.white},
+                true,
+                () -> {
+                    MultiplayerHandler.createClient(
+                            Utils.decrypt(((GuiTextField) (GuiLayer.getInstance().getGuiComponent("IP Address"))).getText().toUpperCase()),
+                            Integer.parseInt(((GuiTextField) (GuiLayer.getInstance().getGuiComponent("Port"))).getText())
+                    );
+                }
+        ));
+
+        addCancelBtn(352);
     }
 
     private void hostWaitingMenu(String rawHost)
@@ -152,11 +168,11 @@ public class MainMenu extends Scene{
         ));
     }
 
-    private void addCancelBtn()
+    private void addCancelBtn(int yPos)
     {
         GuiLayer.getInstance().addGuiComponent(new GuiButton(
                 "cancel_btn",
-                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 256),
+                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, yPos),
                 new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 64),
                 "Cancel",
                 AssetPool.getFont("assets/fonts/default_font.ttf", 32),
