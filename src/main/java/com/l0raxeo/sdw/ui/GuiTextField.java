@@ -10,12 +10,13 @@ public class GuiTextField extends GuiKeyListener
 {
 
     private final Color[] color;
+    private final Font font;
     private String text;
-    private boolean selected;
 
-    public GuiTextField(String name, Vector2i position, Vector2i scale, Color[] color) {
+    public GuiTextField(String name, Vector2i position, Vector2i scale, Font font, Color[] color) {
         super(name, position, scale);
 
+        this.font = font;
         this.text = "";
         this.color = color;
         this.selected = false;
@@ -39,15 +40,15 @@ public class GuiTextField extends GuiKeyListener
                             new Vector2i(position.x + scale.x / 2, position.y + scale.y / 2),
                             true,
                             Color.WHITE,
-                            AssetPool.getFont(
-                                    "assets/fonts/default_font.ttf", 32
-                            ));
+                            font
+        );
     }
 
     @Override
     public void onClick()
     {
         selected = !selected;
+        GuiLayer.getInstance().selectComponent(this);
     }
 
     public void keyPress(KeyEvent e)
@@ -61,6 +62,11 @@ public class GuiTextField extends GuiKeyListener
         {
             text = text.concat(String.valueOf(e.getKeyChar()));
         }
+    }
+
+    public String getText()
+    {
+        return this.text;
     }
 
 }

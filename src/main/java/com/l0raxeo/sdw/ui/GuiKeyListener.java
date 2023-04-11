@@ -5,7 +5,8 @@ import org.joml.Vector2i;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class GuiKeyListener extends GuiComponent{
+public class GuiKeyListener extends GuiComponent
+{
     public GuiKeyListener(String name, Vector2i position, Vector2i scale) {
         super(name, position, scale);
     }

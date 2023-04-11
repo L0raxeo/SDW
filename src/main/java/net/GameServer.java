@@ -9,6 +9,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.nio.channels.AsynchronousCloseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,11 @@ public class GameServer extends Thread
             DatagramPacket packet = new DatagramPacket(data, data.length);
 
             try {
-                socket.receive(packet);
+                try {
+                    socket.receive(packet);
+                } catch (SocketException | AsynchronousCloseException e) {
+                    System.out.println("[WARNING]: closed socket cannot receive datagram packets in GameServer.");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -122,6 +127,7 @@ public class GameServer extends Thread
     public static void destroyGameServer()
     {
         instance.connected = false;
+        instance.socket.close();
         instance = null;
     }
 

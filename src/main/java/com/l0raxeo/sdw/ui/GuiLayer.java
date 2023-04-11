@@ -13,6 +13,8 @@ public class GuiLayer
     private final List<GuiComponent> guiComponents = new ArrayList<>();
     private static GuiLayer instance = null;
 
+    private GuiComponent selectedComponent = null;
+
     private GuiLayer() {}
 
     public void onMouseMove(Vector2i mousePos, Vector2i mouseMoved, Vector2i mouseDragged)
@@ -67,12 +69,39 @@ public class GuiLayer
         return this.guiComponents;
     }
 
+    public GuiComponent getGuiComponent(String name)
+    {
+        for (GuiComponent c : getGuiComponents())
+        {
+            if (c.name.equals(name))
+                return c;
+        }
+
+        return null;
+    }
+
     public static GuiLayer getInstance()
     {
         if (instance == null)
             instance = new GuiLayer();
 
         return instance;
+    }
+
+    public void selectComponent(GuiComponent component)
+    {
+        if (selectedComponent != null)
+            selectedComponent.selected = false;
+
+        if (component != null)
+            component.selected = true;
+
+        selectedComponent = component;
+    }
+
+    public GuiComponent getSelectedComponent()
+    {
+        return selectedComponent;
     }
 
 }

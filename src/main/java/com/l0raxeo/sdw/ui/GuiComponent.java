@@ -9,6 +9,7 @@ public abstract class GuiComponent
 
     protected String name;
     protected boolean hovering;
+    protected boolean selected;
     protected Vector2i position;
     protected Vector2i scale;
     protected Rectangle bounds;
@@ -19,6 +20,7 @@ public abstract class GuiComponent
         this.position = position;
         this.scale = scale;
 
+        this.selected = false;
         this.bounds = new Rectangle(position.x, position.y, scale.x, scale.y);
     }
 
