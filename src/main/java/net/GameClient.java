@@ -62,8 +62,8 @@ public class GameClient extends Thread
             case "gon" -> Window.getScene()
                     .getGameObjectWithUid(Integer.parseInt(parsedPacket[1]))
                     .getComponent(GameObjectNetwork.class).receive(strPacket);
-            case "cm" -> System.out.println(parsedPacket[1]);
-            case "lc" -> System.out.println("Connected to server!");
+            case "cm" -> System.out.println("[Client]: " + parsedPacket[1]);
+            case "lc" -> System.out.println("[Client]: Connected to server!");
         }
     }
 

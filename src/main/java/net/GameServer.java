@@ -44,7 +44,7 @@ public class GameServer extends Thread
                 try {
                     socket.receive(packet);
                 } catch (SocketException | AsynchronousCloseException e) {
-                    System.out.println("[WARNING]: closed socket cannot receive datagram packets in GameServer.");
+                    System.out.println("[Server] - WARNING: closed socket cannot receive datagram packets in GameServer.");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -116,7 +116,7 @@ public class GameServer extends Thread
         if (!alreadyConnected)
         {
             connectedClients.add(client);
-            System.out.println("Connection added: " + client.ipToString());
+            System.out.println("[Server]: Connection added: " + client.ipToString());
             sendData("lc", client.ipAddress(), client.port());
         }
     }
@@ -129,7 +129,7 @@ public class GameServer extends Thread
     public static GameServer createInstance(int port)
     {
         if (instance != null)
-            throw new DuplicateNetworkException("Cannot create another instance of GameServer");
+            throw new DuplicateNetworkException("[Server]: Cannot create another instance of GameServer");
         instance = new GameServer(port);
         return instance;
     }

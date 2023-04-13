@@ -74,8 +74,9 @@ public class MainMenu extends Scene{
                 new Color[]{Color.gray, Color.white},
                 true,
                 () -> {
-                    String rawHost = MultiplayerHandler.createHost(Integer.parseInt(((GuiTextField) GuiLayer.getInstance().getGuiComponent("Port")).getText()));
-                    hostWaitingMenu(rawHost);
+                    int port = Integer.parseInt(((GuiTextField) GuiLayer.getInstance().getGuiComponent("Port")).getText());
+                    String rawHost = MultiplayerHandler.createHost(port);
+                    waitingMenu(rawHost, port);
                 }
         ));
 
@@ -118,25 +119,35 @@ public class MainMenu extends Scene{
                 new Color[]{Color.gray, Color.white},
                 true,
                 () -> {
-                    MultiplayerHandler.createClient(
-                            Utils.decrypt(((GuiTextField) (GuiLayer.getInstance().getGuiComponent("IP Address"))).getText().toUpperCase()),
-                            Integer.parseInt(((GuiTextField) (GuiLayer.getInstance().getGuiComponent("Port"))).getText())
-                    );
+                    String rawHost = Utils.decrypt(((GuiTextField) (GuiLayer.getInstance().getGuiComponent("IP Address"))).getText().toUpperCase());
+                    int port = Integer.parseInt(((GuiTextField) (GuiLayer.getInstance().getGuiComponent("Port"))).getText());
+                    MultiplayerHandler.createClient(rawHost, port);
+                    waitingMenu(rawHost, port);
                 }
         ));
 
         addCancelBtn(352);
     }
 
-    private void hostWaitingMenu(String rawHost)
+    private void waitingMenu(String rawHost, int port)
     {
         GuiLayer.getInstance().clear();
 
+//        GuiLayer.getInstance().addGuiComponent(new GuiTextObj
+//                (
+//                        "Join_Code_Label",
+//                        "Join Code",
+//                        new Vector2i(Window.WINDOW_WIDTH / 2, 160),
+//                        Color.WHITE,
+//                        AssetPool.getFont("assets/fonts/default_font.ttf", 32)
+//                )
+//        );
+
         GuiLayer.getInstance().addGuiComponent(new GuiTextObj
                 (
-                        "Join_Code_Label",
-                        "Join Code",
-                        new Vector2i(Window.WINDOW_WIDTH / 2, 160),
+                        "Join_Code",
+                        "Join Code: " + Utils.encrypt(rawHost),
+                        new Vector2i(Window.WINDOW_WIDTH / 2, 64),
                         Color.WHITE,
                         AssetPool.getFont("assets/fonts/default_font.ttf", 32)
                 )
@@ -144,9 +155,9 @@ public class MainMenu extends Scene{
 
         GuiLayer.getInstance().addGuiComponent(new GuiTextObj
                 (
-                        "Join_Code",
-                        Utils.encrypt(rawHost),
-                        new Vector2i(Window.WINDOW_WIDTH / 2, 192),
+                        "Port",
+                        "Port: " + port,
+                        new Vector2i(Window.WINDOW_WIDTH / 2, 128),
                         Color.WHITE,
                         AssetPool.getFont("assets/fonts/default_font.ttf", 32)
                 )
