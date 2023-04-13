@@ -12,10 +12,10 @@ repositories {
 project.ext.jomlVersion = "1.9.23"
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation platform('org.junit:junit-bom:5.9.2')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    implementation "org.joml:joml:1.10.4"
+    implementation 'org.joml:joml:1.10.5'
 }
 
 test {
