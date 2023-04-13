@@ -83,12 +83,22 @@ public class GameServer extends Thread
         }
     }
 
+    public void sendData(String data, InetAddress ipAddress, int port)
+    {
+        sendData(data.getBytes(), ipAddress, port);
+    }
+
     public void sendDataToAllClients(byte[] data)
     {
         for (ClientInfo c : connectedClients)
         {
             sendData(data, c.ipAddress(), c.port());
         }
+    }
+
+    public void sendDataToAllClients(String data)
+    {
+        sendDataToAllClients(data.getBytes());
     }
 
     private void addConnection(ClientInfo client)
@@ -107,7 +117,7 @@ public class GameServer extends Thread
         {
             connectedClients.add(client);
             System.out.println("Connection added: " + client.ipToString());
-            sendDataToAllClients("cm,Connection Added!".getBytes());
+            sendData("lc", client.ipAddress(), client.port());
         }
     }
 
