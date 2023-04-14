@@ -9,6 +9,7 @@ import net.MultiplayerHandler;
 import org.joml.Vector2i;
 
 import java.awt.*;
+import java.util.List;
 
 public class MainMenu extends Scene{
 
@@ -213,37 +214,14 @@ public class MainMenu extends Scene{
     {
         if (GuiLayer.getInstance().getGuiComponent("Leave_Server") != null)
         {
-            // length of 15 characters max on one line for the player list
-            String[][] playerList = new String[16][8];
+            List<ClientInfo> playerList = MultiplayerHandler.socketClient.playerList;
 
-            int lineLength = 0;
-            int line = 0;
-            int slot = 0;
-            for (ClientInfo ci : MultiplayerHandler.socketClient.playerList)
+            for (int i = 0; i < playerList.size(); i++)
             {
-                if (lineLength + ci.getUsername().length() <= 15)
-                {
-                    playerList[line][slot] = ci.getUsername();
-                    slot++;
-                    lineLength += ci.getUsername().length();
-                    continue;
-                }
-
-                lineLength = 0;
-                slot = 0;
-                line++;
-            }
-
-            for (int l = 0; l < playerList.length; l++)
-            {
-                StringBuilder lineBuilder = new StringBuilder();
-                for (String p : playerList[l])
-                    if (p != null) lineBuilder.append(p);
-
                 GuiText.drawString(
                         g,
-                        lineBuilder.toString(),
-                        new Vector2i(Window.WINDOW_WIDTH / 2, 384 + (l * 32)),
+                        playerList.get(i).getUsername(),
+                        new Vector2i(Window.WINDOW_WIDTH / 2, 384 + (i * 32)),
                         true,
                         Color.WHITE,
                         AssetPool.getFont("assets/fonts/default_font.ttf", 32)
