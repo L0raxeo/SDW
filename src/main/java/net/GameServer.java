@@ -126,6 +126,7 @@ public class GameServer extends Thread
 
     private void removeConnection(ClientInfoServer client)
     {
+        System.out.println("[Server] Connection removed: " + client.username());
         sendDataToAllClients("lo," + client.uid());
         connectedClients.remove(client);
     }
@@ -167,6 +168,14 @@ public class GameServer extends Thread
         instance.connected = false;
         instance.socket.close();
         instance = null;
+    }
+
+    public static boolean isConnected()
+    {
+        if (instance == null)
+            return false;
+
+        return instance.connected;
     }
 
 }

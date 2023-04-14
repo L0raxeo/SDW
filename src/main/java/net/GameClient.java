@@ -20,7 +20,7 @@ public class GameClient extends Thread
     private int port;
     private DatagramSocket socket;
 
-    private boolean connected = true;
+    public boolean connected = true;
 
     private GameClient(String ipAddress, int port)
     {
@@ -130,6 +130,14 @@ public class GameClient extends Thread
                 return ci;
 
         return null;
+    }
+
+    public static boolean isConnected()
+    {
+        if (instance == null)
+            return false;
+
+        return instance.connected;
     }
 
 }

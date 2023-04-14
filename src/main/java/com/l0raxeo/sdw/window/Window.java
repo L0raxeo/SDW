@@ -5,6 +5,7 @@ import com.l0raxeo.sdw.input.mouse.MouseManager;
 import com.l0raxeo.sdw.scenes.MainMenu;
 import com.l0raxeo.sdw.scenes.Scene;
 import com.l0raxeo.sdw.ui.GuiLayer;
+import net.MultiplayerHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -146,7 +147,6 @@ public class Window implements Runnable
         int frames = 0;
         long lastTimer = System.currentTimeMillis();
         double delta = 0;
-
         while (running)
         {
             long now = System.nanoTime();
@@ -156,6 +156,7 @@ public class Window implements Runnable
             while (delta >= 1)
             {
                 ticks++;
+                MultiplayerHandler.localThreadUpdate();
                 update(delta);
                 delta -= 1;
             }

@@ -9,6 +9,19 @@ public class MultiplayerHandler
     public static GameServer socketServer;
     public static GameClient socketClient;
 
+    private static long lastConnectionTest = System.currentTimeMillis();
+
+    public static void localThreadUpdate()
+    {
+        if (GameClient.isConnected() && lastConnectionTest + 15000 < System.currentTimeMillis())
+        {
+            long curTime = System.currentTimeMillis();
+            System.out.println(curTime);
+            //socketClient.sendData("ct," + curTime);
+            lastConnectionTest = curTime;
+        }
+    }
+
     public static String createHost(int port, String username)
     {
         InetAddress ipAddress = null;
