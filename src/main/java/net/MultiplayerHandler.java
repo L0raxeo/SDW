@@ -13,7 +13,7 @@ public class MultiplayerHandler
     public static GameServer socketServer;
     public static GameClient socketClient;
 
-    public static String createHost(int port)
+    public static String createHost(int port, String username)
     {
         InetAddress ipAddress = null;
 
@@ -29,14 +29,14 @@ public class MultiplayerHandler
 
         // Game Client
         assert ipAddress != null;
-        createClient(ipAddress.getHostAddress(), port);
+        createClient(ipAddress.getHostAddress(), port, username);
 
         MultiplayerHandler.socketServer = socketServer;
 
         return ipAddress.getHostAddress();
     }
 
-    public static void createClient(String joinCode, int port)
+    public static void createClient(String joinCode, int port, String username)
     {
         InetAddress ipAddress = null;
         try {
@@ -49,7 +49,7 @@ public class MultiplayerHandler
         assert ipAddress != null;
         GameClient socketClient = GameClient.createInstance(joinCode, port);
         socketClient.start();
-        socketClient.sendData("l");
+        socketClient.sendData("l," + username);
 
         MultiplayerHandler.socketClient = socketClient;
     }

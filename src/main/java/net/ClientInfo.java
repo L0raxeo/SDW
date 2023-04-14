@@ -1,13 +1,16 @@
 package net;
 
-import java.net.InetAddress;
-
-public record ClientInfo(InetAddress ipAddress, int port)
+public record ClientInfo(String username, int uid)
 {
 
-    public String ipToString()
+    public String getUsername()
     {
-        return ipAddress.toString();
+        return username;
+    }
+
+    public int getUid()
+    {
+        return uid;
     }
 
 }

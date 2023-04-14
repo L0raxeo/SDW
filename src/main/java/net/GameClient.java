@@ -6,11 +6,14 @@ import com.l0raxeo.sdw.window.Window;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameClient extends Thread
 {
 
     private static GameClient instance;
+    public final List<ClientInfo> playerList = new ArrayList<>();
 
     private InetAddress ipAddress;
     private int port;
@@ -64,6 +67,14 @@ public class GameClient extends Thread
                     .getComponent(GameObjectNetwork.class).receive(strPacket);
             case "cm" -> System.out.println("[Client]: " + parsedPacket[1]);
             case "lc" -> System.out.println("[Client]: Connected to server!");
+            case "pl" -> {
+                playerList.clear();
+                for (int i = 1; i < parsedPacket.length; i += 2)
+                    playerList.add(new ClientInfo(
+                            parsedPacket[i],
+                            Integer.parseInt(parsedPacket[i + 1]))
+                    );
+            }
         }
     }
 

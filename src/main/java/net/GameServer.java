@@ -20,8 +20,9 @@ public class GameServer extends Thread
 
     private DatagramSocket socket;
     private boolean connected = true;
+    private int ID_COUNTER = 0;
 
-    private final List<ClientInfo> connectedClients = new ArrayList<>();
+    private final List<ClientInfoServer> connectedClients = new ArrayList<>();
 
     private GameServer(int port)
     {
@@ -61,7 +62,7 @@ public class GameServer extends Thread
 
         switch (parsedPacket[0])
         {
-            case "l" -> addConnection(new ClientInfo(address, port));
+            case "l" -> addConnection(new ClientInfoServer(address, port, parsedPacket[1], ID_COUNTER++));
             case "gon" -> Window.getScene()
                     .getGameObjectWithUid(Integer.parseInt(parsedPacket[1]))
                     .getComponent(GameObjectNetwork.class).receive(strPacket);
@@ -90,7 +91,7 @@ public class GameServer extends Thread
 
     public void sendDataToAllClients(byte[] data)
     {
-        for (ClientInfo c : connectedClients)
+        for (ClientInfoServer c : connectedClients)
         {
             sendData(data, c.ipAddress(), c.port());
         }
@@ -101,11 +102,11 @@ public class GameServer extends Thread
         sendDataToAllClients(data.getBytes());
     }
 
-    private void addConnection(ClientInfo client)
+    private void addConnection(ClientInfoServer client)
     {
         boolean alreadyConnected = false;
 
-        for (ClientInfo c : connectedClients)
+        for (ClientInfoServer c : connectedClients)
         {
             if (c.ipAddress().equals(client.ipAddress())) {
                 alreadyConnected = true;
@@ -116,9 +117,21 @@ public class GameServer extends Thread
         if (!alreadyConnected)
         {
             connectedClients.add(client);
-            System.out.println("[Server]: Connection added: " + client.ipToString());
-            sendData("lc", client.ipAddress(), client.port());
+            System.out.println("[Server]: Connection added: " + client.username());
+            sendData("lc," + client.uid(), client.ipAddress(), client.port());
+            sendDataToAllClients(generatePlayerListPacket());
         }
+    }
+
+    public String generatePlayerListPacket()
+    {
+        StringBuilder packetBuilder = new StringBuilder("pl,");
+
+        for (ClientInfoServer cif : connectedClients)
+            packetBuilder.append(cif.username()).append(",").append(cif.uid()).append(",");
+
+        packetBuilder.deleteCharAt(packetBuilder.length() - 1);
+        return packetBuilder.toString();
     }
 
     public static GameServer getInstance()
