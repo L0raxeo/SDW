@@ -84,6 +84,10 @@ public class GameClient extends Thread
                 if (Integer.parseInt(parsedPacket[1]) == 1)
                     MultiplayerHandler.clientConnectionValid = true;
             }
+            case "cts" -> {
+                if (Integer.parseInt(parsedPacket[1]) == 0)
+                    sendData("cts,1");
+            }
         }
     }
 

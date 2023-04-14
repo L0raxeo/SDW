@@ -26,17 +26,19 @@ public class MultiplayerHandler
                 List<ClientInfoServer> toDisconnect = new ArrayList<>();
                 for (ClientInfoServer cis : socketServer.getConnectedClients())
                     if (!serverConnectionsValid.get(cis.uid()))
+                    {
                         toDisconnect.add(cis);
+                    }
 
                 for (ClientInfoServer cis : toDisconnect)
                     socketServer.removeConnection(cis);
-
-                socketServer.sendDataToAllClients("cts,0");
 
                 serverConnectionsValid.forEach((k,v) -> {
                     v = false;
                     serverConnectionsValid.replace(k, v);
                 });
+
+                socketServer.sendDataToAllClients("cts,0");
             }
 
             if (!clientConnectionValid)
