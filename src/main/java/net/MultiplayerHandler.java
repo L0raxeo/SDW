@@ -1,9 +1,5 @@
 package net;
 
-import com.l0raxeo.sdw.ui.GuiLayer;
-import com.l0raxeo.sdw.ui.GuiTextField;
-import com.l0raxeo.sdw.utils.Utils;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -56,6 +52,7 @@ public class MultiplayerHandler
 
     public static void destroyGameServer()
     {
+        socketServer.interrupt();
         GameServer.destroyGameServer();
         MultiplayerHandler.socketServer = null;
     }
@@ -69,7 +66,10 @@ public class MultiplayerHandler
 
     public static void disconnectClient()
     {
-        socketClient.sendData("lo,");
+        if (socketServer != null)
+            destroyGameServer();
+        else
+            socketClient.sendData("lo," + MultiplayerHandler.socketClient.myUid);
         destroyGameClient();
     }
 

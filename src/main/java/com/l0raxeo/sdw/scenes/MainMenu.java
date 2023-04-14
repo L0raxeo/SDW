@@ -189,7 +189,6 @@ public class MainMenu extends Scene{
                 true,
                 () -> {
                     MultiplayerHandler.disconnectClient();
-                    MultiplayerHandler.destroyGameServer();
                     hostMenu();
                 }
         ));
@@ -212,7 +211,7 @@ public class MainMenu extends Scene{
     @Override
     public void gui(Graphics g)
     {
-        if (GuiLayer.getInstance().getGuiComponent("Leave_Server") != null)
+        if (GuiLayer.getInstance().getGuiComponent("Leave_Server") != null && MultiplayerHandler.socketClient != null)
         {
             List<ClientInfo> playerList = MultiplayerHandler.socketClient.clientList;
 
