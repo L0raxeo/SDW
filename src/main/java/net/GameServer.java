@@ -67,6 +67,7 @@ public class GameServer extends Thread
                     .getGameObjectWithUid(Integer.parseInt(parsedPacket[1]))
                     .getComponent(GameObjectNetwork.class).receive(strPacket);
             case "cm" -> System.out.println(parsedPacket[1]);
+            case "lo" -> removeConnection(getClientInfo(Integer.parseInt(parsedPacket[1])));
         }
     }
 
@@ -121,6 +122,20 @@ public class GameServer extends Thread
             sendData("lc," + client.uid(), client.ipAddress(), client.port());
             sendDataToAllClients(generatePlayerListPacket());
         }
+    }
+
+    private void removeConnection(ClientInfoServer client)
+    {
+        sendDataToAllClients("lo," + client.uid());
+        connectedClients.remove(client);
+    }
+
+    public ClientInfoServer getClientInfo(int uid)
+    {
+        for (ClientInfoServer cis : connectedClients)
+            if (cis.uid() == uid) return cis;
+
+        return null;
     }
 
     public String generatePlayerListPacket()

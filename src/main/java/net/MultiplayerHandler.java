@@ -60,10 +60,17 @@ public class MultiplayerHandler
         MultiplayerHandler.socketServer = null;
     }
 
-    public static void destroyGameClient()
+    private static void destroyGameClient()
     {
+        socketClient.interrupt();
         GameClient.destroyGameClient();
         MultiplayerHandler.socketClient = null;
+    }
+
+    public static void disconnectClient()
+    {
+        socketClient.sendData("lo,");
+        destroyGameClient();
     }
 
 }

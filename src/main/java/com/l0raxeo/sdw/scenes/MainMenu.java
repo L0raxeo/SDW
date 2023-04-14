@@ -188,7 +188,7 @@ public class MainMenu extends Scene{
                 new Color[]{Color.gray, Color.white},
                 true,
                 () -> {
-                    MultiplayerHandler.destroyGameClient();
+                    MultiplayerHandler.disconnectClient();
                     MultiplayerHandler.destroyGameServer();
                     hostMenu();
                 }
@@ -214,10 +214,9 @@ public class MainMenu extends Scene{
     {
         if (GuiLayer.getInstance().getGuiComponent("Leave_Server") != null)
         {
-            List<ClientInfo> playerList = MultiplayerHandler.socketClient.playerList;
+            List<ClientInfo> playerList = MultiplayerHandler.socketClient.clientList;
 
             for (int i = 0; i < playerList.size(); i++)
-            {
                 GuiText.drawString(
                         g,
                         playerList.get(i).getUsername(),
@@ -226,7 +225,6 @@ public class MainMenu extends Scene{
                         Color.WHITE,
                         AssetPool.getFont("assets/fonts/default_font.ttf", 32)
                 );
-            }
         }
     }
 

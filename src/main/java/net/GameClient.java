@@ -13,7 +13,8 @@ public class GameClient extends Thread
 {
 
     private static GameClient instance;
-    public final List<ClientInfo> playerList = new ArrayList<>();
+    public final List<ClientInfo> clientList = new ArrayList<>();
+    public int myUid;
 
     private InetAddress ipAddress;
     private int port;
@@ -66,15 +67,19 @@ public class GameClient extends Thread
                     .getGameObjectWithUid(Integer.parseInt(parsedPacket[1]))
                     .getComponent(GameObjectNetwork.class).receive(strPacket);
             case "cm" -> System.out.println("[Client]: " + parsedPacket[1]);
-            case "lc" -> System.out.println("[Client]: Connected to server!");
+            case "lc" -> {
+                myUid = Integer.parseInt(parsedPacket[1]);
+                System.out.println("[Client]: Connected to server! My UID: " + myUid);
+            }
             case "pl" -> {
-                playerList.clear();
+                getClientList().clear();
                 for (int i = 1; i < parsedPacket.length; i += 2)
-                    playerList.add(new ClientInfo(
+                    getClientList().add(new ClientInfo(
                             parsedPacket[i],
                             Integer.parseInt(parsedPacket[i + 1]))
                     );
             }
+            case "lo" -> getClientList().remove(getPlayerClientInfo(Integer.parseInt(parsedPacket[1])));
         }
     }
 
@@ -111,6 +116,20 @@ public class GameClient extends Thread
     {
         instance.connected = false;
         instance = null;
+    }
+
+    public List<ClientInfo> getClientList()
+    {
+        return clientList;
+    }
+
+    public ClientInfo getPlayerClientInfo(int uid)
+    {
+        for (ClientInfo ci : getClientList())
+            if (ci.uid() == uid)
+                return ci;
+
+        return null;
     }
 
 }
