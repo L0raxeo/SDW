@@ -80,6 +80,10 @@ public class GameClient extends Thread
                     );
             }
             case "lo" -> getClientList().remove(getPlayerClientInfo(Integer.parseInt(parsedPacket[1])));
+            case "ctc" -> {
+                if (Integer.parseInt(parsedPacket[1]) == 1)
+                    MultiplayerHandler.clientConnectionValid = true;
+            }
         }
     }
 

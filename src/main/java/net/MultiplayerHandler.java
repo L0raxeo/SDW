@@ -2,6 +2,9 @@ package net;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 public class MultiplayerHandler
 {
@@ -9,16 +12,39 @@ public class MultiplayerHandler
     public static GameServer socketServer;
     public static GameClient socketClient;
 
-    private static long lastConnectionTest = System.currentTimeMillis();
+    private static long lastClientConnectionTest = System.currentTimeMillis();
+    public static boolean clientConnectionValid = true;
+    //<UID, validConnection>
+    public static Hashtable<Integer, Boolean> serverConnectionsValid = new Hashtable<>();
 
     public static void localThreadUpdate()
     {
-        if (GameClient.isConnected() && lastConnectionTest + 15000 < System.currentTimeMillis())
+        if (GameClient.isConnected() && lastClientConnectionTest + 10000 < System.currentTimeMillis())
         {
-            long curTime = System.currentTimeMillis();
-            System.out.println(curTime);
-            //socketClient.sendData("ct," + curTime);
-            lastConnectionTest = curTime;
+            if (GameServer.isConnected())
+            {
+                List<ClientInfoServer> toDisconnect = new ArrayList<>();
+                for (ClientInfoServer cis : socketServer.getConnectedClients())
+                    if (!serverConnectionsValid.get(cis.uid()))
+                        toDisconnect.add(cis);
+
+                for (ClientInfoServer cis : toDisconnect)
+                    socketServer.removeConnection(cis);
+
+                socketServer.sendDataToAllClients("cts,0");
+
+                serverConnectionsValid.forEach((k,v) -> {
+                    v = false;
+                    serverConnectionsValid.replace(k, v);
+                });
+            }
+
+            if (!clientConnectionValid)
+                disconnectClient();
+
+            lastClientConnectionTest = System.currentTimeMillis();
+            socketClient.sendData("ctc,0");
+            clientConnectionValid = false;
         }
     }
 

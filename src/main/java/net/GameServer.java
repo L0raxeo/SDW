@@ -68,6 +68,12 @@ public class GameServer extends Thread
                     .getComponent(GameObjectNetwork.class).receive(strPacket);
             case "cm" -> System.out.println(parsedPacket[1]);
             case "lo" -> removeConnection(getClientInfo(Integer.parseInt(parsedPacket[1])));
+            case "ctc" -> sendData("ctc,1", address, port);
+            case "cts" -> {
+                if (Integer.parseInt(parsedPacket[1]) == 1) {
+                    MultiplayerHandler.serverConnectionsValid.replace(getClientInfo(address).uid(), true);
+                }
+            }
         }
     }
 
@@ -121,20 +127,35 @@ public class GameServer extends Thread
             System.out.println("[Server]: Connection added: " + client.username());
             sendData("lc," + client.uid(), client.ipAddress(), client.port());
             sendDataToAllClients(generatePlayerListPacket());
+            MultiplayerHandler.serverConnectionsValid.put(client.uid(), true);
         }
     }
 
-    private void removeConnection(ClientInfoServer client)
+    public void removeConnection(ClientInfoServer client)
     {
         System.out.println("[Server] Connection removed: " + client.username());
         sendDataToAllClients("lo," + client.uid());
         connectedClients.remove(client);
     }
 
+    public List<ClientInfoServer> getConnectedClients()
+    {
+        return this.connectedClients;
+    }
+
     public ClientInfoServer getClientInfo(int uid)
     {
         for (ClientInfoServer cis : connectedClients)
             if (cis.uid() == uid) return cis;
+
+        return null;
+    }
+
+    public ClientInfoServer getClientInfo(InetAddress ipAddress)
+    {
+        for (ClientInfoServer cis : connectedClients)
+            if (cis.ipAddress().getHostAddress().equals(ipAddress.getHostAddress()))
+                return cis;
 
         return null;
     }
