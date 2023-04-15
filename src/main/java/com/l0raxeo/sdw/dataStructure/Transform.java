@@ -43,6 +43,15 @@ public class Transform
         this.position = new Vector2f(position.x, Window.WINDOW_HEIGHT - position.y);
     }
 
+    /**
+     * @param offset in world coords
+     */
+    public void move(Vector2f offset)
+    {
+        this.position.x += offset.x;
+        this.position.y -= offset.y;
+    }
+
     @Override
     public boolean equals(Object obj)
     {

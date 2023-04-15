@@ -2,7 +2,7 @@ package com.l0raxeo.sdw.window;
 
 import com.l0raxeo.sdw.input.keyboard.KeyManager;
 import com.l0raxeo.sdw.input.mouse.MouseManager;
-import com.l0raxeo.sdw.scenes.MainMenu;
+import com.l0raxeo.sdw.scenes.Arena;
 import com.l0raxeo.sdw.scenes.Scene;
 import com.l0raxeo.sdw.ui.GuiLayer;
 import net.MultiplayerHandler;
@@ -136,7 +136,7 @@ public class Window implements Runnable
 
         setVisible(true);
 
-        changeScene(MainMenu.class);
+        changeScene(Arena.class);
     }
 
     private void loop()

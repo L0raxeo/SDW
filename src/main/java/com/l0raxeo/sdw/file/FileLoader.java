@@ -1,6 +1,8 @@
 package com.l0raxeo.sdw.file;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class FileLoader
@@ -21,23 +23,19 @@ public class FileLoader
         return null;
     }
 
-    public static String readFile(String path) throws IOException
+    public static BufferedImage loadImage(String path)
     {
-        BufferedReader br = new BufferedReader(new FileReader(path));
-        return br.readLine();
-    }
+        try
+        {
+            return ImageIO.read(new File(path).toURI().toURL().openStream());
+        }
+        catch (IOException e)
+        {
+            if (!e.getMessage().equals("closed"))
+                e.printStackTrace();
+        }
 
-    public static void writeFile(String path, String data) throws IOException
-    {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(path));
-        bw.write(String.valueOf(data));
-        bw.flush();
-        bw.close();
-    }
-
-    public static File loadFile(String path)
-    {
-        return new File(path);
+        return null;
     }
 
 }
