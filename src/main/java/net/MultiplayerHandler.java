@@ -44,6 +44,8 @@ public class MultiplayerHandler
             {
                 disconnectClient();
                 Window.getScene().init();
+                serverConnectionsValid.clear();
+                clientConnectionValid = true;
                 return;
             }
 
