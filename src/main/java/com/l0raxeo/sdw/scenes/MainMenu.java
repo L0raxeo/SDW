@@ -76,8 +76,24 @@ public class MainMenu extends Scene{
                 new Color[]{Color.gray, Color.white},
                 true,
                 () -> {
+                    String username = ((GuiTextField) GuiLayer.getInstance().getGuiComponent("Username")).getText();
+                    if (username.equals(""))
+                    {
+                        GuiLayer.getInstance().addGuiComponent(new GuiTextObj(
+                                "Name_Warning",
+                                "Please enter a username",
+                                new Vector2i(Window.WINDOW_WIDTH / 2, 368),
+                                Color.WHITE,
+                                AssetPool.getFont(
+                                        "assets/fonts/default_font.ttf",
+                                        32
+                                )
+                        ));
+                        return;
+                    }
+
                     int port = Integer.parseInt(((GuiTextField) GuiLayer.getInstance().getGuiComponent("Port")).getText());
-                    String rawHost = MultiplayerHandler.createHost(port, ((GuiTextField) GuiLayer.getInstance().getGuiComponent("Username")).getText());
+                    String rawHost = MultiplayerHandler.createHost(port, username);
                     waitingMenu(rawHost, port);
                 }
         ));
@@ -133,9 +149,25 @@ public class MainMenu extends Scene{
                 new Color[]{Color.gray, Color.white},
                 true,
                 () -> {
+                    String username = ((GuiTextField) GuiLayer.getInstance().getGuiComponent("Username")).getText();
+                    if (username.equals(""))
+                    {
+                        GuiLayer.getInstance().addGuiComponent(new GuiTextObj(
+                                "Name_Warning",
+                                "Please enter a username",
+                                new Vector2i(Window.WINDOW_WIDTH / 2, 496),
+                                Color.WHITE,
+                                AssetPool.getFont(
+                                        "assets/fonts/default_font.ttf",
+                                        32
+                                )
+                        ));
+                        return;
+                    }
+
                     String rawHost = Utils.decrypt(((GuiTextField) (GuiLayer.getInstance().getGuiComponent("IP Address"))).getText().toUpperCase());
                     int port = Integer.parseInt(((GuiTextField) (GuiLayer.getInstance().getGuiComponent("Port"))).getText());
-                    MultiplayerHandler.createClient(rawHost, port, ((GuiTextField) GuiLayer.getInstance().getGuiComponent("Username")).getText());
+                    MultiplayerHandler.createClient(rawHost, port, username);
                     waitingMenu(rawHost, port);
                 }
         ));

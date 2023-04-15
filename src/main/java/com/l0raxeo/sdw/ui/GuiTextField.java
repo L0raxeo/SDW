@@ -53,14 +53,17 @@ public class GuiTextField extends GuiKeyListener
 
     public void keyPress(KeyEvent e)
     {
-        if (e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+        if(selected)
         {
-            if (text.length() > 0)
-                text = text.substring(0, text.length() - 1);
-        }
-        else if (selected && !e.isShiftDown())
-        {
-            text = text.concat(String.valueOf(e.getKeyChar()));
+            if (e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+            {
+                if (text.length() > 0)
+                    text = text.substring(0, text.length() - 1);
+            }
+            else if (!e.isShiftDown())
+            {
+                text = text.concat(String.valueOf(e.getKeyChar()));
+            }
         }
     }
 
