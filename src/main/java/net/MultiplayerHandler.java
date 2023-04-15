@@ -1,5 +1,7 @@
 package net;
 
+import com.l0raxeo.sdw.window.Window;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class MultiplayerHandler
             if (!clientConnectionValid)
             {
                 disconnectClient();
+                Window.getScene().init();
                 return;
             }
 

@@ -189,7 +189,7 @@ public class MainMenu extends Scene{
                 true,
                 () -> {
                     MultiplayerHandler.disconnectClient();
-                    hostMenu();
+                    init();
                 }
         ));
     }
