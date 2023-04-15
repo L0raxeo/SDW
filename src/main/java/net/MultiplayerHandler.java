@@ -33,16 +33,16 @@ public class MultiplayerHandler
                 for (ClientInfoServer cis : toDisconnect)
                     socketServer.removeConnection(cis);
 
-                serverConnectionsValid.forEach((k,v) -> {
-                    v = false;
-                    serverConnectionsValid.replace(k, v);
-                });
+                serverConnectionsValid.forEach((k,v) -> serverConnectionsValid.replace(k, false));
 
                 socketServer.sendDataToAllClients("cts,0");
             }
 
             if (!clientConnectionValid)
+            {
                 disconnectClient();
+                return;
+            }
 
             lastClientConnectionTest = System.currentTimeMillis();
             socketClient.sendData("ctc,0");
