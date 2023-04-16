@@ -97,12 +97,12 @@ public class MouseManager implements MouseListener, MouseMotionListener
 
     public static int getMouseY()
     {
-        return yMouse;
+        return Window.WINDOW_HEIGHT - yMouse;
     }
 
     public static int getGraphMouseY()
     {
-        return Window.WINDOW_HEIGHT - getMouseY();
+        return getMouseY();
     }
 
     public static int getMouseMoveX()

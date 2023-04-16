@@ -3,14 +3,14 @@ package com.l0raxeo.sdw.components;
 import com.l0raxeo.sdw.exceptions.PacketMismatchException;
 import net.GameClient;
 import net.PacketHandler;
-import org.joml.Vector2f;
+import org.joml.Vector2i;
 
 public class GameObjectNetwork extends Component implements PacketHandler
 {
 
     /*
-    Packet Format:
-    packetId,gameObjectUid,xPos,yPos,xSize,ySize,isDead,compUid,args
+    Game Object Packet Format:
+    packetId,gameObjectUid,xPos,yPos,xSize,ySize,rotation,isDead,compUid,args
     Example:
     gon,0,64,64,16,16,false,3,hello_component
      */
@@ -22,10 +22,11 @@ public class GameObjectNetwork extends Component implements PacketHandler
         if (packetId.equals("gon"))
         {
             int gameObjectUid = Integer.parseInt(parsedPacket[1]);
-            Vector2f position = new Vector2f(Float.parseFloat(parsedPacket[2]), Float.parseFloat(parsedPacket[3]));
-            Vector2f scale = new Vector2f(Float.parseFloat(parsedPacket[4]), Float.parseFloat(parsedPacket[5]));
-            boolean isDead = Boolean.parseBoolean(parsedPacket[6]);
-            handleGameObjectPacket(gameObjectUid, position,scale,isDead);
+            Vector2i position = new Vector2i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3]));
+            Vector2i scale = new Vector2i(Integer.parseInt(parsedPacket[4]), Integer.parseInt(parsedPacket[5]));
+            float rotation = Integer.parseInt(parsedPacket[6]);
+            boolean isDead = Boolean.parseBoolean(parsedPacket[7]);
+            handleGameObjectPacket(gameObjectUid, position, scale, rotation, isDead);
         }
         else if (packetId.equals("comp"))
         {
@@ -51,13 +52,14 @@ public class GameObjectNetwork extends Component implements PacketHandler
         GameClient.getInstance().sendData(packet.getBytes());
     }
 
-    private void handleGameObjectPacket(int gameObjectUid, Vector2f position, Vector2f scale, boolean isDead)
+    private void handleGameObjectPacket(int gameObjectUid, Vector2i position, Vector2i scale, float rotation, boolean isDead)
     {
         if (gameObjectUid != gameObject.getUid())
             throw new PacketMismatchException("Received packet for object of UID '" + gameObjectUid + "' in a GameObjectNetwork of a GameObject with UID '" + gameObject.getUid() + "'");
 
         gameObject.transform.setPosition(position);
         gameObject.transform.scale = scale;
+        gameObject.transform.rotation= rotation;
 
         if (isDead)
             gameObject.die();

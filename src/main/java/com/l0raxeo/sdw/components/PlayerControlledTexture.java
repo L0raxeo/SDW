@@ -106,11 +106,12 @@ public class PlayerControlledTexture extends Component
         else if (theta > 247.5 && theta <= 292.5)
             curAnim = walkingForwardAnimation;
 
-        curAnim.update();
-        curTex = curAnim.getCurrentFrame();
-
-        if (xOffset == 0 && yOffset == 0)
+        if (xOffset != 0 || yOffset != 0)
         {
+            curAnim.update();
+            curTex = curAnim.getCurrentFrame();
+        }
+        else {
             if (curAnim.equals(walkingForwardAnimation))
                 curTex = standingForwards;
             else if (curAnim.equals(walkingBackAnimation))
@@ -131,9 +132,9 @@ public class PlayerControlledTexture extends Component
     {
         g.drawImage(
                 curTex,
-                (int) gameObject.transform.getScreenPosition().x,
-                (int) gameObject.transform.getScreenPosition().y, (int) gameObject.transform.scale.x,
-                (int) gameObject.transform.scale.y,
+                gameObject.transform.getScreenPosition().x,
+                gameObject.transform.getScreenPosition().y, gameObject.transform.scale.x,
+                gameObject.transform.scale.y,
                 null
         );
     }

@@ -1,36 +1,45 @@
 package com.l0raxeo.sdw.dataStructure;
 
 import com.l0raxeo.sdw.window.Window;
-import org.joml.Vector2f;
+import org.joml.Vector2i;
+import org.joml.Vector2i;
 
 public class Transform
 {
 
-    private Vector2f position;
-    public Vector2f scale;
+    private Vector2i position;
+    public Vector2i scale;
+    private int zIndex = 0;
+    public float rotation;
 
-    public Transform(Vector2f position, Vector2f scale)
+    public Transform(Vector2i position, Vector2i scale, float rotation)
     {
-        init(position, scale);
+        init(position, scale, rotation);
+    }
+
+    public Transform(Vector2i position, Vector2i scale)
+    {
+        init(position, scale, 0);
     }
 
     /**
      * Screen to world coordinates gets translated here
      */
-    public void init(Vector2f position, Vector2f scale)
+    public void init(Vector2i position, Vector2i scale, float rotation)
     {
         // world to screen coordinates
-        this.position = new Vector2f(position.x, Window.WINDOW_HEIGHT - position.y);
+        this.position = new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
         this.scale = scale;
+        this.rotation = rotation;
     }
 
     // returns world coordinates
-    public Vector2f position()
+    public Vector2i position()
     {
-        return new Vector2f(position.x, Window.WINDOW_HEIGHT - position.y);
+        return new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
     }
 
-    public Vector2f getScreenPosition()
+    public Vector2i getScreenPosition()
     {
         return this.position;
     }
@@ -38,15 +47,25 @@ public class Transform
     /**
      * @param position in world coords
      */
-    public void setPosition(Vector2f position)
+    public void setPosition(Vector2i position)
     {
-        this.position = new Vector2f(position.x, Window.WINDOW_HEIGHT - position.y);
+        this.position = new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
+    }
+
+    public void setzIndex(int zIndex)
+    {
+        this.zIndex = zIndex;
+    }
+
+    public int getzIndex()
+    {
+        return zIndex;
     }
 
     /**
      * @param offset in world coords
      */
-    public void move(Vector2f offset)
+    public void move(Vector2i offset)
     {
         this.position.x += offset.x;
         this.position.y -= offset.y;
@@ -60,5 +79,7 @@ public class Transform
 
         return t.position.equals(this.position) && t.scale.equals(this.scale);
     }
+
+
 
 }
