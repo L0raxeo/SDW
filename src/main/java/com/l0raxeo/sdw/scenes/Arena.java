@@ -10,6 +10,13 @@ import java.awt.*;
 public class Arena extends Scene
 {
 
+    enum GameState
+    {
+        BUILD,
+        FIGHT,
+        SCORE
+    }
+
     @Override
     public void init() {
         addGameObject(Prefabs.generate(
