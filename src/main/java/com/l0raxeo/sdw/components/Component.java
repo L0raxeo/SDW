@@ -29,9 +29,16 @@ public abstract class Component
             this.uid = ID_COUNTER++;
     }
 
+    public int uid()
+    {
+        return uid;
+    }
+
     public void onDestroy()
     {
 
     }
+
+    public void handlePacketArgs(String args) {}
 
 }

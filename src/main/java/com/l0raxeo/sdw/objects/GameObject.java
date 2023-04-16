@@ -41,6 +41,15 @@ public class GameObject
         return null;
     }
 
+    public Component getComponent(int uid)
+    {
+        for (Component c : components)
+            if (c.uid() == uid)
+                return c;
+
+        return null;
+    }
+
     public <T extends Component> boolean hasComponent(Class<T> componentClass)
     {
         for (Component c : components)

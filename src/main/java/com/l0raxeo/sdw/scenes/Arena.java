@@ -1,7 +1,7 @@
 package com.l0raxeo.sdw.scenes;
 
-import com.l0raxeo.sdw.components.PlayerInput;
-import com.l0raxeo.sdw.components.PlayerTexture;
+import com.l0raxeo.sdw.components.PlayerController;
+import com.l0raxeo.sdw.components.PlayerControlledTexture;
 import com.l0raxeo.sdw.prefabs.Prefabs;
 import org.joml.Vector2f;
 
@@ -16,8 +16,8 @@ public class Arena extends Scene
                 "Noah",
                 new Vector2f(10, 10),
                 new Vector2f(46,76),
-                new PlayerTexture(),
-                new PlayerInput()
+                new PlayerControlledTexture(),
+                new PlayerController()
         ));
     }
 
