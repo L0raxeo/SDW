@@ -158,11 +158,15 @@ public class Window implements Runnable
                 ticks++;
                 MultiplayerHandler.localThreadUpdate();
                 update(delta);
+                /*
+                caps the FPS to 60 but reduces lag spikes
+                move outside of while loop (next to frames++) to increase FPS
+                    increase lag spikes if on older machine
+                 */
+                render();
+                frames++;
                 delta -= 1;
             }
-
-            frames++;
-            render();
 
             if (System.currentTimeMillis() - lastTimer >= 1000)
             {
