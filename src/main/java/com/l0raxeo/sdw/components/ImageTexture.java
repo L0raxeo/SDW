@@ -69,10 +69,10 @@ public class ImageTexture extends Component
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform old = g2d.getTransform();
         if (!flipped)
-            g2d.rotate(Math.toRadians(rotation), texPos.x + rotationAnchor.x, texPos.y + rotationAnchor.y);
+            g2d.rotate(Math.toRadians(rotation), texPos.x + rotationAnchor.x, texPos.y + rotationAnchor.y); // add cam offset
         else
-            g2d.rotate(Math.toRadians(rotation), texPos.x + texScale.x - (rotationAnchor.x * 1.6), texPos.y + rotationAnchor.y);
-        g2d.drawImage(texture, texPos.x, texPos.y, texScale.x, texScale.y, null);
+            g2d.rotate(Math.toRadians(rotation), texPos.x + texScale.x - (rotationAnchor.x * 1.6), texPos.y + rotationAnchor.y); // add cam offset
+        g2d.drawImage(texture, texPos.x, texPos.y, texScale.x, texScale.y, null); // add cam offset
         g2d.setTransform(old);
     }
 

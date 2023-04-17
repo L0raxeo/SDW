@@ -133,7 +133,8 @@ public class PlayerControlledTexture extends Component
         g.drawImage(
                 curTex,
                 gameObject.transform.getScreenPosition().x,
-                gameObject.transform.getScreenPosition().y, gameObject.transform.scale.x,
+                gameObject.transform.getScreenPosition().y,
+                gameObject.transform.scale.x,
                 gameObject.transform.scale.y,
                 null
         );
