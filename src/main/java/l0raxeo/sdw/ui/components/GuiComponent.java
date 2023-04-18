@@ -12,7 +12,7 @@ public abstract class GuiComponent
     public boolean selected;
     protected Vector2i position;
     protected Vector2i scale;
-    public Rectangle bounds;
+    public final Rectangle bounds;
 
     public GuiComponent(String name, Vector2i position, Vector2i scale)
     {

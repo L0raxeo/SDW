@@ -137,7 +137,7 @@ public class Window implements Runnable
 
         setVisible(true);
 
-        changeScene(MainMenu.class);
+        changeScene(Arena.class);
     }
 
     private void loop()

@@ -84,7 +84,7 @@ public class PlayerController extends Component
         direction = Camera.getAngleFromOriginToTarget(
                 gameObject.transform.position().x + (gameObject.transform.scale.x / 2),
                 gameObject.transform.position().y - (gameObject.transform.scale.y / 3),
-                MouseManager.getMouseX(), MouseManager.getGraphMouseY()
+                MouseManager.getMouseX(), MouseManager.getMouseY()
         );
 
         xCam = gameObject.transform.position().x - (Window.WINDOW_WIDTH / 2) + (gameObject.transform.scale.x / 2);

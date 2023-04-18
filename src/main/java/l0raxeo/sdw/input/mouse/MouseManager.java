@@ -102,7 +102,7 @@ public class MouseManager implements MouseListener, MouseMotionListener
 
     public static int getGraphMouseY()
     {
-        return getMouseY();
+        return Window.WINDOW_HEIGHT - getMouseY();
     }
 
     public static int getMouseMoveX()
@@ -156,7 +156,7 @@ public class MouseManager implements MouseListener, MouseMotionListener
             if (mBtn.getBtnCode() == e.getButton())
             {
                 mBtn.queueState(MBtnState.RELEASED);
-                GuiLayer.getInstance().onMouseRelease(getMouseX(), getGraphMouseY());
+                GuiLayer.getInstance().onMouseRelease(getMouseX(), getMouseY());
             }
         }
 
