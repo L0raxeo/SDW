@@ -40,23 +40,19 @@ public class Camera
         xOrigin += Camera.xOffset();
         yOrigin -= Camera.yOffset();
         if (xTarget < xOrigin && yTarget < yOrigin)
-        {
             theta = (float) (Math.toDegrees(Math.atan((float) (yTarget - yOrigin) / (xTarget - xOrigin))) + 180);
-        }
         else if (xTarget > xOrigin) {
             theta = (float) Math.toDegrees(Math.atan((float) (yTarget - yOrigin) / (xTarget - xOrigin)));
             if (theta < 0) theta += 360;
         }
-        else if (xTarget == xOrigin)
-        {
+        else if (xTarget == xOrigin) {
             if (yTarget > yOrigin)
                 theta = 90;
             else if (yTarget < yOrigin)
                 theta = 270;
         }
-        else {
+        else
             theta = (float) Math.toDegrees(Math.acos((xTarget - xOrigin) / (Math.sqrt(Math.pow(xTarget - xOrigin, 2) + Math.pow(yTarget - yOrigin, 2)))));
-        }
 
         return theta;
     }
