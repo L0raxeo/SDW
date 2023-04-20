@@ -1,4 +1,4 @@
-package l0raxeo.sdw.scenes.menu;
+package l0raxeo.sdw.scenes.menu.initializers;
 
 import java.awt.*;
 

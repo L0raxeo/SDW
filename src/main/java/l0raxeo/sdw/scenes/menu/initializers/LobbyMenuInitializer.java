@@ -1,10 +1,12 @@
-package l0raxeo.sdw.scenes.menu;
+package l0raxeo.sdw.scenes.menu.initializers;
 
 import l0raxeo.network.MultiplayerHandler;
 import l0raxeo.network.clientInfo.ClientInfo;
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.encryption.Encryptor;
+import l0raxeo.sdw.scenes.game.Game;
+import l0raxeo.sdw.scenes.menu.MenuState;
 import l0raxeo.sdw.ui.GuiLayer;
 import l0raxeo.sdw.ui.GuiText;
 import l0raxeo.sdw.ui.components.GuiButton;
@@ -17,7 +19,7 @@ import java.util.List;
 import static l0raxeo.network.MultiplayerHandler.port;
 import static l0raxeo.network.MultiplayerHandler.rawHost;
 
-public class LobbyMenu implements MenuStateInitializer
+public class LobbyMenuInitializer implements MenuStateInitializer
 {
 
     @Override
@@ -42,11 +44,27 @@ public class LobbyMenu implements MenuStateInitializer
                 )
         );
 
+        if (MultiplayerHandler.socketServer != null)
+        {
+            GuiLayer.getInstance().addGuiComponent(new GuiButton(
+                    "Start_Game",
+                    new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 160),
+                    new Vector2i(256, 64),
+                    "Start Game",
+                    AssetPool.getFont("assets/fonts/default_font.ttf", 32),
+                    new Color[]{Color.gray, Color.white},
+                    true,
+                    () -> {
+
+                    }
+            ));
+        }
+
         GuiLayer.getInstance().addGuiComponent(new GuiButton(
                 "Leave_Server",
                 new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 256),
                 new Vector2i(256, 64),
-                "Leave Match",
+                "Leave Lobby",
                 AssetPool.getFont("assets/fonts/default_font.ttf", 32),
                 new Color[]{Color.gray, Color.white},
                 true,

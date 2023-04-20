@@ -1,8 +1,8 @@
-package l0raxeo.sdw.scenes.game;
+package l0raxeo.sdw.scenes.game.initializers;
 
 import java.awt.*;
 
-public class FightStateInitializer implements GameStateInitializer{
+public class FightStateInitializer implements GameStateInitializer {
     @Override
     public void loadResources() {
 
@@ -19,7 +19,7 @@ public class FightStateInitializer implements GameStateInitializer{
     }
 
     @Override
-    public void update() {
+    public void update(double dt) {
 
     }
 

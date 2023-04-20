@@ -1,8 +1,9 @@
-package l0raxeo.sdw.scenes.menu;
+package l0raxeo.sdw.scenes.menu.initializers;
 
 import l0raxeo.network.MultiplayerHandler;
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.dataStructure.AssetPool;
+import l0raxeo.sdw.scenes.menu.MenuState;
 import l0raxeo.sdw.ui.GuiLayer;
 import l0raxeo.sdw.ui.components.GuiButton;
 import l0raxeo.sdw.ui.components.GuiTextField;
@@ -13,7 +14,7 @@ import java.awt.*;
 
 import static l0raxeo.sdw.scenes.menu.Menu.addCancelBtn;
 
-public class HostMenu implements MenuStateInitializer {
+public class HostMenuInitializer implements MenuStateInitializer {
     @Override
     public void create() {
         GuiLayer.getInstance().addGuiComponent(new GuiTextField(

@@ -1,14 +1,15 @@
-package l0raxeo.sdw.scenes.menu;
+package l0raxeo.sdw.scenes.menu.initializers;
 
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.dataStructure.AssetPool;
+import l0raxeo.sdw.scenes.menu.MenuState;
 import l0raxeo.sdw.ui.GuiLayer;
 import l0raxeo.sdw.ui.components.GuiButton;
 import org.joml.Vector2i;
 
 import java.awt.*;
 
-public class MainMenu implements MenuStateInitializer
+public class MainMenuInitializer implements MenuStateInitializer
 {
     @Override
     public void create()

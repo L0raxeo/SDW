@@ -2,6 +2,7 @@ package l0raxeo.rendering;
 
 import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
+import l0raxeo.sdw.scenes.game.Game;
 import l0raxeo.sdw.scenes.menu.Menu;
 import l0raxeo.sdw.scenes.Scene;
 import l0raxeo.sdw.ui.GuiLayer;

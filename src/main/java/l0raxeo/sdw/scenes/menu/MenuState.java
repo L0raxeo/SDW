@@ -1,14 +1,15 @@
 package l0raxeo.sdw.scenes.menu;
 
+import l0raxeo.sdw.scenes.menu.initializers.*;
 import l0raxeo.sdw.ui.GuiLayer;
 
 public enum MenuState
 {
 
-    MAIN(new MainMenu()),
-    HOST(new HostMenu()),
-    JOIN(new JoinMenu()),
-    LOBBY(new LobbyMenu()),
+    MAIN(new MainMenuInitializer()),
+    HOST(new HostMenuInitializer()),
+    JOIN(new JoinMenuInitializer()),
+    LOBBY(new LobbyMenuInitializer()),
     NONE(null);
 
     public final MenuStateInitializer initializer;

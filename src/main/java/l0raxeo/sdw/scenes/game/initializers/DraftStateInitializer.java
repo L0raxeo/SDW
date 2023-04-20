@@ -1,4 +1,4 @@
-package l0raxeo.sdw.scenes.game;
+package l0raxeo.sdw.scenes.game.initializers;
 
 import java.awt.*;
 
@@ -24,7 +24,7 @@ public class DraftStateInitializer implements GameStateInitializer
     }
 
     @Override
-    public void update()
+    public void update(double dt)
     {
 
     }

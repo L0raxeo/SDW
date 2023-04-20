@@ -1,5 +1,9 @@
 package l0raxeo.sdw.scenes.game;
 
+import l0raxeo.sdw.scenes.game.initializers.BuildStateInitializer;
+import l0raxeo.sdw.scenes.game.initializers.DraftStateInitializer;
+import l0raxeo.sdw.scenes.game.initializers.FightStateInitializer;
+import l0raxeo.sdw.scenes.game.initializers.GameStateInitializer;
 import l0raxeo.sdw.ui.GuiLayer;
 
 public enum GameState
