@@ -4,6 +4,7 @@ import l0raxeo.network.clientInfo.ClientInfo;
 import l0raxeo.sdw.components.networkComponents.GameObjectNetwork;
 import l0raxeo.sdw.dataStructure.exceptions.DuplicateNetworkException;
 import l0raxeo.rendering.Window;
+import l0raxeo.sdw.scenes.game.Game;
 
 import java.io.IOException;
 import java.net.*;
@@ -89,6 +90,7 @@ public class GameClient extends Thread
                 if (Integer.parseInt(parsedPacket[1]) == 0)
                     sendData("cts,1");
             }
+            case "sm" -> Window.changeScene(Game.class);
         }
     }
 

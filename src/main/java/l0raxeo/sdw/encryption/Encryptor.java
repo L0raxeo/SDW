@@ -5,7 +5,7 @@ public class Encryptor
 
     public static String encrypt(String message) {
         StringBuilder scrambled = new StringBuilder();
-        int key = (int) (Math.random() * 10);
+        int key = (int) (Math.random() * 9) + 1;
         for (int i = 0; i < message.length(); i++) {
             char c = message.charAt(i);
             if (Character.isLetter(c)) {

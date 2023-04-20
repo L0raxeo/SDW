@@ -1,5 +1,6 @@
 package l0raxeo.sdw.scenes.menu.initializers;
 
+import l0raxeo.network.GameServer;
 import l0raxeo.network.MultiplayerHandler;
 import l0raxeo.network.clientInfo.ClientInfo;
 import l0raxeo.rendering.Window;
@@ -44,7 +45,7 @@ public class LobbyMenuInitializer implements MenuStateInitializer
                 )
         );
 
-        if (MultiplayerHandler.socketServer != null)
+        if (MultiplayerHandler.isHosting())
         {
             GuiLayer.getInstance().addGuiComponent(new GuiButton(
                     "Start_Game",
@@ -54,9 +55,7 @@ public class LobbyMenuInitializer implements MenuStateInitializer
                     AssetPool.getFont("assets/fonts/default_font.ttf", 32),
                     new Color[]{Color.gray, Color.white},
                     true,
-                    () -> {
-
-                    }
+                    () -> GameServer.getInstance().sendDataToAllClients("sm")
             ));
         }
 
