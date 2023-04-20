@@ -8,7 +8,7 @@ import org.joml.Vector2i;
 
 import java.awt.*;
 
-public class MainMenu implements MenuInitializer
+public class MainMenu implements MenuStateInitializer
 {
     @Override
     public void create()

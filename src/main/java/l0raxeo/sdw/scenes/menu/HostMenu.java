@@ -13,7 +13,7 @@ import java.awt.*;
 
 import static l0raxeo.sdw.scenes.menu.Menu.addCancelBtn;
 
-public class HostMenu implements MenuInitializer{
+public class HostMenu implements MenuStateInitializer {
     @Override
     public void create() {
         GuiLayer.getInstance().addGuiComponent(new GuiTextField(

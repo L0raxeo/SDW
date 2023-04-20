@@ -17,8 +17,9 @@ import java.util.List;
 import static l0raxeo.network.MultiplayerHandler.port;
 import static l0raxeo.network.MultiplayerHandler.rawHost;
 
-public class LobbyMenu implements MenuInitializer
+public class LobbyMenu implements MenuStateInitializer
 {
+
     @Override
     public void create() {
         GuiLayer.getInstance().addGuiComponent(new GuiTextObj

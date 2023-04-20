@@ -2,7 +2,7 @@ package l0raxeo.sdw.scenes.menu;
 
 import java.awt.*;
 
-public interface MenuInitializer
+public interface MenuStateInitializer
 {
 
     void create();

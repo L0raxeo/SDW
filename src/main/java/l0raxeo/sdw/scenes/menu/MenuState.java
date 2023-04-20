@@ -11,9 +11,9 @@ public enum MenuState
     LOBBY(new LobbyMenu()),
     NONE(null);
 
-    public final MenuInitializer initializer;
+    public final MenuStateInitializer initializer;
 
-    MenuState(MenuInitializer initializer)
+    MenuState(MenuStateInitializer initializer)
     {
         this.initializer = initializer;
     }
