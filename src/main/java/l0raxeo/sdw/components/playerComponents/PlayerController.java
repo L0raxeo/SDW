@@ -90,6 +90,11 @@ public class PlayerController extends Component
         xCam = gameObject.transform.position().x - (Window.WINDOW_WIDTH / 2) + (gameObject.transform.scale.x / 2);
         yCam = gameObject.transform.position().y - (Window.WINDOW_HEIGHT / 2) - (gameObject.transform.scale.y / 2);
 
+        Vector2i targetCamPos = new Vector2i(MouseManager.getMouseX(), MouseManager.getMouseY());
+
+        xMouseCamOffset = (int) ((targetCamPos.x - 480) * 0.20);
+        yMouseCamOffset = (int) ((targetCamPos.y - 480) * 0.20);
+
         Camera.setPosition(new Vector2i(xCam + xMouseCamOffset, yCam + yMouseCamOffset));
     }
 

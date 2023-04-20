@@ -2,8 +2,7 @@ package l0raxeo.rendering;
 
 import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
-import l0raxeo.sdw.scenes.Arena;
-import l0raxeo.sdw.scenes.MainMenu;
+import l0raxeo.sdw.scenes.menu.Menu;
 import l0raxeo.sdw.scenes.Scene;
 import l0raxeo.sdw.ui.GuiLayer;
 import l0raxeo.network.MultiplayerHandler;
@@ -137,7 +136,7 @@ public class Window implements Runnable
 
         setVisible(true);
 
-        changeScene(Arena.class);
+        changeScene(Menu.class);
     }
 
     private void loop()
@@ -161,7 +160,7 @@ public class Window implements Runnable
                 update(delta);
                 /*
                 caps the FPS to 60 but reduces lag spikes
-                move outside of while loop (next to frames++) to increase FPS
+                move render & frames outside of while loop to increase FPS
                     increase lag spikes if on older machine
                  */
                 render();

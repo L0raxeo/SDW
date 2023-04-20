@@ -20,6 +20,9 @@ public class MultiplayerHandler
     //<UID, validConnection>
     public static Hashtable<Integer, Boolean> serverConnectionsValid = new Hashtable<>();
 
+    public static String rawHost = null;
+    public static int port = -1;
+
     public static void localThreadUpdate()
     {
         if (GameClient.isConnected() && lastClientConnectionTest + 10000 < System.currentTimeMillis())
@@ -75,11 +78,10 @@ public class MultiplayerHandler
         createClient(ipAddress.getHostAddress(), port, username);
 
         MultiplayerHandler.socketServer = socketServer;
-
         return ipAddress.getHostAddress();
     }
 
-    public static void createClient(String joinCode, int port, String username)
+    public static void createClient(String rawHost, int port, String username)
     {
         InetAddress ipAddress = null;
         try {
@@ -90,9 +92,11 @@ public class MultiplayerHandler
 
         // Create Client
         assert ipAddress != null;
-        GameClient socketClient = GameClient.createInstance(joinCode, port);
+        GameClient socketClient = GameClient.createInstance(rawHost, port);
         socketClient.start();
         socketClient.sendData("l," + username);
+        MultiplayerHandler.rawHost = ipAddress.getHostAddress();
+        MultiplayerHandler.port = port;
 
         MultiplayerHandler.socketClient = socketClient;
     }

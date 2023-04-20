@@ -62,7 +62,7 @@ public class Camera
         return new Vector2i(scrPos.x, Window.WINDOW_HEIGHT - scrPos.y);
     }
 
-    public static void move(Vector2f vel)
+    public static void move(Vector2i vel)
     {
         xOffset -= vel.x;
         yOffset += vel.y;
