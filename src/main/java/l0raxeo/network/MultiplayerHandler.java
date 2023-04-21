@@ -17,7 +17,7 @@ public class MultiplayerHandler
 
     private static long lastClientConnectionTest = System.currentTimeMillis();
     public static boolean clientConnectionValid = true;
-    //<UID, validConnection>
+    //<UID, validConnection> checking if the clients are still connected and responding
     public static Hashtable<Integer, Boolean> serverConnectionsValid = new Hashtable<>();
 
     public static String rawHost = null;

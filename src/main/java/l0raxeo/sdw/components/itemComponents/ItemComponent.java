@@ -5,14 +5,42 @@ import l0raxeo.sdw.components.gfxComponents.ImageTexture;
 import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.sdw.input.mouse.MouseManager;
 import l0raxeo.rendering.Camera;
+import l0raxeo.sdw.scenes.game.items.ItemState;
 
-public class Item extends Component
+public class ItemComponent extends Component
 {
 
     private GameObject parent;
     private ItemState itemState;
 
-    public Item(GameObject parent, ItemState itemState)
+    /**
+     * Constructor should only be used if item is being generated
+     * on the ground (i.e. will not be inherited by a player or
+     * an entity). By default, the item state will be set to idle.
+     */
+    public ItemComponent()
+    {
+        this.itemState = ItemState.IDLE;
+    }
+
+    /**
+     * Constructor should only be used if item is being generated
+     * on the ground (i.e. will not be inherited by a player or
+     * an entity).
+     * @param itemState should always be IDLE
+     */
+    public ItemComponent(ItemState itemState)
+    {
+        this.itemState = itemState;
+    }
+
+    /**
+     * Constructor should only be used if item is immediately being
+     * used, or if it is immediately going into an inventory.
+     * @param parent only if being STORED or USED
+     * @param itemState STORED or USED
+     */
+    public ItemComponent(GameObject parent, ItemState itemState)
     {
         this.parent = parent;
         this.itemState = itemState;

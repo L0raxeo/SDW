@@ -55,7 +55,7 @@ public class HostMenuInitializer implements MenuStateInitializer {
                     }
 
                     int port = Integer.parseInt(((GuiTextField) GuiLayer.getInstance().getGuiComponent("Port")).getText());
-                    String rawHost = MultiplayerHandler.createHost(port, username);
+                    MultiplayerHandler.createHost(port, username);
 
                     MenuState.setState(MenuState.LOBBY);
                 }

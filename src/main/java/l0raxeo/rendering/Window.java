@@ -80,7 +80,7 @@ public class Window implements Runnable
                 }
             }
 
-            //GuiLayer.getInstance().clear();
+            GuiLayer.getInstance().clear();
 
             if (currentScene != null)
                 currentScene.onDestroy();

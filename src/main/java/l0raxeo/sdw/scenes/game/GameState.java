@@ -23,7 +23,7 @@ public enum GameState
 
     private static GameState gameState = NONE;
 
-    public static void setGameState(GameState state)
+    public static void setState(GameState state)
     {
         GuiLayer.getInstance().clear();
         if (state.initializer != null)

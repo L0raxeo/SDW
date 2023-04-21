@@ -2,9 +2,13 @@ package l0raxeo.network;
 
 import l0raxeo.network.clientInfo.ClientInfo;
 import l0raxeo.sdw.components.networkComponents.GameObjectNetwork;
+import l0raxeo.sdw.components.playerComponents.PlayerControlledTexture;
+import l0raxeo.sdw.components.playerComponents.PlayerController;
 import l0raxeo.sdw.dataStructure.exceptions.DuplicateNetworkException;
 import l0raxeo.rendering.Window;
+import l0raxeo.sdw.prefabs.Prefabs;
 import l0raxeo.sdw.scenes.game.Game;
+import org.joml.Vector2i;
 
 import java.io.IOException;
 import java.net.*;
@@ -91,6 +95,15 @@ public class GameClient extends Thread
                     sendData("cts,1");
             }
             case "sm" -> Window.changeScene(Game.class);
+            case "np" -> {
+                Window.getScene().addGameObject(Prefabs.generate(
+                        getPlayerClientInfo(Integer.parseInt(parsedPacket[1])).getUsername(),
+                        new Vector2i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3])),
+                        new Vector2i(46,76),
+                        new PlayerControlledTexture(),
+                        new PlayerController()
+                ));;
+            }
         }
     }
 

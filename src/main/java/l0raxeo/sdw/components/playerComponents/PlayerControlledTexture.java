@@ -26,8 +26,7 @@ public class PlayerControlledTexture extends Component
     private BufferedImage standingBackRight;
     private BufferedImage standingBackLeft;
 
-    @Override
-    public void start()
+    public PlayerControlledTexture()
     {
         standingForwards = AssetPool.getBufferedImage("assets/textures/entities/players/noah/noah_standing_forward.png");
         standingBackwards = AssetPool.getBufferedImage("assets/textures/entities/players/noah/noah_standing_back.png");
@@ -85,6 +84,12 @@ public class PlayerControlledTexture extends Component
         );
 
         curAnim = walkingForwardAnimation;
+    }
+
+    @Override
+    public void start()
+    {
+
     }
 
     @Override

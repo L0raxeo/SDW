@@ -77,8 +77,7 @@ public class GameObject
     }
 
     public void update(double dt) {
-        for (Component component : components)
-        {
+        for (Component component : components) {
             component.update(dt);
         }
     }

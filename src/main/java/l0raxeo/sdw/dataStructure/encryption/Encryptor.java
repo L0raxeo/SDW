@@ -1,4 +1,4 @@
-package l0raxeo.sdw.encryption;
+package l0raxeo.sdw.dataStructure.encryption;
 
 public class Encryptor
 {

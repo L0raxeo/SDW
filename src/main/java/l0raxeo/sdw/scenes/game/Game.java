@@ -2,12 +2,9 @@ package l0raxeo.sdw.scenes.game;
 
 import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.sdw.scenes.Scene;
-import l0raxeo.sdw.scenes.game.initializers.GameStateInitializer;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 public class Game extends Scene
 {
@@ -23,7 +20,7 @@ public class Game extends Scene
     @Override
     public void init()
     {
-        GameState.setGameState(GameState.DRAFT);
+        GameState.setState(GameState.DRAFT);
     }
 
     @Override
