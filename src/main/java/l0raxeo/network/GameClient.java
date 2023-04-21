@@ -4,6 +4,7 @@ import l0raxeo.network.clientInfo.ClientInfo;
 import l0raxeo.sdw.components.networkComponents.GameObjectNetwork;
 import l0raxeo.sdw.components.playerComponents.PlayerControlledTexture;
 import l0raxeo.sdw.components.playerComponents.PlayerController;
+import l0raxeo.sdw.components.playerComponents.PlayerTexture;
 import l0raxeo.sdw.dataStructure.exceptions.DuplicateNetworkException;
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.prefabs.Prefabs;
@@ -69,7 +70,7 @@ public class GameClient extends Thread
 
         switch (parsedPacket[0])
         {
-            case "gon" -> Window.getScene()
+            case "gon", "comp" -> Window.getScene()
                     .getGameObjectWithUid(Integer.parseInt(parsedPacket[1]))
                     .getComponent(GameObjectNetwork.class).receive(strPacket);
             case "cm" -> System.out.println("[Client]: " + parsedPacket[1]);
@@ -96,13 +97,21 @@ public class GameClient extends Thread
             }
             case "sm" -> Window.changeScene(Game.class);
             case "np" -> {
-                Window.getScene().addGameObject(Prefabs.generate(
-                        getPlayerClientInfo(Integer.parseInt(parsedPacket[1])).getUsername(),
-                        new Vector2i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3])),
-                        new Vector2i(46,76),
-                        new PlayerControlledTexture(),
-                        new PlayerController()
-                ));;
+                if (Integer.parseInt(parsedPacket[1]) == myUid)
+                    Window.getScene().addGameObject(Prefabs.generate(
+                            getPlayerClientInfo(Integer.parseInt(parsedPacket[1])).getUsername(),
+                            new Vector2i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3])),
+                            new Vector2i(46,76),
+                            new PlayerControlledTexture(),
+                            new PlayerController()
+                    ));
+                else
+                    Window.getScene().addGameObject(Prefabs.generate(
+                            getPlayerClientInfo(Integer.parseInt(parsedPacket[1])).getUsername(),
+                            new Vector2i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3])),
+                            new Vector2i(46,76),
+                            new PlayerTexture()
+                    ));
             }
         }
     }

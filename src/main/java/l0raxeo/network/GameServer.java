@@ -75,7 +75,7 @@ public class GameServer extends Thread
                     MultiplayerHandler.serverConnectionsValid.replace(getClientInfo(address).uid(), true);
                 }
             }
-            case "np" -> sendDataToAllClients(strPacket);
+            case "np", "comp" -> sendDataToAllClients(strPacket);
         }
     }
 

@@ -7,7 +7,7 @@ import l0raxeo.sdw.gfx.Animation;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class PlayerControlledTexture extends Component
+public class PlayerTexture extends Component
 {
 
     private Animation curAnim;
@@ -26,7 +26,9 @@ public class PlayerControlledTexture extends Component
     private final BufferedImage standingBackRight;
     private final BufferedImage standingBackLeft;
 
-    public PlayerControlledTexture()
+    private float theta = 0, xOffset = 0, yOffset = 0;
+
+    public PlayerTexture()
     {
         standingForwards = AssetPool.getBufferedImage("assets/textures/entities/players/noah/noah_standing_forward.png");
         standingBackwards = AssetPool.getBufferedImage("assets/textures/entities/players/noah/noah_standing_back.png");
@@ -89,10 +91,6 @@ public class PlayerControlledTexture extends Component
     @Override
     public void update(double dt)
     {
-        float theta = gameObject.getComponent(PlayerController.class).getDirection();
-
-        float xOffset = gameObject.getComponent(PlayerController.class).xMove, yOffset = gameObject.getComponent(PlayerController.class).yMove;
-
         if ((theta >= 0 && theta <= 22.5) || (theta > 292.5 && theta <= 360))
             curAnim = walkingRightAnimation;
         else if (theta > 22.5 && theta <= 67.5)
@@ -140,4 +138,16 @@ public class PlayerControlledTexture extends Component
         );
     }
 
+    private void updateAttributes(float theta, float xOffset, float yOffset)
+    {
+        this.theta = theta;
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+    }
+
+    @Override
+    public void handlePacketArgs(String args) {
+        String[] parsedArgs = args.split(",");
+        updateAttributes(Float.parseFloat(parsedArgs[0]), Float.parseFloat(parsedArgs[1]), Float.parseFloat(parsedArgs[2]));
+    }
 }
