@@ -25,7 +25,7 @@ public class GameObjectNetwork extends Component implements PacketHandler
             int gameObjectUid = Integer.parseInt(parsedPacket[1]);
             Vector2i position = new Vector2i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3]));
             Vector2i scale = new Vector2i(Integer.parseInt(parsedPacket[4]), Integer.parseInt(parsedPacket[5]));
-            float rotation = Integer.parseInt(parsedPacket[6]);
+            float rotation = Float.parseFloat(parsedPacket[6]);
             boolean isDead = Boolean.parseBoolean(parsedPacket[7]);
             handleGameObjectPacket(gameObjectUid, position, scale, rotation, isDead);
         }

@@ -38,7 +38,8 @@ public class PlayerController extends Component
         {
             move();
             look();
-            GameClient.getInstance().sendData("comp," + gameObject.getUid() + "," + uid() + "," + getDirection() + "," + xMove + "," + yMove);
+            GameClient.getInstance().sendData(
+                    "gon," + gameObject.getUid() + "," + gameObject.transform.position().x + "," + gameObject.transform.position().y + "," + gameObject.transform.scale.x + "," + gameObject.transform.scale.y + "," + gameObject.transform.rotation + "," + gameObject.isDead());
         }
     }
 
