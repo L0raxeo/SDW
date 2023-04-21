@@ -1,6 +1,7 @@
 package l0raxeo.sdw.components.playerComponents;
 
 import l0raxeo.network.GameClient;
+import l0raxeo.network.GameServer;
 import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
@@ -40,6 +41,9 @@ public class PlayerController extends Component
             look();
             GameClient.getInstance().sendData(
                     "gon," + gameObject.getUid() + "," + gameObject.transform.position().x + "," + gameObject.transform.position().y + "," + gameObject.transform.scale.x + "," + gameObject.transform.scale.y + "," + gameObject.transform.rotation + "," + gameObject.isDead());
+            GameClient.getInstance().sendData(
+                    "comp," + gameObject.getUid() + "," + gameObject.getComponent(PlayerControlledTexture.class).uid() + "," + getDirection() + "," + xMove + "," + yMove
+            );
         }
     }
 

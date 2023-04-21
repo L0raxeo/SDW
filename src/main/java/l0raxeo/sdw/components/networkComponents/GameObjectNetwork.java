@@ -31,9 +31,10 @@ public class GameObjectNetwork extends Component implements PacketHandler
         }
         else if (packetId.equals("comp"))
         {
-            int gameObjectUid = Integer.parseInt(parsedPacket[1]);
-            int compUid = Integer.parseInt(parsedPacket[2]);
-            String args = parsedPacket[3];
+            String[] parsedCompPacket = packet.split(",", 4);
+            int gameObjectUid = Integer.parseInt(parsedCompPacket[1]);
+            int compUid = Integer.parseInt(parsedCompPacket[2]);
+            String args = parsedCompPacket[3];
             handleComponentPacket(gameObjectUid, compUid, args);
         }
         else throw new PacketMismatchException("Received packet of ID '" + packetId + "' in a GameObjectNetwork that only receives packets of ID 'gon' and 'comp'");
