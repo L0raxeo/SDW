@@ -38,7 +38,11 @@ public class Game extends Scene
                 gameObject -> gameObject.update(dt)
                 );
 
-        GameState.getGameState().initializer.update(dt);
+        try {
+            GameState.getGameState().initializer.update(dt);
+        } catch (NullPointerException e) {
+            System.out.println("[Game] - WARNING: Null Pointer Exception when updating the game state");
+        }
     }
 
     @Override

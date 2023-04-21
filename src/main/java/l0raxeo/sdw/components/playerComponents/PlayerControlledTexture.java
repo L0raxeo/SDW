@@ -1,5 +1,6 @@
 package l0raxeo.sdw.components.playerComponents;
 
+import l0raxeo.network.GameClient;
 import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.gfx.Animation;
@@ -25,6 +26,8 @@ public class PlayerControlledTexture extends Component
     private final BufferedImage standingRightwards;
     private final BufferedImage standingBackRight;
     private final BufferedImage standingBackLeft;
+
+    private float theta = 0, xOffset = 0, yOffset = 0;
 
     public PlayerControlledTexture()
     {
@@ -89,9 +92,12 @@ public class PlayerControlledTexture extends Component
     @Override
     public void update(double dt)
     {
-        float theta = gameObject.getComponent(PlayerController.class).getDirection();
-
-        float xOffset = gameObject.getComponent(PlayerController.class).xMove, yOffset = gameObject.getComponent(PlayerController.class).yMove;
+        if (gameObject.getUid() == GameClient.getInstance().myUid)
+        {
+            theta = gameObject.getComponent(PlayerController.class).getDirection();
+            xOffset = gameObject.getComponent(PlayerController.class).xMove;
+            yOffset = gameObject.getComponent(PlayerController.class).yMove;
+        }
 
         if ((theta >= 0 && theta <= 22.5) || (theta > 292.5 && theta <= 360))
             curAnim = walkingRightAnimation;
@@ -138,6 +144,14 @@ public class PlayerControlledTexture extends Component
                 gameObject.transform.scale.y,
                 null
         );
+    }
+
+    @Override
+    public void handlePacketArgs(String args) {
+        String[] parsedArgs = args.split(",");
+        theta = Float.parseFloat(parsedArgs[0]);
+        xOffset = Float.parseFloat(parsedArgs[1]);
+        yOffset = Float.parseFloat(parsedArgs[2]);
     }
 
 }

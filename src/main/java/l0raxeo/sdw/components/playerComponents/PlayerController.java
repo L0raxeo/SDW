@@ -1,5 +1,6 @@
 package l0raxeo.sdw.components.playerComponents;
 
+import l0raxeo.network.GameClient;
 import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
@@ -23,11 +24,22 @@ public class PlayerController extends Component
     public int xMouseCamOffset;
     public int yMouseCamOffset;
 
+    private final int clientUid;
+
+    public PlayerController(int clientUid)
+    {
+        this.clientUid = clientUid;
+    }
+
     @Override
     public void update(double dt)
     {
-        move();
-        look();
+        if (clientUid == GameClient.getInstance().myUid)
+        {
+            move();
+            look();
+            GameClient.getInstance().sendData("comp," + gameObject.getUid() + "," + uid() + "," + getDirection() + "," + xMove + "," + yMove);
+        }
     }
 
     private void move()
