@@ -108,6 +108,9 @@ public class GameClient extends Thread
                     new PlayerController(Integer.parseInt(parsedPacket[1])),
                     new GameObjectNetwork()
             ));
+            case "pu" -> {
+
+            }
         }
     }
 

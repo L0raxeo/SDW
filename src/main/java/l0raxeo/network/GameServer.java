@@ -64,9 +64,7 @@ public class GameServer extends Thread
         switch (parsedPacket[0])
         {
             case "l" -> addConnection(new ClientInfoServer(address, port, parsedPacket[1], ID_COUNTER++));
-            case "gon" -> Window.getScene()
-                    .getGameObjectWithUid(Integer.parseInt(parsedPacket[1]))
-                    .getComponent(GameObjectNetwork.class).receive(strPacket);
+            case "gon", "np", "comp" -> sendDataToAllClients(strPacket);
             case "cm" -> System.out.println(parsedPacket[1]);
             case "lo" -> removeConnection(getClientInfo(Integer.parseInt(parsedPacket[1])));
             case "ctc" -> sendData("ctc,1", address, port);
@@ -75,7 +73,6 @@ public class GameServer extends Thread
                     MultiplayerHandler.serverConnectionsValid.replace(getClientInfo(address).uid(), true);
                 }
             }
-            case "np", "comp" -> sendDataToAllClients(strPacket);
         }
     }
 
