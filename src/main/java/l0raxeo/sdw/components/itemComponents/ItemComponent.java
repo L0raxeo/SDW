@@ -4,7 +4,7 @@ import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.components.gfxComponents.ImageTexture;
 import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.sdw.input.mouse.MouseManager;
-import l0raxeo.rendering.Camera;
+import l0raxeo.rendering.gameRendering.Camera;
 import l0raxeo.sdw.scenes.game.items.ItemState;
 
 public class ItemComponent extends Component

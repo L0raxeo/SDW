@@ -1,4 +1,4 @@
-package l0raxeo.sdw.gfx;
+package l0raxeo.rendering.gameRendering;
 
 import java.awt.image.BufferedImage;
 

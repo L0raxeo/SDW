@@ -8,12 +8,14 @@ import l0raxeo.sdw.prefabs.Prefabs;
 import org.joml.Vector2i;
 
 import java.awt.image.BufferedImage;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum ItemType
 {
 
     HAIR_BALL_SPITTING_CAT(AssetPool.getBufferedImage("assets/textures/entities/items/hairball_spitting_cat.png"), 0),
+    BARBED_WIRE(AssetPool.getBufferedImage("assets/textures/entities/items/barbed_wire.png"), 1),
     EMPTY_ITEM(null, -1);
 
     public final BufferedImage cardImage;
@@ -28,10 +30,13 @@ public enum ItemType
     public static ItemType getRandomItemType()
     {
         // change as more item types are added
-        switch ((int) Math.random())
+        switch ((int) (Math.random() * 2))
         {
             case 0 -> {
                 return HAIR_BALL_SPITTING_CAT;
+            }
+            case 1 -> {
+                return BARBED_WIRE;
             }
         }
 
@@ -51,6 +56,18 @@ public enum ItemType
                         new ImageTexture(
                                 HAIR_BALL_SPITTING_CAT.cardImage,
                                 new Vector2i(12, 17)
+                        )
+                );
+            }
+            case BARBED_WIRE -> {
+                return Prefabs.generate(
+                        "Barbed Wire",
+                        new Vector2i(),
+                        new Vector2i(64, 64),
+                        new ItemComponent(),
+                        new ImageTexture(
+                                BARBED_WIRE.cardImage,
+                                new Vector2i(32, 32)
                         )
                 );
             }

@@ -1,6 +1,6 @@
 package l0raxeo.sdw.objects;
 
-import l0raxeo.rendering.Camera;
+import l0raxeo.rendering.gameRendering.Camera;
 import l0raxeo.rendering.Window;
 import org.joml.Vector2i;
 

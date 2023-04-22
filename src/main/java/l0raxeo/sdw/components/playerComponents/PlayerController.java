@@ -1,11 +1,10 @@
 package l0raxeo.sdw.components.playerComponents;
 
 import l0raxeo.network.GameClient;
-import l0raxeo.network.GameServer;
 import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
-import l0raxeo.rendering.Camera;
+import l0raxeo.rendering.gameRendering.Camera;
 import l0raxeo.rendering.Window;
 import org.joml.Vector2i;
 

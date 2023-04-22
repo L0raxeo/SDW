@@ -1,8 +1,8 @@
 package l0raxeo.rendering;
 
+import l0raxeo.rendering.postRenderGraphics.GraphicsDraw;
 import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
-import l0raxeo.sdw.scenes.game.Game;
 import l0raxeo.sdw.scenes.menu.Menu;
 import l0raxeo.sdw.scenes.Scene;
 import l0raxeo.sdw.ui.GuiLayer;
@@ -38,9 +38,18 @@ public class Window implements Runnable
     private Window()
     {
         APP_TITLE = "Stupid Dopey Warfare";
-        WINDOW_WIDTH = 720;
-        WINDOW_HEIGHT = 720;
+        WINDOW_WIDTH = 768;
+        WINDOW_HEIGHT = 768;
         WINDOW_SIZE = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
+    }
+
+    public static Scene getScene(Class<?> sceneClass)
+    {
+        for (Scene s : scenes)
+            if (s.getClass().equals(sceneClass))
+                return s;
+
+        return null;
     }
 
     public static void changeScene(Class<?> sceneClass)
@@ -154,6 +163,8 @@ public class Window implements Runnable
             delta += (now - lastTime) / timePerTick;
             lastTime = now;
 
+            GraphicsDraw.beginFrame();
+
             while (delta >= 1)
             {
                 ticks++;
@@ -206,6 +217,8 @@ public class Window implements Runnable
 
         currentScene.render(g);
         guiLayer.render(g);
+
+        GraphicsDraw.render(g);
 
         // end drawing
         bs.show();

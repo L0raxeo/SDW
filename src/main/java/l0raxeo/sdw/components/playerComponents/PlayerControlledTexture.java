@@ -3,7 +3,7 @@ package l0raxeo.sdw.components.playerComponents;
 import l0raxeo.network.GameClient;
 import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.dataStructure.AssetPool;
-import l0raxeo.sdw.gfx.Animation;
+import l0raxeo.rendering.gameRendering.Animation;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

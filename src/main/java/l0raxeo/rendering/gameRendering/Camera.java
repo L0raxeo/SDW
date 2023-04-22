@@ -1,6 +1,6 @@
-package l0raxeo.rendering;
+package l0raxeo.rendering.gameRendering;
 
-import org.joml.Vector2f;
+import l0raxeo.rendering.Window;
 import org.joml.Vector2i;
 
 public class Camera
