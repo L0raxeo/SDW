@@ -6,6 +6,7 @@ import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.sdw.prefabs.Prefabs;
 import org.joml.Vector2i;
+import org.joml.Vector3i;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public enum ItemType
             case HAIR_BALL_SPITTING_CAT -> {
                 return Prefabs.generate(
                     "Hairball Spitting Cat",
-                        new Vector2i(),
+                        new Vector3i(),
                         new Vector2i(24, 34),
                         new ItemComponent(),
                         new ImageTexture(
@@ -62,7 +63,7 @@ public enum ItemType
             case BARBED_WIRE -> {
                 return Prefabs.generate(
                         "Barbed Wire",
-                        new Vector2i(),
+                        new Vector3i(),
                         new Vector2i(64, 64),
                         new ItemComponent(),
                         new ImageTexture(
@@ -74,7 +75,7 @@ public enum ItemType
             case EMPTY_ITEM -> {
                 return Prefabs.generate(
                     "Empty",
-                    new Vector2i(),
+                    new Vector3i(),
                     new Vector2i(),
                     new ItemComponent()
                 );
