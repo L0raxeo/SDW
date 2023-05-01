@@ -56,4 +56,14 @@ public class AssetPool
         return font;
     }
 
+    public static void unloadAllBufferedImages()
+    {
+        loadedBufferedImages.clear();
+    }
+
+    public static void unloadAllFonts()
+    {
+        loadedFonts.clear();
+    }
+
 }

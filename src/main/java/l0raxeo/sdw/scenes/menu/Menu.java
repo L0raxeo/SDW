@@ -3,21 +3,24 @@ package l0raxeo.sdw.scenes.menu;
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.scenes.Scene;
+import l0raxeo.sdw.scenes.assetInitializers.AssetInitializer;
+import l0raxeo.sdw.scenes.assetInitializers.MenuAssets;
 import l0raxeo.sdw.ui.GuiLayer;
 import l0raxeo.sdw.ui.components.GuiButton;
 import org.joml.Vector2i;
 
 import java.awt.*;
 
-public class Menu extends Scene {
+public class Menu extends Scene
+{
+
+    private final MenuAssets menuAssets = new MenuAssets();
+
     @Override
     public void loadResources()
     {
+        menuAssets.loadAssets();
         setBackdrop(Color.DARK_GRAY);
-
-        AssetPool.getFont("assets/fonts/default_font.ttf", 16);
-        AssetPool.getFont("assets/fonts/default_font.ttf", 24);
-        AssetPool.getFont("assets/fonts/default_font.ttf", 32);
     }
 
     @Override
@@ -46,5 +49,10 @@ public class Menu extends Scene {
     @Override
     public void render(Graphics g) {
         MenuState.getState().initializer.gui(g);
+    }
+
+    @Override
+    public void onDestroy() {
+        menuAssets.unloadAssets();
     }
 }
