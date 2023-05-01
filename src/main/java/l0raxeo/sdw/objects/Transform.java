@@ -3,6 +3,7 @@ package l0raxeo.sdw.objects;
 import l0raxeo.rendering.gameRendering.Camera;
 import l0raxeo.rendering.Window;
 import org.joml.Vector2i;
+import org.joml.Vector3i;
 
 public class Transform
 {
@@ -12,12 +13,12 @@ public class Transform
     private int zIndex = 0;
     public float rotation;
 
-    public Transform(Vector2i position, Vector2i scale, float rotation)
+    public Transform(Vector3i position, Vector2i scale, float rotation)
     {
         init(position, scale, rotation);
     }
 
-    public Transform(Vector2i position, Vector2i scale)
+    public Transform(Vector3i position, Vector2i scale)
     {
         init(position, scale, 0);
     }
@@ -25,12 +26,13 @@ public class Transform
     /**
      * Screen to world coordinates gets translated here
      */
-    public void init(Vector2i position, Vector2i scale, float rotation)
+    public void init(Vector3i position, Vector2i scale, float rotation)
     {
         // world to screen coordinates
         this.position = new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
         this.scale = scale;
         this.rotation = rotation;
+        this.zIndex = position.z;
     }
 
     // returns world coordinates
@@ -50,6 +52,15 @@ public class Transform
     public void setPosition(Vector2i position)
     {
         this.position = new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
+    }
+
+    /**
+     * @param position position in world coordinates (includes zIndex)
+     */
+    public void setPosition(Vector3i position)
+    {
+        this.position = new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
+        setzIndex(position.z);
     }
 
     public void setzIndex(int zIndex)

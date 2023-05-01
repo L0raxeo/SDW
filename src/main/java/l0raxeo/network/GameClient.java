@@ -6,9 +6,11 @@ import l0raxeo.sdw.components.playerComponents.PlayerControlledTexture;
 import l0raxeo.sdw.components.playerComponents.PlayerController;
 import l0raxeo.sdw.dataStructure.exceptions.DuplicateNetworkException;
 import l0raxeo.rendering.Window;
+import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.sdw.prefabs.Prefabs;
 import l0raxeo.sdw.scenes.game.Game;
 import org.joml.Vector2i;
+import org.joml.Vector3i;
 
 import java.io.IOException;
 import java.net.*;
@@ -102,12 +104,13 @@ public class GameClient extends Thread
             case "sm" -> Window.changeScene(Game.class);
             case "np" -> Window.getScene().addGameObject(Prefabs.generate(
                     getPlayerClientInfo(Integer.parseInt(parsedPacket[1])).getUsername(),
-                    new Vector2i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3])),
+                    new Vector3i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3]), 0),
                     new Vector2i(46,76),
                     new PlayerControlledTexture(),
                     new PlayerController(Integer.parseInt(parsedPacket[1])),
                     new GameObjectNetwork()
             ));
+            case "goidu" -> GameObject.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
         }
     }
 

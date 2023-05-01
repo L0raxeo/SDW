@@ -1,5 +1,7 @@
 package l0raxeo.sdw.scenes;
 
+import l0raxeo.network.GameClient;
+import l0raxeo.network.MultiplayerHandler;
 import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.rendering.Window;
@@ -39,6 +41,8 @@ public abstract class Scene
             gameObjects.add(go);
             go.start();
         }
+
+        GameClient.getInstance().sendData("goidu," + GameObject.getIdCounter());
     }
 
     public GameObject getGameObject(String name)
