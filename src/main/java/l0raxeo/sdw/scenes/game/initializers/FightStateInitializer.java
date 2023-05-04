@@ -24,12 +24,12 @@ public class FightStateInitializer implements GameStateInitializer
     @Override
     public void init()
     {
-        GameClient.getInstance().sendData("np," + GameClient.getInstance().myUid + "," + 0 + "," + 0);
     }
 
     @Override
-    public void start() {
-
+    public void start()
+    {
+        GameClient.getInstance().sendData("np," + GameClient.getInstance().myUid + "," + 0 + "," + 0);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class FightStateInitializer implements GameStateInitializer
 
     @Override
     public void render(Graphics g) {
-
+        gameScene.mapHandler.render(g);
     }
 
 }

@@ -9,8 +9,6 @@ import org.joml.Vector2i;
 import org.joml.Vector3i;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
 public enum ItemType
 {

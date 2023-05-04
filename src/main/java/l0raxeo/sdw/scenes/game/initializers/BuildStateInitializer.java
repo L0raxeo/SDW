@@ -2,18 +2,26 @@ package l0raxeo.sdw.scenes.game.initializers;
 
 import l0raxeo.rendering.Window;
 import l0raxeo.rendering.postRenderGraphics.GraphicsDraw;
+import l0raxeo.sdw.input.keyboard.KeyManager;
+import l0raxeo.sdw.input.mouse.MouseManager;
 import l0raxeo.sdw.scenes.game.Game;
+import l0raxeo.sdw.scenes.game.GameState;
 import l0raxeo.sdw.scenes.game.items.ItemHandler;
+import l0raxeo.sdw.scenes.game.items.ItemType;
 import l0raxeo.sdw.ui.GuiLayer;
 import l0raxeo.sdw.ui.components.GuiImage;
 import org.joml.Vector2i;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class BuildStateInitializer implements GameStateInitializer
 {
 
     private final Game gameScene;
+
+    private ItemType itemTypeHeld = ItemType.EMPTY_ITEM;
+    private boolean finishedBuilding = false;
 
     public BuildStateInitializer(Game gameScene)
     {
@@ -35,27 +43,38 @@ public class BuildStateInitializer implements GameStateInitializer
     @Override
     public void start()
     {
-        GuiLayer.getInstance().addGuiComponent(new GuiImage(
-                "Item Being Built",
-                new Vector2i(32, 32),
-                new Vector2i(gameScene.mapHandler.itemHandler.getNextStoredItemTypeImage().getWidth() * 2, gameScene.mapHandler.itemHandler.getNextStoredItemTypeImage().getHeight() * 2),
-                gameScene.mapHandler.itemHandler.getNextStoredItemTypeImage()
-        ));
+        itemTypeHeld = gameScene.mapHandler.itemHandler.retrieveItemType();
+
+        gameScene.mapHandler.miniMap.setMiniMapBorderSize(new Vector2i(0, 0), new Vector2i(0, 0));
+        gameScene.mapHandler.miniMap.renderBuildingGrid(true);
     }
 
     @Override
     public void update(double dt)
     {
-        for (int i = 0; i <= Window.WINDOW_WIDTH; i += 32)
-            GraphicsDraw.addLine2D(new Vector2i(i, 0), new Vector2i(i, Window.WINDOW_HEIGHT), Color.WHITE);
-        for (int k = 0; k <= Window.WINDOW_HEIGHT; k += 32)
-            GraphicsDraw.addLine2D(new Vector2i(0, k), new Vector2i(Window.WINDOW_WIDTH, k), Color.WHITE);
+        if (MouseManager.onPress(MouseEvent.BUTTON1))
+        {
+            gameScene.mapHandler.itemHandler.storeItemGameObject(ItemType.createItem(itemTypeHeld));
+            itemTypeHeld = gameScene.mapHandler.itemHandler.retrieveItemType();
+
+            if (itemTypeHeld == ItemType.EMPTY_ITEM)
+            {
+                finishedBuilding = true;
+                GameState.setState(GameState.FIGHT);
+            }
+        }
     }
 
     @Override
     public void render(Graphics g)
     {
+        gameScene.mapHandler.miniMap.render(g);
 
+        if (itemTypeHeld != ItemType.EMPTY_ITEM)
+        {
+            Vector2i itemCardPos = gameScene.mapHandler.miniMap.tileSnapPosition(MouseManager.getMouseScreenPosition());
+            g.drawImage(itemTypeHeld.cardImage, itemCardPos.x, itemCardPos.y, itemTypeHeld.cardImage.getWidth(), itemTypeHeld.cardImage.getHeight(), null);
+        }
     }
 
 }

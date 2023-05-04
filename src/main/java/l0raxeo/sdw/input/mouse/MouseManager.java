@@ -95,6 +95,9 @@ public class MouseManager implements MouseListener, MouseMotionListener
         return xMouse;
     }
 
+    /**
+     * @return y-coordinate is in graph coordinates
+     */
     public static int getMouseY()
     {
         return Window.WINDOW_HEIGHT - yMouse;
@@ -123,6 +126,19 @@ public class MouseManager implements MouseListener, MouseMotionListener
     public static int getMouseDraggedY()
     {
         return yDragged;
+    }
+
+    /**
+     * @return mouse position in graph coordinates
+     */
+    public static Vector2i getMousePosition()
+    {
+        return new Vector2i(getMouseX(), getMouseY());
+    }
+
+    public static Vector2i getMouseScreenPosition()
+    {
+        return new Vector2i(getMouseX(), getGraphMouseY());
     }
 
     // Implemented methods

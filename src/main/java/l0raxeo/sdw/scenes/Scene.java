@@ -35,12 +35,8 @@ public abstract class Scene
     }
 
     public void addGameObject(GameObject go) {
-        if (!isRunning) {
-            gameObjects.add(go);
-        } else {
-            gameObjects.add(go);
-            go.start();
-        }
+        gameObjects.add(go);
+        go.start();
 
         GameClient.getInstance().sendData("goidu," + GameObject.getIdCounter());
     }

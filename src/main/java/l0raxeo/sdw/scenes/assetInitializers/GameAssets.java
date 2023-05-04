@@ -2,11 +2,13 @@ package l0raxeo.sdw.scenes.assetInitializers;
 
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.dataStructure.AssetPool;
+import l0raxeo.sdw.scenes.game.Game;
 import l0raxeo.sdw.ui.GuiLayer;
 import l0raxeo.sdw.ui.GuiText;
 import org.joml.Vector2i;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class GameAssets implements AssetInitializer
 {
@@ -55,8 +57,13 @@ public class GameAssets implements AssetInitializer
         AssetPool.getBufferedImage("assets/textures/map/floor_tile_1.png");
         AssetPool.getBufferedImage("assets/textures/map/floor_tile_2.png");
         AssetPool.getBufferedImage("assets/textures/map/floor_tile_3.png");
+        AssetPool.getBufferedImage("assets/textures/gui/player/inventory/inventory_slot_0.png");
+        AssetPool.getBufferedImage("assets/textures/gui/player/inventory/inventory_slot_1.png");
+        AssetPool.getBufferedImage("assets/textures/gui/player/inventory/inventory_slot_2.png");
 
-        while (startLoadingTime + 2000 > System.currentTimeMillis())
+        ((Game) Window.getScene()).mapHandler.generateTileMap();
+
+        while (startLoadingTime + 1000 > System.currentTimeMillis())
             assetsLoaded = false;
 
         assetsLoaded = true;

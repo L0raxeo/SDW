@@ -48,6 +48,12 @@ public class ItemComponent extends Component
 
     @Override
     public void update(double dt) {
+        if (itemState == ItemState.USED)
+            rotateItemInHand();
+    }
+
+    private void rotateItemInHand()
+    {
         float parentTheta = Camera.getAngleFromOriginToTarget(
                 parent.transform.position().x + (parent.transform.scale.x / 2),
                 parent.transform.position().y + (parent.transform.scale.y / 2),
@@ -55,13 +61,10 @@ public class ItemComponent extends Component
                 MouseManager.getMouseY()
         );
 
-        if ((parentTheta >= 270 && parentTheta <= 360) || (parentTheta >= 0 && parentTheta <= 90))
-        {
+        if ((parentTheta >= 270 && parentTheta <= 360) || (parentTheta >= 0 && parentTheta <= 90)) {
             gameObject.transform.setPosition(parent.transform.position().sub(0, parent.transform.scale.y / 2).add((int) (parent.transform.scale.x * .85), 0));
             gameObject.getComponent(ImageTexture.class).setFlip(false);
-        }
-        else if (parentTheta > 90 && parentTheta < 270)
-        {
+        } else if (parentTheta > 90 && parentTheta < 270) {
             gameObject.getComponent(ImageTexture.class).setFlip(true);
             gameObject.transform.setPosition(parent.transform.position().sub(0, parent.transform.scale.y / 2));
         }
@@ -77,6 +80,16 @@ public class ItemComponent extends Component
             gameObject.transform.setzIndex(-1);
         else
             gameObject.transform.setzIndex(1);
+    }
+
+    public void assignToParent(GameObject parent)
+    {
+        this.parent = parent;
+    }
+
+    public void unassign()
+    {
+        this.parent = null;
     }
 
 }

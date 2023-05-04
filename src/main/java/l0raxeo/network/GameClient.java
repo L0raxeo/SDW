@@ -4,6 +4,7 @@ import l0raxeo.network.clientInfo.ClientInfo;
 import l0raxeo.sdw.components.networkComponents.GameObjectNetwork;
 import l0raxeo.sdw.components.playerComponents.PlayerControlledTexture;
 import l0raxeo.sdw.components.playerComponents.PlayerController;
+import l0raxeo.sdw.components.playerComponents.PlayerInventory;
 import l0raxeo.sdw.dataStructure.exceptions.DuplicateNetworkException;
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.objects.GameObject;
@@ -108,7 +109,8 @@ public class GameClient extends Thread
                     new Vector2i(46,76),
                     new PlayerControlledTexture(),
                     new PlayerController(Integer.parseInt(parsedPacket[1])),
-                    new GameObjectNetwork()
+                    new GameObjectNetwork(),
+                    new PlayerInventory()
             ));
             case "goidu" -> GameObject.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
         }

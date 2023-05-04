@@ -2,7 +2,6 @@ package l0raxeo.sdw.scenes.game;
 
 import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.sdw.scenes.Scene;
-import l0raxeo.sdw.scenes.assetInitializers.AssetInitializer;
 import l0raxeo.sdw.scenes.assetInitializers.GameAssets;
 import l0raxeo.sdw.scenes.game.map.MapHandler;
 
@@ -16,6 +15,8 @@ public class Game extends Scene
     public final MapHandler mapHandler = new MapHandler();
 
     private final GameAssets gameAssets = new GameAssets();
+
+    private GameObject player;
 
     @Override
     public void loadResources()
@@ -64,17 +65,17 @@ public class Game extends Scene
             return;
         }
 
-        getGameObjects().forEach(
-                gameObject -> gameObject.getAllComponents().forEach(
-                        component -> component.render(g)
-                )
-        );
-
         try {
             GameState.getGameState().initializer.render(g);
         } catch (NullPointerException e) {
             System.out.println("[Game] - WARNING: Null Pointer Exception when rendering game state");
         }
+
+        getGameObjects().forEach(
+                gameObject -> gameObject.getAllComponents().forEach(
+                        component -> component.render(g)
+                )
+        );
     }
 
     @Override
