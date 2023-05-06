@@ -1,12 +1,15 @@
-package l0raxeo.sdw.components.playerComponents;
+package l0raxeo.sdw.components.entityComponents.playerComponents;
 
 import l0raxeo.network.GameClient;
 import l0raxeo.sdw.components.Component;
+import l0raxeo.sdw.components.entityComponents.HealthSystem;
 import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
 import l0raxeo.rendering.gameRendering.Camera;
 import l0raxeo.rendering.Window;
 import org.joml.Vector2i;
+
+import java.awt.event.MouseEvent;
 
 public class PlayerController extends Component
 {
@@ -43,6 +46,11 @@ public class PlayerController extends Component
             GameClient.getInstance().sendData(
                     "comp," + gameObject.getUid() + "," + gameObject.getComponent(PlayerControlledTexture.class).uid() + "," + getDirection() + "," + xMove + "," + yMove
             );
+
+            if (MouseManager.onPress(MouseEvent.BUTTON1))
+            {
+                gameObject.getComponent(HealthSystem.class).damage(5);
+            }
         }
     }
 

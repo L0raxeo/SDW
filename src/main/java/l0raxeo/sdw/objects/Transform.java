@@ -46,6 +46,11 @@ public class Transform
         return new Vector2i(position.x + Camera.xOffset(), position.y + Camera.yOffset());
     }
 
+    public Vector2i getCenterPosition()
+    {
+        return getScreenPosition().add(scale.x / 2, scale.y / 2);
+    }
+
     /**
      * @param position in world coords
      */

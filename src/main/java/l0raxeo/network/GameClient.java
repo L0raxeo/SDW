@@ -1,10 +1,11 @@
 package l0raxeo.network;
 
 import l0raxeo.network.clientInfo.ClientInfo;
+import l0raxeo.sdw.components.entityComponents.HealthSystem;
 import l0raxeo.sdw.components.networkComponents.GameObjectNetwork;
-import l0raxeo.sdw.components.playerComponents.PlayerControlledTexture;
-import l0raxeo.sdw.components.playerComponents.PlayerController;
-import l0raxeo.sdw.components.playerComponents.PlayerInventory;
+import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerControlledTexture;
+import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerController;
+import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerInventory;
 import l0raxeo.sdw.dataStructure.exceptions.DuplicateNetworkException;
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.objects.GameObject;
@@ -110,7 +111,9 @@ public class GameClient extends Thread
                     new PlayerControlledTexture(),
                     new PlayerController(Integer.parseInt(parsedPacket[1])),
                     new GameObjectNetwork(),
-                    new PlayerInventory()
+                    new PlayerInventory(Integer.parseInt(parsedPacket[1]) == myUid),
+                    new HealthSystem(true)
+
             ));
             case "goidu" -> GameObject.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
         }

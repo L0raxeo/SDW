@@ -1,4 +1,4 @@
-package l0raxeo.sdw.components.playerComponents;
+package l0raxeo.sdw.components.entityComponents.playerComponents;
 
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.components.Component;
@@ -20,10 +20,8 @@ public class PlayerInventory extends Component
     // slots: 0, 1, 2
     private int curSlot = 0;
 
-    @Override
-    public void start()
+    public PlayerInventory(boolean visible)
     {
-        System.out.println("hisdfsdf");
         for (int i = 0; i < 3; i++)
             textures[i] = AssetPool.getBufferedImage("assets/textures/gui/player/inventory/inventory_slot_" + i + ".png");
     }
