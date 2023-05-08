@@ -12,7 +12,7 @@ public class PlayerInventory extends Component
 {
 
     // textures
-    private final BufferedImage[] textures = new BufferedImage[3];
+    private final BufferedImage[] slotTextures = new BufferedImage[3];
 
     // stores the uid of the objects in the inventory
     // uid = -1 means empty
@@ -23,7 +23,7 @@ public class PlayerInventory extends Component
     public PlayerInventory(boolean visible)
     {
         for (int i = 0; i < 3; i++)
-            textures[i] = AssetPool.getBufferedImage("assets/textures/gui/player/inventory/inventory_slot_" + i + ".png");
+            slotTextures[i] = AssetPool.getBufferedImage("assets/textures/gui/player/inventory/inventory_slot_" + i + ".png");
     }
 
     @Override
@@ -41,11 +41,11 @@ public class PlayerInventory extends Component
         for (int s = 0; s < 3; s++)
         {
             g.drawImage(
-                    textures[s],
-                    s * (textures[s == 0 ? s : s - 1].getWidth() * 2) + (s == 2 ? (textures[0].getWidth() * 2) - (textures[1].getWidth() * 2) : 0),
-                    Window.WINDOW_HEIGHT - (textures[s].getHeight() * 2),
-                    textures[s].getWidth() * 2,
-                    textures[s].getHeight() * 2,
+                    slotTextures[s],
+                    s * (slotTextures[s == 0 ? s : s - 1].getWidth() * 2) + (s == 2 ? (slotTextures[0].getWidth() * 2) - (slotTextures[1].getWidth() * 2) : 0),
+                    Window.WINDOW_HEIGHT - (slotTextures[s].getHeight() * 2),
+                    slotTextures[s].getWidth() * 2,
+                    slotTextures[s].getHeight() * 2,
                     null
             );
         }

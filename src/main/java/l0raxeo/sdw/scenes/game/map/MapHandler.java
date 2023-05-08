@@ -19,18 +19,19 @@ public class MapHandler
     //              pixels           [          1536          ][          1536           ]
     private final BufferedImage[][] tileMap = new BufferedImage[Window.WINDOW_WIDTH / 32][Window.WINDOW_HEIGHT / 32];
     public final int TILE_WIDTH = 64, TILE_HEIGHT = 64;
+    public final int TILE_MAP_SIZE_X = 32, TILE_MAP_SIZE_Y = 32;
 
     public void generateTileMap()
     {
-        for (int r = 0; r < Window.WINDOW_HEIGHT / 32; r++)
-            for (int c = 0; c < Window.WINDOW_WIDTH / 32; c++)
+        for (int r = 0; r < Window.WINDOW_HEIGHT / TILE_MAP_SIZE_Y; r++)
+            for (int c = 0; c < Window.WINDOW_WIDTH / TILE_MAP_SIZE_X; c++)
                 tileMap[r][c] = AssetPool.getBufferedImage("assets/textures/map/floor_tile_" + (int) (Math.random() * 4) + ".png");
     }
 
     public void render(Graphics g)
     {
-        for (int r = 0; r < Window.WINDOW_WIDTH / 32; r++)
-            for (int c = 0; c < Window.WINDOW_HEIGHT / 32; c++)
+        for (int r = 0; r < Window.WINDOW_HEIGHT / TILE_MAP_SIZE_Y; r++)
+            for (int c = 0; c < Window.WINDOW_WIDTH / TILE_MAP_SIZE_X; c++)
             {
                 if ((TILE_WIDTH * c) + Camera.xOffset() > -TILE_WIDTH &&
                         (TILE_WIDTH * c) + Camera.xOffset() < Window.WINDOW_WIDTH + TILE_WIDTH &&
@@ -42,7 +43,7 @@ public class MapHandler
 
     public Vector2i tileSnapPosition(Vector2i position)
     {
-        return new Vector2i((position.x / 64) * 64, (position.y / 64) * 64);
+        return new Vector2i((position.x / TILE_WIDTH) * TILE_WIDTH, (position.y / TILE_HEIGHT) * TILE_HEIGHT);
     }
 
 }
