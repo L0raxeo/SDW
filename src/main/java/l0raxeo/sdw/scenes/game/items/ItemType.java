@@ -18,26 +18,27 @@ public enum ItemType
     EMPTY_ITEM(null, -1);
 
     public final BufferedImage cardImage;
-    public final int itemId;
+    public final int itemTypeId;
 
-    ItemType(BufferedImage cardImage, int itemId)
+    ItemType(BufferedImage cardImage, int itemTypeId)
     {
         this.cardImage = cardImage;
-        this.itemId = itemId;
+        this.itemTypeId = itemTypeId;
     }
+
+    public static final int NUMBER_OF_ITEM_TYPES = 2;
 
     public static ItemType getRandomItemType()
     {
-        // change as more item types are added
-        switch ((int) (Math.random() * 2))
-        {
-            case 0 -> {
-                return HAIR_BALL_SPITTING_CAT;
-            }
-            case 1 -> {
-                return BARBED_WIRE;
-            }
-        }
+        int randomItemTypeId = (int) (Math.random() * NUMBER_OF_ITEM_TYPES);
+        return getItemType(randomItemTypeId);
+    }
+
+    public static ItemType getItemType(int typeId)
+    {
+        for (ItemType itemType : ItemType.values())
+            if (itemType.itemTypeId == typeId)
+                return itemType;
 
         return EMPTY_ITEM;
     }
