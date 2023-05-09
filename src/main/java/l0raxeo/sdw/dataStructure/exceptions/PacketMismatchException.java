@@ -8,6 +8,4 @@ public class PacketMismatchException extends RuntimeException
         super(message);
     }
 
-    public PacketMismatchException() {}
-
 }

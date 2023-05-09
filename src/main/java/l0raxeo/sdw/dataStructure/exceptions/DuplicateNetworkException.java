@@ -8,6 +8,4 @@ public class DuplicateNetworkException extends RuntimeException
         super(message);
     }
 
-    public DuplicateNetworkException() {}
-
 }
