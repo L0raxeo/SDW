@@ -74,10 +74,7 @@ public abstract class Scene
     public abstract void update(double dt);
     public abstract void render(Graphics g);
 
-    public void loadResources()
-    {
-
-    }
+    public void loadResources() {}
 
     protected void setBackdrop(Color color)
     {
@@ -90,9 +87,6 @@ public abstract class Scene
         Window.setBackdrop(this.backdrop);
     }
 
-    public void onDestroy()
-    {
-
-    }
+    public void onDestroy() {}
 
 }
