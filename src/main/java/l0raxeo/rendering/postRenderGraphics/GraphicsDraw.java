@@ -12,6 +12,7 @@ public class GraphicsDraw
 {
 
     private static final int MAX_LINES = 5000;
+    private static final float RGB_SCALE_MULTIPLIER = 0.00392156862f;
 
     private static final List<Line2D> lines = new ArrayList<>();
 
@@ -34,50 +35,50 @@ public class GraphicsDraw
 
     public static void render(Graphics g)
     {
-        if (lines.size() == 0) return;
-
-        for (Line2D line : lines)
+        for (int curLineIndex = 0; curLineIndex < Math.min(lines.size(), MAX_LINES); curLineIndex++)
         {
-            if ((line.getFrom().y > Window.WINDOW_HEIGHT && line.getTo().y > Window.WINDOW_HEIGHT) ||
-                (line.getFrom().y < 0 && line.getTo().y < 0) ||
-                (line.getFrom().x < 0 && line.getTo().x < 0) ||
-                (line.getFrom().x > Window.WINDOW_WIDTH && line.getTo().x > Window.WINDOW_WIDTH))
-            {
+            Line2D line = lines.get(curLineIndex);
+
+            boolean isLineInRender = (line.getFrom().y > Window.WINDOW_HEIGHT && line.getTo().y > Window.WINDOW_HEIGHT) ||
+                    (line.getFrom().y < 0 && line.getTo().y < 0) ||
+                    (line.getFrom().x < 0 && line.getTo().x < 0) ||
+                    (line.getFrom().x > Window.WINDOW_WIDTH && line.getTo().x > Window.WINDOW_WIDTH);
+
+            if (isLineInRender)
                 continue;
-            }
 
             Vector2i drawFrom = line.getFrom();
             Vector2i drawTo = line.getTo();
             float rawSlope = (float) (drawTo.y - drawFrom.y) / (drawTo.x - drawFrom.x);
             Vector3f color = line.getColor();
-//            System.out.println(drawFrom.x + "," + drawFrom.y + " | " + drawTo.x + "," + drawTo.y);
-            for (int i = 0; i < 2; i++) // 0 = from; 1 = to
+
+            for (int curPoint = 0; curPoint < 2; curPoint++) // 0 = from; 1 = to
             {
-                Vector2i point = i == 0 ? line.getFrom() : line.getTo();
-                Vector2i oPoint = i == 1 ? line.getFrom() : line.getTo();// other point
-                if (point.x > Window.WINDOW_WIDTH) {
-                    point.x = Window.WINDOW_WIDTH;
-                    point.y = (int) ((rawSlope * (point.x - oPoint.x)) + oPoint.y);
+                Vector2i point1 = curPoint == 0 ? line.getFrom() : line.getTo();
+                Vector2i point2 = curPoint == 1 ? line.getFrom() : line.getTo();
+                if (point1.x > Window.WINDOW_WIDTH) {
+                    point1.x = Window.WINDOW_WIDTH;
+                    point1.y = (int) ((rawSlope * (point1.x - point2.x)) + point2.y);
                 }
-                else if (point.x < 0) {
-                    point.x = 0;
-                    point.y = (int) ((rawSlope * (point.x - oPoint.x)) + oPoint.y);
-                }
-
-                if (point.y > Window.WINDOW_HEIGHT){
-                    point.y = Window.WINDOW_HEIGHT;
-                    point.x = (int) (((point.y - oPoint.y) / rawSlope) + oPoint.x);
-                }
-                else if (point.y < 0) {
-                    point.y = 0;
-                    point.x = (int) (((point.y - oPoint.y) / rawSlope) + oPoint.x);
+                else if (point1.x < 0) {
+                    point1.x = 0;
+                    point1.y = (int) ((rawSlope * (point1.x - point2.x)) + point2.y);
                 }
 
-                if (i == 0) drawFrom = point;
-                else drawTo = point;
+                if (point1.y > Window.WINDOW_HEIGHT){
+                    point1.y = Window.WINDOW_HEIGHT;
+                    point1.x = (int) (((point1.y - point2.y) / rawSlope) + point2.x);
+                }
+                else if (point1.y < 0) {
+                    point1.y = 0;
+                    point1.x = (int) (((point1.y - point2.y) / rawSlope) + point2.x);
+                }
+
+                if (curPoint == 0) drawFrom = point1;
+                else drawTo = point1;
             }
-//            System.out.println(color.x + "," + color.y + "," + color.z);
-            g.setColor(new Color((float) (0.0039215686 * color.x), (float) (0.0039215686 * color.y), (float) (0.0039215686 * color.z)));
+
+            g.setColor(new Color(RGB_SCALE_MULTIPLIER * color.x, RGB_SCALE_MULTIPLIER * color.y, RGB_SCALE_MULTIPLIER * color.z));
             g.drawLine(drawFrom.x, drawFrom.y, drawTo.x, drawTo.y);
         }
     }
