@@ -86,14 +86,6 @@ public class GraphicsDraw
     /**
      * all in screen position
      */
-    public static void addLine2D(Vector2i from, Vector2i to, Vector3f color)
-    {
-        addLine2D(from, to, color, 1);
-    }
-
-    /**
-     * all in screen position
-     */
     public static void addLine2D(Vector2i from, Vector2i to, Vector3f color, int lifetime)
     {
         GraphicsDraw.lines.add(new Line2D(from, to, color, lifetime));
