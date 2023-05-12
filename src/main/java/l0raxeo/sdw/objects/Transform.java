@@ -35,7 +35,9 @@ public class Transform
         this.zIndex = position.z;
     }
 
-    // returns world coordinates
+    /**
+     * @return world coordinates
+     */
     public Vector2i position()
     {
         return new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
