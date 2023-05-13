@@ -55,23 +55,23 @@ public class ItemComponent extends Component
     private void rotateItemInHand()
     {
         float parentTheta = Camera.getAngleFromOriginToTarget(
-                parent.transform.position().x + (parent.transform.scale.x / 2),
-                parent.transform.position().y + (parent.transform.scale.y / 2),
+                parent.transform.worldPosition().x + (parent.transform.scale.x / 2),
+                parent.transform.worldPosition().y + (parent.transform.scale.y / 2),
                 MouseManager.getMouseX(),
                 MouseManager.getMouseY()
         );
 
         if ((parentTheta >= 270 && parentTheta <= 360) || (parentTheta >= 0 && parentTheta <= 90)) {
-            gameObject.transform.setPosition(parent.transform.position().sub(0, parent.transform.scale.y / 2).add((int) (parent.transform.scale.x * .85), 0));
+            gameObject.transform.setPosition(parent.transform.worldPosition().sub(0, parent.transform.scale.y / 2).add((int) (parent.transform.scale.x * .85), 0));
             gameObject.getComponent(ImageTexture.class).setFlip(false);
         } else if (parentTheta > 90 && parentTheta < 270) {
             gameObject.getComponent(ImageTexture.class).setFlip(true);
-            gameObject.transform.setPosition(parent.transform.position().sub(0, parent.transform.scale.y / 2));
+            gameObject.transform.setPosition(parent.transform.worldPosition().sub(0, parent.transform.scale.y / 2));
         }
 
         gameObject.transform.rotation = -Camera.getAngleFromOriginToTarget(
-                gameObject.transform.position().x,
-                gameObject.transform.position().y,
+                gameObject.transform.worldPosition().x,
+                gameObject.transform.worldPosition().y,
                 MouseManager.getMouseX(),
                 MouseManager.getMouseY()
         );

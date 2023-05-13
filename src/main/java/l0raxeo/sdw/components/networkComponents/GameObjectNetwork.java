@@ -46,8 +46,8 @@ public class GameObjectNetwork extends Component implements PacketHandler
     {
         String packet = "gon," +
                         gameObject.getUid() + "," +
-                        gameObject.transform.position().x + "," +
-                        gameObject.transform.position().y + "," +
+                        gameObject.transform.worldPosition().x + "," +
+                        gameObject.transform.worldPosition().y + "," +
                         gameObject.transform.scale.x + "," +
                         gameObject.transform.scale.y + "," +
                         gameObject.isDead();

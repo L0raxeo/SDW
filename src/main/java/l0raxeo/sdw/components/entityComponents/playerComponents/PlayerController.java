@@ -42,7 +42,7 @@ public class PlayerController extends Component
             move();
             look();
             GameClient.getInstance().sendData(
-                    "gon," + gameObject.getUid() + "," + gameObject.transform.position().x + "," + gameObject.transform.position().y + "," + gameObject.transform.getzIndex() + "," + gameObject.transform.scale.x + "," + gameObject.transform.scale.y + "," + gameObject.transform.rotation + "," + gameObject.isDead());
+                    "gon," + gameObject.getUid() + "," + gameObject.transform.worldPosition().x + "," + gameObject.transform.worldPosition().y + "," + gameObject.transform.getzIndex() + "," + gameObject.transform.scale.x + "," + gameObject.transform.scale.y + "," + gameObject.transform.rotation + "," + gameObject.isDead());
             GameClient.getInstance().sendData(
                     "comp," + gameObject.getUid() + "," + gameObject.getComponent(PlayerControlledTexture.class).uid() + "," + getDirection() + "," + xMove + "," + yMove
             );
@@ -106,13 +106,13 @@ public class PlayerController extends Component
     private void look()
     {
         direction = Camera.getAngleFromOriginToTarget(
-                gameObject.transform.position().x + (gameObject.transform.scale.x / 2),
-                gameObject.transform.position().y - (gameObject.transform.scale.y / 3),
+                gameObject.transform.worldPosition().x + (gameObject.transform.scale.x / 2),
+                gameObject.transform.worldPosition().y - (gameObject.transform.scale.y / 3),
                 MouseManager.getMouseX(), MouseManager.getMouseY()
         );
 
-        xCam = gameObject.transform.position().x - (Window.WINDOW_WIDTH / 2) + (gameObject.transform.scale.x / 2);
-        yCam = gameObject.transform.position().y - (Window.WINDOW_HEIGHT / 2) - (gameObject.transform.scale.y / 2);
+        xCam = gameObject.transform.worldPosition().x - (Window.WINDOW_WIDTH / 2) + (gameObject.transform.scale.x / 2);
+        yCam = gameObject.transform.worldPosition().y - (Window.WINDOW_HEIGHT / 2) - (gameObject.transform.scale.y / 2);
 
         Vector2i targetCamPos = new Vector2i(MouseManager.getMouseX(), MouseManager.getMouseY());
 

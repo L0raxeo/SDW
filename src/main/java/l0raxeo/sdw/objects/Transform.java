@@ -23,22 +23,16 @@ public class Transform
         init(position, scale, 0);
     }
 
-    /**
-     * Screen to world coordinates gets translated here
-     */
-    public void init(Vector3i position, Vector2i scale, float rotation)
+    public void init(Vector3i worldPosition, Vector2i scale, float rotation)
     {
         // world to screen coordinates
-        this.position = new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
+        this.position = new Vector2i(worldPosition.x, Window.WINDOW_HEIGHT - worldPosition.y);
         this.scale = scale;
         this.rotation = rotation;
-        this.zIndex = position.z;
+        this.zIndex = worldPosition.z;
     }
 
-    /**
-     * @return world coordinates
-     */
-    public Vector2i position()
+    public Vector2i worldPosition()
     {
         return new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
     }
@@ -53,21 +47,15 @@ public class Transform
         return getScreenPosition().add(scale.x / 2, scale.y / 2);
     }
 
-    /**
-     * @param position in world coords
-     */
-    public void setPosition(Vector2i position)
+    public void setPosition(Vector2i worldPosition)
     {
-        this.position = new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
+        this.position = new Vector2i(worldPosition.x, Window.WINDOW_HEIGHT - worldPosition.y);
     }
 
-    /**
-     * @param position position in world coordinates (includes zIndex)
-     */
-    public void setPosition(Vector3i position)
+    public void setPosition(Vector3i worldPosition)
     {
-        this.position = new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
-        setzIndex(position.z);
+        this.position = new Vector2i(worldPosition.x, Window.WINDOW_HEIGHT - worldPosition.y);
+        setzIndex(worldPosition.z);
     }
 
     public void setzIndex(int zIndex)
@@ -80,13 +68,10 @@ public class Transform
         return zIndex;
     }
 
-    /**
-     * @param offset in world coords
-     */
-    public void move(Vector2i offset)
+    public void move(Vector2i worldCoordinateOffset)
     {
-        this.position.x += offset.x;
-        this.position.y -= offset.y;
+        this.position.x += worldCoordinateOffset.x;
+        this.position.y -= worldCoordinateOffset.y;
     }
 
     @Override
@@ -97,7 +82,5 @@ public class Transform
 
         return t.position.equals(this.position) && t.scale.equals(this.scale);
     }
-
-
 
 }
