@@ -22,10 +22,11 @@ public class MultiplayerHandler
 
     public static String rawHost = null;
     public static int port = -1;
+    public static int CONNECTION_TEST_DELAY = 10000;
 
     public static void localThreadUpdate()
     {
-        if (GameClient.isConnected() && lastClientConnectionTest + 10000 < System.currentTimeMillis())
+        if (GameClient.isConnected() && lastClientConnectionTest + CONNECTION_TEST_DELAY < System.currentTimeMillis())
         {
             if (GameServer.isConnected())
             {
@@ -59,7 +60,7 @@ public class MultiplayerHandler
         }
     }
 
-    public static String createHost(int port, String username)
+    public static void createHost(int port, String username)
     {
         InetAddress ipAddress = null;
 
@@ -78,7 +79,6 @@ public class MultiplayerHandler
         createClient(ipAddress.getHostAddress(), port, username);
 
         MultiplayerHandler.socketServer = socketServer;
-        return ipAddress.getHostAddress();
     }
 
     public static void createClient(String rawHost, int port, String username)
