@@ -1,9 +1,8 @@
-package l0raxeo.sdw.scenes.game.items;
+package l0raxeo.sdw.scenes.game.map.items;
 
 import l0raxeo.sdw.objects.GameObject;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -15,7 +14,9 @@ public class ItemHandler
 {
 
     private final LinkedList<ItemType> storedItemTypes = new LinkedList<>();
-    private final LinkedList<GameObject> storedItemGameObjects = new LinkedList<>();
+    private final LinkedList<GameObject> storedGameObjects = new LinkedList<>();
+
+    // ITEM TYPE MANAGEMENT
 
     public void storeItemType(ItemType itemType)
     {
@@ -59,19 +60,38 @@ public class ItemHandler
         return result;
     }
 
-    public void storeItemGameObject(GameObject item)
+    public int getStoredItemTypeCount()
     {
-        storedItemGameObjects.offer(item);
+        return storedItemTypes.size();
     }
 
-    public GameObject retrieveStoredItemGameObject()
+    // ITEM GAME OBJECT MANAGEMENT
+
+    public void storeGameObject(GameObject item)
     {
-        return storedItemGameObjects.pop();
+        storedGameObjects.offer(item);
     }
 
-    public List<GameObject> peakAllStoredItemGameObjects()
+    public GameObject retrieveStoredGameObject()
     {
-        return storedItemGameObjects.stream().toList();
+        return storedGameObjects.pop();
+    }
+
+    public List<GameObject> retrieveAllStoredGameObjects()
+    {
+        List<GameObject> result = storedGameObjects.stream().toList();
+        storedGameObjects.clear();
+        return result;
+    }
+
+    public List<GameObject> peakAllStoredGameObjects()
+    {
+        return storedGameObjects.stream().toList();
+    }
+
+    public int getStoredGameObjectCount()
+    {
+        return storedGameObjects.size();
     }
 
 }

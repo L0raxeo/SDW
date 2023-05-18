@@ -1,32 +1,20 @@
-package l0raxeo.sdw.scenes.assetInitializers;
+package l0raxeo.sdw.scenes.assetLoaders;
 
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.scenes.game.Game;
-import l0raxeo.sdw.ui.GuiLayer;
 import l0raxeo.sdw.ui.GuiText;
 import org.joml.Vector2i;
 
 import java.awt.*;
-import java.util.Objects;
 
-public class GameAssets implements AssetInitializer
+public class GameAssets extends LoadingScreen implements AssetLoader
 {
 
     public boolean assetsLoaded = false;
 
-    @Override
-    public void renderLoadingScreen(Graphics g)
-    {
-        Window.setBackdrop(Color.BLACK);
-        GuiText.drawString(
-                g,
-                "Loading...",
-                new Vector2i(Window.WINDOW_WIDTH / 2, Window.WINDOW_HEIGHT / 2),
-                true,
-                Color.WHITE,
-                AssetPool.getFont("assets/fonts/default_font.ttf", 24)
-        );
+    public GameAssets(long durationMilli) {
+        super(durationMilli);
     }
 
     @Override
@@ -63,7 +51,7 @@ public class GameAssets implements AssetInitializer
 
         ((Game) Window.getScene()).mapHandler.generateTileMap();
 
-        while (startLoadingTime + 1000 > System.currentTimeMillis())
+        while (startLoadingTime + MIN_DURATION_MILLI > System.currentTimeMillis())
             assetsLoaded = false;
 
         assetsLoaded = true;

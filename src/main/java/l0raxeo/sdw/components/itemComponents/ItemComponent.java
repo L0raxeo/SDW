@@ -5,7 +5,7 @@ import l0raxeo.sdw.components.gfxComponents.ImageTexture;
 import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.sdw.input.mouse.MouseManager;
 import l0raxeo.rendering.gameRendering.Camera;
-import l0raxeo.sdw.scenes.game.items.ItemState;
+import l0raxeo.sdw.scenes.game.map.items.ItemState;
 
 public class ItemComponent extends Component
 {
@@ -90,6 +90,11 @@ public class ItemComponent extends Component
     public void unassign()
     {
         this.parent = null;
+    }
+
+    public void setItemState(ItemState itemState)
+    {
+        this.itemState = itemState;
     }
 
 }

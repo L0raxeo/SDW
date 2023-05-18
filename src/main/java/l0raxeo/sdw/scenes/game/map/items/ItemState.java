@@ -1,4 +1,4 @@
-package l0raxeo.sdw.scenes.game.items;
+package l0raxeo.sdw.scenes.game.map.items;
 
 public enum ItemState
 {

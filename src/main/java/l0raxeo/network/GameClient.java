@@ -1,7 +1,9 @@
 package l0raxeo.network;
 
 import l0raxeo.network.clientInfo.ClientInfo;
+import l0raxeo.network.packetManagement.ClientPacketHandler;
 import l0raxeo.sdw.components.entityComponents.HealthSystem;
+import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerAttributes;
 import l0raxeo.sdw.components.networkComponents.GameObjectNetwork;
 import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerControlledTexture;
 import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerController;
@@ -72,16 +74,8 @@ public class GameClient extends Thread
         String[] parsedPacket = strPacket.split(",");
         switch (parsedPacket[0])
         {
-            case "gon", "comp" -> {
-                try {
-                    Window.getScene()
-                            .getGameObjectWithUid(Integer.parseInt(parsedPacket[1]))
-                            .getComponent(GameObjectNetwork.class).receive(strPacket);
-                } catch (NullPointerException e) {
-                    System.out.println("[Client] - WARNING: could not handle packet '" + parsedPacket[0] + "'");
-                }
-            }
-            case "cm" -> System.out.println("[Client]: " + parsedPacket[1]);
+            case "gon", "comp" -> ClientPacketHandler.handleGameObjectNetworkAndComponentNetworkPacket(strPacket, parsedPacket);
+            case "cm" -> ClientPacketHandler.handleConsoleMessagePacket(parsedPacket[1]);
             case "lc" -> {
                 myUid = Integer.parseInt(parsedPacket[1]);
                 System.out.println("[Client]: Connected to server! My UID: " + myUid);
@@ -112,8 +106,8 @@ public class GameClient extends Thread
                     new PlayerController(Integer.parseInt(parsedPacket[1])),
                     new GameObjectNetwork(),
                     new PlayerInventory(Integer.parseInt(parsedPacket[1]) == myUid),
-                    new HealthSystem(true)
-
+                    new HealthSystem(true),
+                    new PlayerAttributes(Integer.parseInt(parsedPacket[1]))
             ));
             case "goidu" -> GameObject.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
         }

@@ -3,7 +3,7 @@ package l0raxeo.sdw.scenes.game.map;
 import l0raxeo.rendering.Window;
 import l0raxeo.rendering.gameRendering.Camera;
 import l0raxeo.sdw.dataStructure.AssetPool;
-import l0raxeo.sdw.scenes.game.items.ItemHandler;
+import l0raxeo.sdw.scenes.game.map.items.ItemHandler;
 import org.joml.Vector2i;
 
 import java.awt.*;

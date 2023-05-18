@@ -1,4 +1,4 @@
-package l0raxeo.sdw.scenes.game.items;
+package l0raxeo.sdw.scenes.game.map.items;
 
 import l0raxeo.sdw.components.gfxComponents.ImageTexture;
 import l0raxeo.sdw.components.itemComponents.ItemComponent;
@@ -43,7 +43,7 @@ public enum ItemType
         return EMPTY_ITEM;
     }
 
-    public static GameObject createItem(ItemType item)
+    public static GameObject createItemFromType(ItemType item)
     {
         switch (item)
         {
@@ -64,7 +64,6 @@ public enum ItemType
                         "Barbed Wire",
                         new Vector3i(),
                         new Vector2i(64, 64),
-                        new ItemComponent(),
                         new ImageTexture(
                                 BARBED_WIRE.cardImage,
                                 new Vector2i(32, 32)
@@ -82,7 +81,7 @@ public enum ItemType
         }
 
         // returns an empty item by default
-        return createItem(EMPTY_ITEM);
+        return createItemFromType(EMPTY_ITEM);
     }
 
 }

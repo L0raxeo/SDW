@@ -3,11 +3,11 @@ package l0raxeo.sdw.components.networkComponents;
 import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.dataStructure.exceptions.PacketMismatchException;
 import l0raxeo.network.GameClient;
-import l0raxeo.network.PacketHandler;
+import l0raxeo.network.packetManagement.PacketTransceiver;
 import org.joml.Vector2i;
 import org.joml.Vector3i;
 
-public class GameObjectNetwork extends Component implements PacketHandler
+public class GameObjectNetwork extends Component implements PacketTransceiver
 {
 
     /*

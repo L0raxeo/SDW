@@ -3,8 +3,7 @@ package l0raxeo.sdw.scenes.game.initializers;
 import l0raxeo.rendering.Window;
 import l0raxeo.sdw.scenes.game.Game;
 import l0raxeo.sdw.scenes.game.GameState;
-import l0raxeo.sdw.scenes.game.items.ItemHandler;
-import l0raxeo.sdw.scenes.game.items.ItemType;
+import l0raxeo.sdw.scenes.game.map.items.ItemType;
 import l0raxeo.sdw.ui.GuiLayer;
 import l0raxeo.sdw.ui.components.GuiImageButton;
 import org.joml.Vector2i;
@@ -12,13 +11,13 @@ import org.joml.Vector2i;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class DraftStateInitializer implements GameStateInitializer
+public class DraftStateInitializer extends GameStateInitializer
 {
 
     private final Game gameScene;
 
     private boolean drafting = false;
-    private int numOfDrafts = 2;
+    private int NUM_DRAFTS = 2; // TODO this can be changed via game settings settings
 
     public DraftStateInitializer(Game gameScene)
     {
@@ -32,12 +31,9 @@ public class DraftStateInitializer implements GameStateInitializer
     }
 
     @Override
-    public void start() {}
-
-    @Override
     public void update(double dt)
     {
-        if (numOfDrafts <= 0) //after initial number of drafts are used it changes state
+        if (NUM_DRAFTS <= 0) //after initial number of drafts are used it changes state
         {
             GameState.setState(GameState.BUILD);
             return;
@@ -68,7 +64,7 @@ public class DraftStateInitializer implements GameStateInitializer
                     },
                     () -> {
                         gameScene.mapHandler.itemHandler.storeItemType(item);
-                        numOfDrafts--;
+                        NUM_DRAFTS--;
                         GuiLayer.getInstance().clear();
                         drafting = false;
                     }

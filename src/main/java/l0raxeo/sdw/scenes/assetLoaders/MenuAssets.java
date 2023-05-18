@@ -1,16 +1,11 @@
-package l0raxeo.sdw.scenes.assetInitializers;
+package l0raxeo.sdw.scenes.assetLoaders;
 
 import l0raxeo.sdw.dataStructure.AssetPool;
 
 import java.awt.*;
 
-public class MenuAssets implements AssetInitializer
+public class MenuAssets implements AssetLoader
 {
-
-    @Override
-    public void renderLoadingScreen(Graphics g) {
-
-    }
 
     @Override
     public void loadAssets()

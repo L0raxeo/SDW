@@ -2,15 +2,15 @@ package l0raxeo.sdw.scenes.game.initializers;
 
 import java.awt.*;
 
-public interface GameStateInitializer
+public abstract class GameStateInitializer
 {
 
-    void loadResources();
+    public void loadResources() {}
 
-    void start();
+    public void start() {}
 
-    void update(double dt);
+    public void update(double dt) {}
 
-    void render(Graphics g);
+    public void render(Graphics g) {}
 
 }
