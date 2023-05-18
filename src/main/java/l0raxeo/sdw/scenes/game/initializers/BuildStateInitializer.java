@@ -19,6 +19,7 @@ public class BuildStateInitializer implements GameStateInitializer
 {
 
     private final Game gameScene;
+    private final ItemHandler itemHandler;
 
     private ItemType itemTypeHeld = ItemType.EMPTY_ITEM;
     private boolean finishedBuilding = false;
@@ -26,18 +27,13 @@ public class BuildStateInitializer implements GameStateInitializer
     public BuildStateInitializer(Game gameScene)
     {
         this.gameScene = gameScene;
+        this.itemHandler = gameScene.mapHandler.itemHandler;
     }
 
     @Override
     public void loadResources()
     {
-
-    }
-
-    @Override
-    public void init()
-    {
-
+        Window.setBackdrop(Color.DARK_GRAY);
     }
 
     @Override
@@ -54,7 +50,7 @@ public class BuildStateInitializer implements GameStateInitializer
     {
         if (MouseManager.onPress(MouseEvent.BUTTON1))
         {
-            gameScene.mapHandler.itemHandler.storeItemGameObject(ItemType.createItem(itemTypeHeld));
+            itemHandler.storeItemGameObject(ItemType.createItem(itemTypeHeld));
             itemTypeHeld = gameScene.mapHandler.itemHandler.retrieveItemType();
 
             if (itemTypeHeld == ItemType.EMPTY_ITEM)

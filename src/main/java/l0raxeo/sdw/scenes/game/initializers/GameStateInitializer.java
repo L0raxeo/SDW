@@ -7,8 +7,6 @@ public interface GameStateInitializer
 
     void loadResources();
 
-    void init();
-
     void start();
 
     void update(double dt);
