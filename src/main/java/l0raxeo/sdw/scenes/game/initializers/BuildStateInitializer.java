@@ -16,7 +16,6 @@ import java.util.HashMap;
 public class BuildStateInitializer extends GameStateInitializer
 {
 
-    private final Game gameScene;
     private final MiniMap miniMap;
     private final ItemHandler itemHandler;
 
@@ -27,7 +26,6 @@ public class BuildStateInitializer extends GameStateInitializer
 
     public BuildStateInitializer(Game gameScene)
     {
-        this.gameScene = gameScene;
         this.itemHandler = gameScene.mapHandler.itemHandler;
         this.miniMap = gameScene.mapHandler.miniMap;
     }

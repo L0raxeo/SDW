@@ -1,8 +1,6 @@
 package l0raxeo.network;
 
-import l0raxeo.sdw.components.networkComponents.GameObjectNetwork;
 import l0raxeo.sdw.dataStructure.exceptions.DuplicateNetworkException;
-import l0raxeo.rendering.Window;
 import l0raxeo.network.clientInfo.ClientInfoServer;
 
 import java.io.IOException;
