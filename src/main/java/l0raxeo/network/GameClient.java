@@ -13,6 +13,8 @@ import l0raxeo.rendering.Window;
 import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.sdw.prefabs.Prefabs;
 import l0raxeo.sdw.scenes.game.Game;
+import l0raxeo.sdw.scenes.game.GameState;
+import l0raxeo.sdw.scenes.game.initializers.BuildStateInitializer;
 import org.joml.Vector2i;
 import org.joml.Vector3i;
 
@@ -110,6 +112,8 @@ public class GameClient extends Thread
                     new PlayerAttributes(Integer.parseInt(parsedPacket[1]))
             ));
             case "goidu" -> GameObject.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
+            case "gbs" -> GameState.setState(GameState.BUILD);
+            case "gfs" -> GameState.setState(GameState.FIGHT);
         }
     }
 

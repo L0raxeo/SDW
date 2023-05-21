@@ -88,6 +88,28 @@ public class MouseManager implements MouseListener, MouseMotionListener
         return false;
     }
 
+    public static boolean hasInput()
+    {
+        for (MBtn mBtn : allMBtns)
+        {
+            if (mBtn.getState() == MBtnState.PRESSED || mBtn.getState() == MBtnState.RELEASED || mBtn.getState() == MBtnState.HELD)
+                return true;
+        }
+
+        return false;
+    }
+
+    public static boolean hasPressedInput()
+    {
+        for (MBtn mBtn : allMBtns)
+        {
+            if (mBtn.getState() == MBtnState.PRESSED)
+                return true;
+        }
+
+        return false;
+    }
+
     // Getters
 
     public static int getMouseX()
