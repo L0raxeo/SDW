@@ -1,10 +1,7 @@
 package l0raxeo.sdw.scenes.game;
 
 import l0raxeo.rendering.Window;
-import l0raxeo.sdw.scenes.game.initializers.BuildStateInitializer;
-import l0raxeo.sdw.scenes.game.initializers.DraftStateInitializer;
-import l0raxeo.sdw.scenes.game.initializers.FightStateInitializer;
-import l0raxeo.sdw.scenes.game.initializers.GameStateInitializer;
+import l0raxeo.sdw.scenes.game.initializers.*;
 import l0raxeo.sdw.ui.GuiLayer;
 
 import java.util.Objects;
@@ -15,7 +12,7 @@ public enum GameState
     DRAFT(new DraftStateInitializer((Game) Window.getScene(Game.class))),
     BUILD(new BuildStateInitializer((Game) Objects.requireNonNull(Window.getScene(Game.class)))),
     FIGHT(new FightStateInitializer((Game) Objects.requireNonNull(Window.getScene(Game.class)))),
-    NONE(null);
+    EMPTY(new EmptyStateInitializer());
 
     public final GameStateInitializer initializer;
 
@@ -24,17 +21,13 @@ public enum GameState
         this.initializer = initializer;
     }
 
-    private static GameState gameState = NONE;
+    private static GameState gameState = EMPTY;
 
     public static void setState(GameState state)
     {
         GuiLayer.getInstance().clear();
-        if (state.initializer != null)
-        {
-            state.initializer.loadResources();
-            state.initializer.start();
-        }
-
+        state.initializer.loadResources();
+        state.initializer.start();
         gameState = state;
     }
 

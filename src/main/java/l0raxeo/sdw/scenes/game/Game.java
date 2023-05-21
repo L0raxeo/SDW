@@ -8,6 +8,7 @@ import l0raxeo.sdw.scenes.game.map.MapHandler;
 import java.awt.*;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 
 public class Game extends Scene
 {
@@ -35,46 +36,49 @@ public class Game extends Scene
     @Override
     public void update(double dt)
     {
-        if (!gameAssets.assetsLoaded)
-            return;
-
-        getGameObjects().sort(renderSorter);
-        getGameObjects().forEach
-                (
-                gameObject -> gameObject.update(dt)
-                );
-
-        try {
+        if (gameAssets.assetsLoaded)
+        {
+            getGameObjects().sort(renderSorter);
+            updateGameObjects(dt);
             GameState.getGameState().initializer.update(dt);
-        } catch (NullPointerException e) {
-            System.out.println("[Game] - WARNING: Null Pointer Exception when updating the game state");
+        }
+    }
+
+    private void updateGameObjects(double dt)
+    {
+        Iterator<GameObject> iterator = getGameObjects().iterator();
+        while (iterator.hasNext())
+        {
+            GameObject gameObject = iterator.next();
+            if (gameObject.isDead())
+            {
+                iterator.remove();
+                continue;
+            }
+
+            gameObject.update(dt);
         }
     }
 
     @Override
     public void render(Graphics g)
     {
+        if (!renderLoadingScreen(g))
+        {
+            GameState.getGameState().initializer.render(g);
+            getGameObjects().forEach(gameObject -> gameObject.render(g));
+        }
+    }
+
+    private boolean renderLoadingScreen(Graphics g)
+    {
         if (!gameAssets.assetsLoaded)
         {
             gameAssets.renderLoadingScreen(g);
-            return;
+            return true;
         }
 
-        try {
-            GameState.getGameState().initializer.render(g);
-        } catch (NullPointerException e) {
-            System.out.println("[Game] - WARNING: Null Pointer Exception when rendering game state");
-        }
-
-        try {
-            getGameObjects().forEach(
-                    gameObject -> gameObject.getAllComponents().forEach(
-                            component -> component.render(g)
-                    )
-            );
-        } catch (ConcurrentModificationException e) {
-            System.out.println("[Game] - WARNING: Concurrent Modification Exception when rendering game objects");
-        }
+        return false;
     }
 
     @Override

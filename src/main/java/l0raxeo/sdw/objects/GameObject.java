@@ -2,6 +2,7 @@ package l0raxeo.sdw.objects;
 
 import l0raxeo.sdw.components.Component;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +81,12 @@ public class GameObject
         for (Component component : components) {
             component.update(dt);
         }
+    }
+
+    public void render(Graphics g)
+    {
+        for (Component component : components)
+            component.render(g);
     }
 
     public void start() {

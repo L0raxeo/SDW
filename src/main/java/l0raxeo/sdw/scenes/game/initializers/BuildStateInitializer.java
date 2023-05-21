@@ -44,6 +44,7 @@ public class BuildStateInitializer extends GameStateInitializer
 
         miniMap.setMiniMapBorderSize(new Vector2i(0, 0), new Vector2i(0, 0));
         miniMap.renderBuildingGrid(true);
+        mouseTileSnapPosition = new Vector2i();
     }
 
     @Override
