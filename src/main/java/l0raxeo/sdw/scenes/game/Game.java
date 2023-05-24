@@ -7,7 +7,6 @@ import l0raxeo.sdw.scenes.game.map.MapHandler;
 
 import java.awt.*;
 import java.util.Comparator;
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 public class Game extends Scene
