@@ -74,8 +74,7 @@ public enum ItemType
                 return Prefabs.generate(
                     "Empty",
                     new Vector3i(),
-                    new Vector2i(),
-                    new ItemComponent()
+                    new Vector2i()
                 );
             }
         }
