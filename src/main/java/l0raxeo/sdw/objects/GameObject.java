@@ -1,5 +1,6 @@
 package l0raxeo.sdw.objects;
 
+import l0raxeo.network.GameClient;
 import l0raxeo.sdw.components.Component;
 
 import java.awt.*;
@@ -10,7 +11,7 @@ public class GameObject
 {
 
     // Object ID System
-    private static int ID_COUNTER = 0;
+    public static int ID_COUNTER = 0;
 
     private final String name;
     private final List<Component> components;
@@ -75,6 +76,8 @@ public class GameObject
         c.generateId();
         this.components.add(c);
         c.gameObject = this;
+
+        GameClient.getInstance().sendData("coidu," + Component.ID_COUNTER);
     }
 
     public void update(double dt) {
@@ -127,11 +130,6 @@ public class GameObject
     {
         if (this.uid == -1)
             this.uid = ID_COUNTER++;
-    }
-
-    public static int getIdCounter()
-    {
-        return ID_COUNTER;
     }
 
     public static void checkAndUpdateIdCounter(int count)

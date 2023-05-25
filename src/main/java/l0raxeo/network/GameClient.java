@@ -103,7 +103,7 @@ public class GameClient extends Thread
             case "np" -> {
                 Component[] playerComponents = {
                         new PlayerControlledTexture(),
-                        new PlayerController(Integer.parseInt(parsedPacket[1])),
+                        Integer.parseInt(parsedPacket[1]) == myUid ? new PlayerController(Integer.parseInt(parsedPacket[1])): null,
                         new GameObjectNetwork(),
                         new HealthSystem(true),
                         new PlayerAttributes(Integer.parseInt(parsedPacket[1])),
@@ -118,6 +118,7 @@ public class GameClient extends Thread
                 ));
             }
             case "goidu" -> GameObject.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
+            case "cidu" -> Component.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
             case "gbs" -> GameState.setState(GameState.BUILD);
             case "gfs" -> GameState.setState(GameState.FIGHT);
         }

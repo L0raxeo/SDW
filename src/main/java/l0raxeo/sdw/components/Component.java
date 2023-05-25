@@ -8,7 +8,7 @@ public abstract class Component
 {
 
     // component class in general
-    private static int ID_COUNTER = 0;
+    public static int ID_COUNTER = 0;
     // associated with individual components/objects
     private int uid = -1;
 
@@ -40,5 +40,11 @@ public abstract class Component
     }
 
     public void handlePacketArgs(String args) {}
+
+    public static void checkAndUpdateIdCounter(int count)
+    {
+        if (count > ID_COUNTER)
+            ID_COUNTER = count;
+    }
 
 }

@@ -33,7 +33,7 @@ public abstract class Scene
         gameObjects.add(go);
         go.start();
 
-        GameClient.getInstance().sendData("goidu," + GameObject.getIdCounter());
+        GameClient.getInstance().sendData("goidu," + GameObject.ID_COUNTER);
     }
 
     public GameObject getGameObjectWithUid(int uid)

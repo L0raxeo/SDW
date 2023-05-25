@@ -37,20 +37,16 @@ public class PlayerController extends Component
     @Override
     public void update(double dt)
     {
-        if (clientUid == GameClient.getInstance().myUid)
+        move();
+        look();
+        GameClient.getInstance().sendData(
+                "gon," + gameObject.getUid() + "," + gameObject.transform.worldPosition().x + "," + gameObject.transform.worldPosition().y + "," + gameObject.transform.getzIndex() + "," + gameObject.transform.scale.x + "," + gameObject.transform.scale.y + "," + gameObject.transform.rotation + "," + gameObject.isDead());
+        GameClient.getInstance().sendData(
+                "comp," + gameObject.getUid() + "," + gameObject.getComponent(PlayerControlledTexture.class).uid() + "," + getDirection() + "," + xMove + "," + yMove
+        );
+        if (MouseManager.onPress(MouseEvent.BUTTON1))
         {
-            move();
-            look();
-            GameClient.getInstance().sendData(
-                    "gon," + gameObject.getUid() + "," + gameObject.transform.worldPosition().x + "," + gameObject.transform.worldPosition().y + "," + gameObject.transform.getzIndex() + "," + gameObject.transform.scale.x + "," + gameObject.transform.scale.y + "," + gameObject.transform.rotation + "," + gameObject.isDead());
-            GameClient.getInstance().sendData(
-                    "comp," + gameObject.getUid() + "," + gameObject.getComponent(PlayerControlledTexture.class).uid() + "," + getDirection() + "," + xMove + "," + yMove
-            );
-
-            if (MouseManager.onPress(MouseEvent.BUTTON1))
-            {
-                gameObject.getComponent(HealthSystem.class).damage(5);
-            }
+            gameObject.getComponent(HealthSystem.class).damage(5);
         }
     }
 
