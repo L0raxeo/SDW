@@ -1,26 +1,23 @@
 package l0raxeo.sdw.scenes.assetLoaders;
 
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.scenes.game.Game;
-import l0raxeo.sdw.ui.GuiText;
-import org.joml.Vector2i;
 
-import java.awt.*;
-
-public class GameAssets extends LoadingScreen implements AssetLoader
+public class GameAssets implements AssetLoader
 {
 
     public boolean assetsLoaded = false;
 
     public GameAssets(long durationMilli) {
-        super(durationMilli);
+
     }
 
     @Override
     public void loadAssets()
     {
-        long startLoadingTime = System.currentTimeMillis();
+        LoadingScreen.load();
+
         AssetPool.getBufferedImage("assets/textures/entities/items/hairball_spitting_cat.png");
         AssetPool.getBufferedImage("assets/textures/entities/items/barbed_wire.png");
         AssetPool.getBufferedImage("assets/textures/entities/players/noah/noah_standing_back.png");
@@ -49,12 +46,11 @@ public class GameAssets extends LoadingScreen implements AssetLoader
         AssetPool.getBufferedImage("assets/textures/gui/player/inventory/inventory_slot_1.png");
         AssetPool.getBufferedImage("assets/textures/gui/player/inventory/inventory_slot_2.png");
 
-        ((Game) Window.getScene()).mapHandler.generateTileMap();
-
-        while (startLoadingTime + MIN_DURATION_MILLI > System.currentTimeMillis())
-            assetsLoaded = false;
+        ((Game) AppWindow.getScene()).mapHandler.generateTileMap();
 
         assetsLoaded = true;
+
+        LoadingScreen.stop();
     }
 
     @Override

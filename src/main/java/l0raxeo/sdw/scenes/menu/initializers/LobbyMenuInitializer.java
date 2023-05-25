@@ -3,7 +3,7 @@ package l0raxeo.sdw.scenes.menu.initializers;
 import l0raxeo.network.GameServer;
 import l0raxeo.network.MultiplayerHandler;
 import l0raxeo.network.clientInfo.ClientInfo;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.dataStructure.encryption.Encryptor;
 import l0raxeo.sdw.scenes.menu.MenuState;
@@ -28,7 +28,7 @@ public class LobbyMenuInitializer implements MenuStateInitializer
                 (
                         "Join_Code",
                         "Join Code: " + Encryptor.encrypt(rawHost),
-                        new Vector2i(l0raxeo.rendering.Window.WINDOW_WIDTH / 2, 64),
+                        new Vector2i(AppWindow.WINDOW_WIDTH / 2, 64),
                         Color.WHITE,
                         AssetPool.getFont("assets/fonts/default_font.ttf", 32)
                 )
@@ -38,7 +38,7 @@ public class LobbyMenuInitializer implements MenuStateInitializer
                 (
                         "Port",
                         "Port: " + port,
-                        new Vector2i(l0raxeo.rendering.Window.WINDOW_WIDTH / 2, 128),
+                        new Vector2i(AppWindow.WINDOW_WIDTH / 2, 128),
                         Color.WHITE,
                         AssetPool.getFont("assets/fonts/default_font.ttf", 32)
                 )
@@ -48,7 +48,7 @@ public class LobbyMenuInitializer implements MenuStateInitializer
         {
             GuiLayer.getInstance().addGuiComponent(new GuiButton(
                     "Start_Game",
-                    new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 160),
+                    new Vector2i(AppWindow.WINDOW_WIDTH / 2 - 128, 160),
                     new Vector2i(256, 64),
                     "Start Game",
                     AssetPool.getFont("assets/fonts/default_font.ttf", 32),
@@ -60,7 +60,7 @@ public class LobbyMenuInitializer implements MenuStateInitializer
 
         GuiLayer.getInstance().addGuiComponent(new GuiButton(
                 "Leave_Server",
-                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, 256),
+                new Vector2i(AppWindow.WINDOW_WIDTH / 2 - 128, 256),
                 new Vector2i(256, 64),
                 "Leave Lobby",
                 AssetPool.getFont("assets/fonts/default_font.ttf", 32),
@@ -83,7 +83,7 @@ public class LobbyMenuInitializer implements MenuStateInitializer
                 GuiText.drawString(
                         g,
                         playerList.get(i).getUsername(),
-                        new Vector2i(Window.WINDOW_WIDTH / 2, 384 + (i * 32)),
+                        new Vector2i(AppWindow.WINDOW_WIDTH / 2, 384 + (i * 32)),
                         true,
                         Color.WHITE,
                         AssetPool.getFont("assets/fonts/default_font.ttf", 32)

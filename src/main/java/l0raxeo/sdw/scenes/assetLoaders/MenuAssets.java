@@ -2,8 +2,6 @@ package l0raxeo.sdw.scenes.assetLoaders;
 
 import l0raxeo.sdw.dataStructure.AssetPool;
 
-import java.awt.*;
-
 public class MenuAssets implements AssetLoader
 {
 

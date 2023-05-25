@@ -1,6 +1,6 @@
 package l0raxeo.sdw.scenes.menu;
 
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.scenes.Scene;
 import l0raxeo.sdw.scenes.assetLoaders.MenuAssets;
@@ -32,7 +32,7 @@ public class Menu extends Scene
     {
         GuiLayer.getInstance().addGuiComponent(new GuiButton(
                 "cancel_btn",
-                new Vector2i(Window.WINDOW_WIDTH / 2 - 128, yPos),
+                new Vector2i(AppWindow.WINDOW_WIDTH / 2 - 128, yPos),
                 new Vector2i(256, 64),
                 "Cancel",
                 AssetPool.getFont("assets/fonts/default_font.ttf", 32),

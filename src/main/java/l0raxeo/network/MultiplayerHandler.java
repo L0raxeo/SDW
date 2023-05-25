@@ -1,7 +1,7 @@
 package l0raxeo.network;
 
 import l0raxeo.network.clientInfo.ClientInfoServer;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -48,7 +48,7 @@ public class MultiplayerHandler
             if (!clientConnectionValid)
             {
                 disconnectClient();
-                Window.getScene().init();
+                AppWindow.getScene().init();
                 serverConnectionsValid.clear();
                 clientConnectionValid = true;
                 return;

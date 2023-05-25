@@ -6,7 +6,7 @@ import l0raxeo.sdw.components.entityComponents.HealthSystem;
 import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
 import l0raxeo.rendering.gameRendering.Camera;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import org.joml.Vector2i;
 
 import java.awt.event.MouseEvent;
@@ -111,8 +111,8 @@ public class PlayerController extends Component
                 MouseManager.getMouseX(), MouseManager.getMouseY()
         );
 
-        xCam = gameObject.transform.worldPosition().x - (Window.WINDOW_WIDTH / 2) + (gameObject.transform.scale.x / 2);
-        yCam = gameObject.transform.worldPosition().y - (Window.WINDOW_HEIGHT / 2) - (gameObject.transform.scale.y / 2);
+        xCam = gameObject.transform.worldPosition().x - (AppWindow.WINDOW_WIDTH / 2) + (gameObject.transform.scale.x / 2);
+        yCam = gameObject.transform.worldPosition().y - (AppWindow.WINDOW_HEIGHT / 2) - (gameObject.transform.scale.y / 2);
 
         Vector2i targetCamPos = new Vector2i(MouseManager.getMouseX(), MouseManager.getMouseY());
 

@@ -62,22 +62,8 @@ public class Game extends Scene
     @Override
     public void render(Graphics g)
     {
-        if (!renderLoadingScreen(g))
-        {
-            GameState.getGameState().initializer.render(g);
-            getGameObjects().forEach(gameObject -> gameObject.render(g));
-        }
-    }
-
-    private boolean renderLoadingScreen(Graphics g)
-    {
-        if (!gameAssets.assetsLoaded)
-        {
-            gameAssets.renderLoadingScreen(g);
-            return true;
-        }
-
-        return false;
+        GameState.getGameState().initializer.render(g);
+        getGameObjects().forEach(gameObject -> gameObject.render(g));
     }
 
     @Override

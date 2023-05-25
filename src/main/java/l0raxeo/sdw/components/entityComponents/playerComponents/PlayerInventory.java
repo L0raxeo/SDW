@@ -1,6 +1,6 @@
 package l0raxeo.sdw.components.entityComponents.playerComponents;
 
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.input.keyboard.KeyManager;
@@ -20,7 +20,7 @@ public class PlayerInventory extends Component
     // slots: 0, 1, 2
     private int curSlot = 0;
 
-    public PlayerInventory(boolean visible)
+    public PlayerInventory()
     {
         for (int i = 0; i < 3; i++)
             slotTextures[i] = AssetPool.getBufferedImage("assets/textures/gui/player/inventory/inventory_slot_" + i + ".png");
@@ -43,7 +43,7 @@ public class PlayerInventory extends Component
             g.drawImage(
                     slotTextures[s],
                     s * (slotTextures[s == 0 ? s : s - 1].getWidth() * 2) + (s == 2 ? (slotTextures[0].getWidth() * 2) - (slotTextures[1].getWidth() * 2) : 0),
-                    Window.WINDOW_HEIGHT - (slotTextures[s].getHeight() * 2),
+                    AppWindow.WINDOW_HEIGHT - (slotTextures[s].getHeight() * 2),
                     slotTextures[s].getWidth() * 2,
                     slotTextures[s].getHeight() * 2,
                     null

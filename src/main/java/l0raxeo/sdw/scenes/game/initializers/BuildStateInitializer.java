@@ -1,12 +1,17 @@
 package l0raxeo.sdw.scenes.game.initializers;
 
-import l0raxeo.rendering.Window;
+import l0raxeo.network.GameClient;
+import l0raxeo.network.MultiplayerHandler;
+import l0raxeo.rendering.AppWindow;
+import l0raxeo.sdw.dataStructure.AssetPool;
+import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
 import l0raxeo.sdw.scenes.game.Game;
 import l0raxeo.sdw.scenes.game.GameState;
 import l0raxeo.sdw.scenes.game.map.items.ItemHandler;
 import l0raxeo.sdw.scenes.game.map.items.ItemType;
 import l0raxeo.sdw.scenes.game.map.MiniMap;
+import l0raxeo.sdw.ui.GuiText;
 import org.joml.Vector2i;
 
 import java.awt.*;
@@ -24,6 +29,8 @@ public class BuildStateInitializer extends GameStateInitializer
 
     private Vector2i mouseTileSnapPosition;
 
+    private boolean readyToFight = false;
+
     public BuildStateInitializer(Game gameScene)
     {
         this.itemHandler = gameScene.mapHandler.itemHandler;
@@ -33,7 +40,7 @@ public class BuildStateInitializer extends GameStateInitializer
     @Override
     public void loadResources()
     {
-        Window.setBackdrop(Color.DARK_GRAY);
+        AppWindow.setBackdrop(Color.DARK_GRAY);
     }
 
     @Override
@@ -51,30 +58,57 @@ public class BuildStateInitializer extends GameStateInitializer
     public void update(double dt)
     {
         mouseTileSnapPosition = miniMap.tileSnapPosition(MouseManager.getMouseScreenPosition());
-        if (MouseManager.onPress(MouseEvent.BUTTON1))
-        {
-            placedItemTypes.put(selectedItemType, mouseTileSnapPosition);
-            itemHandler.storeGameObject(ItemType.createItemFromType(selectedItemType));
-            selectedItemType = itemHandler.retrieveItemType();
 
-            if (selectedItemType == ItemType.EMPTY_ITEM)
-                GameState.setState(GameState.FIGHT);
-        }
+        if (MouseManager.onPress(MouseEvent.BUTTON1))
+            placeItem();
+    }
+
+    private void placeItem()
+    {
+        placedItemTypes.put(selectedItemType, mouseTileSnapPosition);
+        itemHandler.storeGameObject(ItemType.createItemFromType(selectedItemType));
+        selectedItemType = itemHandler.retrieveItemType();
+
+        readyToFight = selectedItemType == ItemType.EMPTY_ITEM;
     }
 
     @Override
     public void render(Graphics g)
     {
-        miniMap.render(g);
+        if (!readyToFight)
+        {
+            miniMap.render(g);
+            renderPlacedItems(g);
+            renderSelectedItems(g);
+        }
+        else
+        {
+            GuiText.drawString(g, "Ready to build!", new Vector2i(AppWindow.WINDOW_WIDTH / 2, AppWindow.WINDOW_HEIGHT / 2), true, Color.GREEN, AssetPool.getFont("assets/fonts/default_font.ttf", 32));
 
+            if (MultiplayerHandler.isHosting())
+                promptFightState(g);
+        }
+    }
+
+    private void promptFightState(Graphics g)
+    {
+        GuiText.drawString(g, "Click any button to start", new Vector2i(AppWindow.WINDOW_WIDTH / 2, (AppWindow.WINDOW_HEIGHT / 2) + 32), true, Color.WHITE, AssetPool.getFont("assets/fonts/default_font.ttf", 16));
+
+        if (KeyManager.hasPressedInput())
+            GameClient.getInstance().sendData("gfs");
+    }
+
+    private void renderPlacedItems(Graphics g)
+    {
         placedItemTypes.forEach(
                 (itemType, position) -> g.drawImage(itemType.cardImage, position.x, position.y, itemType.cardImage.getWidth(), itemType.cardImage.getHeight(), null)
         );
+    }
 
+    private void renderSelectedItems(Graphics g)
+    {
         if (selectedItemType != ItemType.EMPTY_ITEM)
-        {
             g.drawImage(selectedItemType.cardImage, mouseTileSnapPosition.x, mouseTileSnapPosition.y, selectedItemType.cardImage.getWidth(), selectedItemType.cardImage.getHeight(), null);
-        }
     }
 
 }

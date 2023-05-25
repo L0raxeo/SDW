@@ -3,6 +3,7 @@ package l0raxeo.rendering;
 import l0raxeo.rendering.postRenderGraphics.GraphicsDraw;
 import l0raxeo.sdw.input.keyboard.KeyManager;
 import l0raxeo.sdw.input.mouse.MouseManager;
+import l0raxeo.sdw.scenes.assetLoaders.LoadingScreen;
 import l0raxeo.sdw.scenes.menu.Menu;
 import l0raxeo.sdw.scenes.Scene;
 import l0raxeo.sdw.ui.GuiLayer;
@@ -15,10 +16,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Window implements Runnable
+public class AppWindow implements Runnable
 {
 
-    private static Window instance;
+    private static AppWindow instance;
 
     private JFrame frame;
     private Canvas canvas;
@@ -35,7 +36,7 @@ public class Window implements Runnable
     private MouseManager mouseListener;
     private GuiLayer guiLayer;
 
-    private Window()
+    private AppWindow()
     {
         APP_TITLE = "Stupid Dopey Warfare";
         WINDOW_WIDTH = 768;
@@ -218,6 +219,8 @@ public class Window implements Runnable
         currentScene.render(g);
         guiLayer.render(g);
 
+        LoadingScreen.renderLoadingScreen(g);
+
         GraphicsDraw.render(g);
 
         // end drawing
@@ -225,10 +228,10 @@ public class Window implements Runnable
         g.dispose();
     }
 
-    public static Window getInstance()
+    public static AppWindow getInstance()
     {
         if (instance == null)
-            instance = new Window();
+            instance = new AppWindow();
 
         return instance;
     }

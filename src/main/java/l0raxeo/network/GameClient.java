@@ -2,19 +2,19 @@ package l0raxeo.network;
 
 import l0raxeo.network.clientInfo.ClientInfo;
 import l0raxeo.network.packetManagement.ClientPacketHandler;
+import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.components.entityComponents.HealthSystem;
 import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerAttributes;
+import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerInventory;
 import l0raxeo.sdw.components.networkComponents.GameObjectNetwork;
 import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerControlledTexture;
 import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerController;
-import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerInventory;
 import l0raxeo.sdw.dataStructure.exceptions.DuplicateNetworkException;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import l0raxeo.sdw.objects.GameObject;
 import l0raxeo.sdw.prefabs.Prefabs;
 import l0raxeo.sdw.scenes.game.Game;
 import l0raxeo.sdw.scenes.game.GameState;
-import l0raxeo.sdw.scenes.game.initializers.BuildStateInitializer;
 import org.joml.Vector2i;
 import org.joml.Vector3i;
 
@@ -99,18 +99,24 @@ public class GameClient extends Thread
                 if (Integer.parseInt(parsedPacket[1]) == 0)
                     sendData("cts,1");
             }
-            case "sm" -> Window.changeScene(Game.class);
-            case "np" -> Window.getScene().addGameObject(Prefabs.generate(
-                    getPlayerClientInfo(Integer.parseInt(parsedPacket[1])).getUsername(),
-                    new Vector3i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3]), 0),
-                    new Vector2i(46,76),
-                    new PlayerControlledTexture(),
-                    new PlayerController(Integer.parseInt(parsedPacket[1])),
-                    new GameObjectNetwork(),
-                    new PlayerInventory(Integer.parseInt(parsedPacket[1]) == myUid),
-                    new HealthSystem(true),
-                    new PlayerAttributes(Integer.parseInt(parsedPacket[1]))
-            ));
+            case "sm" -> AppWindow.changeScene(Game.class);
+            case "np" -> {
+                Component[] playerComponents = {
+                        new PlayerControlledTexture(),
+                        new PlayerController(Integer.parseInt(parsedPacket[1])),
+                        new GameObjectNetwork(),
+                        new HealthSystem(true),
+                        new PlayerAttributes(Integer.parseInt(parsedPacket[1])),
+                        Integer.parseInt(parsedPacket[1]) == myUid ? new PlayerInventory() : null
+                };
+
+                AppWindow.getScene().addGameObject(Prefabs.generate(
+                        getPlayerClientInfo(Integer.parseInt(parsedPacket[1])).getUsername(),
+                        new Vector3i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3]), 0),
+                        new Vector2i(46, 76),
+                        playerComponents
+                ));
+            }
             case "goidu" -> GameObject.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
             case "gbs" -> GameState.setState(GameState.BUILD);
             case "gfs" -> GameState.setState(GameState.FIGHT);

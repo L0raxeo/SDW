@@ -1,7 +1,7 @@
 package l0raxeo.sdw.objects;
 
 import l0raxeo.rendering.gameRendering.Camera;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import org.joml.Vector2i;
 import org.joml.Vector3i;
 
@@ -26,7 +26,7 @@ public class Transform
     public void init(Vector3i worldPosition, Vector2i scale, float rotation)
     {
         // world to screen coordinates
-        this.position = new Vector2i(worldPosition.x, Window.WINDOW_HEIGHT - worldPosition.y);
+        this.position = new Vector2i(worldPosition.x, AppWindow.WINDOW_HEIGHT - worldPosition.y);
         this.scale = scale;
         this.rotation = rotation;
         this.zIndex = worldPosition.z;
@@ -34,7 +34,7 @@ public class Transform
 
     public Vector2i worldPosition()
     {
-        return new Vector2i(position.x, Window.WINDOW_HEIGHT - position.y);
+        return new Vector2i(position.x, AppWindow.WINDOW_HEIGHT - position.y);
     }
 
     public Vector2i getScreenPosition()
@@ -49,12 +49,12 @@ public class Transform
 
     public void setPosition(Vector2i worldPosition)
     {
-        this.position = new Vector2i(worldPosition.x, Window.WINDOW_HEIGHT - worldPosition.y);
+        this.position = new Vector2i(worldPosition.x, AppWindow.WINDOW_HEIGHT - worldPosition.y);
     }
 
     public void setPosition(Vector3i worldPosition)
     {
-        this.position = new Vector2i(worldPosition.x, Window.WINDOW_HEIGHT - worldPosition.y);
+        this.position = new Vector2i(worldPosition.x, AppWindow.WINDOW_HEIGHT - worldPosition.y);
         setzIndex(worldPosition.z);
     }
 

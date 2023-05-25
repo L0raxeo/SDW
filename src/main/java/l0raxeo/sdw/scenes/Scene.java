@@ -3,7 +3,7 @@ package l0raxeo.sdw.scenes;
 import l0raxeo.network.GameClient;
 import l0raxeo.sdw.components.Component;
 import l0raxeo.sdw.objects.GameObject;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public abstract class Scene
 
     private void setBackdrop()
     {
-        Window.setBackdrop(this.backdrop);
+        AppWindow.setBackdrop(this.backdrop);
     }
 
     public void onDestroy() {}

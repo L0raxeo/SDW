@@ -1,7 +1,7 @@
 package l0raxeo.sdw.scenes.menu.initializers;
 
 import l0raxeo.network.MultiplayerHandler;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import l0raxeo.sdw.dataStructure.AssetPool;
 import l0raxeo.sdw.dataStructure.encryption.Encryptor;
 import l0raxeo.sdw.scenes.menu.MenuState;
@@ -21,7 +21,7 @@ public class JoinMenuInitializer implements MenuStateInitializer {
     public void create() {
         GuiLayer.getInstance().addGuiComponent(new GuiTextField(
                 "IP Address",
-                new Vector2i(l0raxeo.rendering.Window.WINDOW_WIDTH / 2 - 256, 64),
+                new Vector2i(AppWindow.WINDOW_WIDTH / 2 - 256, 64),
                 new Vector2i(512, 64),
                 AssetPool.getFont(
                         "assets/fonts/default_font.ttf", 32
@@ -33,7 +33,7 @@ public class JoinMenuInitializer implements MenuStateInitializer {
 
         GuiLayer.getInstance().addGuiComponent(new GuiTextField(
                 "Port",
-                new Vector2i(l0raxeo.rendering.Window.WINDOW_WIDTH / 2 - 256, 160),
+                new Vector2i(AppWindow.WINDOW_WIDTH / 2 - 256, 160),
                 new Vector2i(512, 64),
                 AssetPool.getFont(
                         "assets/fonts/default_font.ttf", 32
@@ -45,7 +45,7 @@ public class JoinMenuInitializer implements MenuStateInitializer {
 
         GuiLayer.getInstance().addGuiComponent(new GuiButton(
                 "Join_btn",
-                new Vector2i(l0raxeo.rendering.Window.WINDOW_WIDTH / 2 - 128, 256),
+                new Vector2i(AppWindow.WINDOW_WIDTH / 2 - 128, 256),
                 new Vector2i(256, 64),
                 "Join",
                 AssetPool.getFont("assets/fonts/default_font.ttf", 32),
@@ -58,7 +58,7 @@ public class JoinMenuInitializer implements MenuStateInitializer {
                         GuiLayer.getInstance().addGuiComponent(new GuiTextObj(
                                 "Name_Warning",
                                 "Please enter a username",
-                                new Vector2i(l0raxeo.rendering.Window.WINDOW_WIDTH / 2, 496),
+                                new Vector2i(AppWindow.WINDOW_WIDTH / 2, 496),
                                 Color.WHITE,
                                 AssetPool.getFont(
                                         "assets/fonts/default_font.ttf",
@@ -80,7 +80,7 @@ public class JoinMenuInitializer implements MenuStateInitializer {
 
         GuiLayer.getInstance().addGuiComponent(new GuiTextField(
                 "Username",
-                new Vector2i(l0raxeo.rendering.Window.WINDOW_WIDTH / 2 - 256, Window.WINDOW_HEIGHT - 128),
+                new Vector2i(AppWindow.WINDOW_WIDTH / 2 - 256, AppWindow.WINDOW_HEIGHT - 128),
                 new Vector2i(512, 64),
                 AssetPool.getFont(
                         "assets/fonts/default_font.ttf", 32

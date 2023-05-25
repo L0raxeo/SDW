@@ -1,6 +1,6 @@
 package l0raxeo.rendering.postRenderGraphics;
 
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import org.joml.Vector2i;
 import org.joml.Vector3f;
 
@@ -39,10 +39,10 @@ public class GraphicsDraw
         {
             Line2D line = lines.get(curLineIndex);
 
-            boolean isLineInRender = (line.getFrom().y > Window.WINDOW_HEIGHT && line.getTo().y > Window.WINDOW_HEIGHT) ||
+            boolean isLineInRender = (line.getFrom().y > AppWindow.WINDOW_HEIGHT && line.getTo().y > AppWindow.WINDOW_HEIGHT) ||
                     (line.getFrom().y < 0 && line.getTo().y < 0) ||
                     (line.getFrom().x < 0 && line.getTo().x < 0) ||
-                    (line.getFrom().x > Window.WINDOW_WIDTH && line.getTo().x > Window.WINDOW_WIDTH);
+                    (line.getFrom().x > AppWindow.WINDOW_WIDTH && line.getTo().x > AppWindow.WINDOW_WIDTH);
 
             if (isLineInRender)
                 continue;
@@ -56,8 +56,8 @@ public class GraphicsDraw
             {
                 Vector2i point1 = curPoint == 0 ? line.getFrom() : line.getTo();
                 Vector2i point2 = curPoint == 1 ? line.getFrom() : line.getTo();
-                if (point1.x > Window.WINDOW_WIDTH) {
-                    point1.x = Window.WINDOW_WIDTH;
+                if (point1.x > AppWindow.WINDOW_WIDTH) {
+                    point1.x = AppWindow.WINDOW_WIDTH;
                     point1.y = (int) ((rawSlope * (point1.x - point2.x)) + point2.y);
                 }
                 else if (point1.x < 0) {
@@ -65,8 +65,8 @@ public class GraphicsDraw
                     point1.y = (int) ((rawSlope * (point1.x - point2.x)) + point2.y);
                 }
 
-                if (point1.y > Window.WINDOW_HEIGHT){
-                    point1.y = Window.WINDOW_HEIGHT;
+                if (point1.y > AppWindow.WINDOW_HEIGHT){
+                    point1.y = AppWindow.WINDOW_HEIGHT;
                     point1.x = (int) (((point1.y - point2.y) / rawSlope) + point2.x);
                 }
                 else if (point1.y < 0) {

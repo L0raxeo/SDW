@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import static l0raxeo.sdw.input.keyboard.KeyState.*;
+
 public final class KeyManager implements KeyListener
 {
 
@@ -25,11 +27,11 @@ public final class KeyManager implements KeyListener
         {
             k.setState();
 
-            if (k.getState() == KeyState.RELEASED)
+            if (k.getState() == RELEASED)
                 k.queueState(KeyState.IDLE);
-            else if (k.getState() == KeyState.PRESSED)
+            else if (k.getState() == PRESSED)
             {
-                k.queueState(KeyState.HELD);
+                k.queueState(HELD);
             }
         }
     }
@@ -48,7 +50,7 @@ public final class KeyManager implements KeyListener
     {
         for (Key k : allKeys)
         {
-            if (k.getKeyCode() == key && k.getState() == KeyState.HELD)
+            if (k.getKeyCode() == key && k.getState() == HELD)
                 return true;
         }
 
@@ -59,10 +61,10 @@ public final class KeyManager implements KeyListener
     {
         for (Key k : allKeys)
         {
-            if (k.getKeyChar() == key && k.getState() == KeyState.HELD)
+            if (k.getKeyChar() == key && k.getState() == HELD)
                 return true;
 
-            if (k.getKeyChar() == key && k.getState() == KeyState.PRESSED)
+            if (k.getKeyChar() == key && k.getState() == PRESSED)
                 return true;
         }
 
@@ -78,7 +80,7 @@ public final class KeyManager implements KeyListener
     {
         for (Key k : allKeys)
         {
-            if (k.getKeyCode() == key && k.getState() == KeyState.PRESSED)
+            if (k.getKeyCode() == key && k.getState() == PRESSED)
                 return true;
         }
 
@@ -89,7 +91,7 @@ public final class KeyManager implements KeyListener
     {
         for (Key k : allKeys)
         {
-            if (k.getKeyChar() == key && k.getState() == KeyState.PRESSED)
+            if (k.getKeyChar() == key && k.getState() == PRESSED)
                 return true;
         }
 
@@ -105,7 +107,7 @@ public final class KeyManager implements KeyListener
     {
         for (Key k : allKeys)
         {
-            if (k.getKeyCode() == key && k.getState() == KeyState.RELEASED)
+            if (k.getKeyCode() == key && k.getState() == RELEASED)
                 return true;
         }
 
@@ -116,7 +118,29 @@ public final class KeyManager implements KeyListener
     {
         for (Key k : allKeys)
         {
-            if (k.getKeyChar() == key && k.getState() == KeyState.RELEASED)
+            if (k.getKeyChar() == key && k.getState() == RELEASED)
+                return true;
+        }
+
+        return false;
+    }
+
+    public static boolean hasInput()
+    {
+        for (Key key : allKeys)
+        {
+            if (key.getState() == PRESSED || key.getState() == RELEASED || key.getState() == HELD)
+                return true;
+        }
+
+        return false;
+    }
+
+    public static boolean hasPressedInput()
+    {
+        for (Key key : allKeys)
+        {
+            if (key.getState() == PRESSED)
                 return true;
         }
 
@@ -139,17 +163,17 @@ public final class KeyManager implements KeyListener
 
         for (Key k : allKeys)
         {
-            if (k.getState() == KeyState.HELD && k.getKeyCode() == e.getKeyCode())
+            if (k.getState() == HELD && k.getKeyCode() == e.getKeyCode())
                 return;
 
             if (k.getKeyCode() == e.getKeyCode() && k.getState() == KeyState.IDLE)
             {
-                k.queueState(KeyState.PRESSED);
+                k.queueState(PRESSED);
                 return;
             }
         }
 
-        allKeys.add(new Key(e.getKeyCode(), KeyState.PRESSED, e.getKeyChar()));
+        allKeys.add(new Key(e.getKeyCode(), PRESSED, e.getKeyChar()));
     }
 
     @Override
@@ -159,7 +183,7 @@ public final class KeyManager implements KeyListener
         {
             if (k.getKeyCode() == e.getKeyCode())
             {
-                k.queueState(KeyState.RELEASED);
+                k.queueState(RELEASED);
             }
         }
     }

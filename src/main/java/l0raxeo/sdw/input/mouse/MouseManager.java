@@ -1,7 +1,7 @@
 package l0raxeo.sdw.input.mouse;
 
 import l0raxeo.sdw.ui.GuiLayer;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import org.joml.Vector2i;
 
 import java.awt.event.MouseEvent;
@@ -122,12 +122,12 @@ public class MouseManager implements MouseListener, MouseMotionListener
      */
     public static int getMouseY()
     {
-        return Window.WINDOW_HEIGHT - yMouse;
+        return AppWindow.WINDOW_HEIGHT - yMouse;
     }
 
     public static int getGraphMouseY()
     {
-        return Window.WINDOW_HEIGHT - getMouseY();
+        return AppWindow.WINDOW_HEIGHT - getMouseY();
     }
 
     public static int getMouseMoveX()

@@ -1,6 +1,6 @@
 package l0raxeo.rendering.gameRendering;
 
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import org.joml.Vector2i;
 
 public class Camera
@@ -59,7 +59,7 @@ public class Camera
 
     public static Vector2i screenToWorld(Vector2i scrPos)
     {
-        return new Vector2i(scrPos.x, Window.WINDOW_HEIGHT - scrPos.y);
+        return new Vector2i(scrPos.x, AppWindow.WINDOW_HEIGHT - scrPos.y);
     }
 
     public static void move(Vector2i vel)

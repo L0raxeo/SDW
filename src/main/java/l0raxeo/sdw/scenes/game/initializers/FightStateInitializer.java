@@ -1,8 +1,7 @@
 package l0raxeo.sdw.scenes.game.initializers;
 
 import l0raxeo.network.GameClient;
-import l0raxeo.network.MultiplayerHandler;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import l0raxeo.sdw.components.entityComponents.playerComponents.PlayerAttributes;
 import l0raxeo.sdw.components.itemComponents.ItemComponent;
 import l0raxeo.sdw.objects.GameObject;
@@ -21,8 +20,6 @@ public class FightStateInitializer extends GameStateInitializer
     private final ItemHandler itemHandler;
     private final MapHandler mapHandler;
 
-    private final LoadingScreen loadingScreen;
-
     private boolean initialized = false; // TODO remove this
 
     public FightStateInitializer(Game gameScene)
@@ -30,13 +27,12 @@ public class FightStateInitializer extends GameStateInitializer
         this.gameScene = gameScene;
         this.mapHandler = gameScene.mapHandler;
         this.itemHandler = mapHandler.itemHandler;
-        this.loadingScreen = new LoadingScreen(1000);
     }
 
     @Override
     public void loadResources()
     {
-        Window.setBackdrop(Color.DARK_GRAY);
+        AppWindow.setBackdrop(Color.DARK_GRAY);
     }
 
     @Override
@@ -44,19 +40,18 @@ public class FightStateInitializer extends GameStateInitializer
     {
         GameClient.getInstance().sendData("np," + GameClient.getInstance().myUid + "," + 0 + "," + 0);
 
-        loadingScreen.load();
+        LoadingScreen.load();
     }
 
     @Override
     public void update(double dt) {
         if (gameScene.getGameObjectsWithComponent(PlayerAttributes.class).size() >= GameClient.getInstance().clientList.size())
         {
-            loadingScreen.isLoading = false;
+            LoadingScreen.stop();
         }
 
-        if (!initialized && !loadingScreen.isLoading)
+        if (!initialized && !LoadingScreen.isLoading())
         {
-            System.out.println(loadingScreen.isLoading);
             for (GameObject player : gameScene.getGameObjectsWithComponent(PlayerAttributes.class))
             {
                 if (player.getComponent(PlayerAttributes.class).uid == GameClient.getInstance().myUid)
@@ -83,11 +78,6 @@ public class FightStateInitializer extends GameStateInitializer
     @Override
     public void render(Graphics g) {
         gameScene.mapHandler.render(g);
-
-        if (loadingScreen.isLoading)
-        {
-            loadingScreen.renderLoadingScreen(g);
-        }
     }
 
 }

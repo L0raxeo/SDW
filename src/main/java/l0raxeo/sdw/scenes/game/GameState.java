@@ -1,6 +1,6 @@
 package l0raxeo.sdw.scenes.game;
 
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 import l0raxeo.sdw.scenes.game.initializers.*;
 import l0raxeo.sdw.ui.GuiLayer;
 
@@ -9,9 +9,9 @@ import java.util.Objects;
 public enum GameState
 {
 
-    DRAFT(new DraftStateInitializer((Game) Window.getScene(Game.class))),
-    BUILD(new BuildStateInitializer((Game) Objects.requireNonNull(Window.getScene(Game.class)))),
-    FIGHT(new FightStateInitializer((Game) Objects.requireNonNull(Window.getScene(Game.class)))),
+    DRAFT(new DraftStateInitializer((Game) AppWindow.getScene(Game.class))),
+    BUILD(new BuildStateInitializer((Game) Objects.requireNonNull(AppWindow.getScene(Game.class)))),
+    FIGHT(new FightStateInitializer((Game) Objects.requireNonNull(AppWindow.getScene(Game.class)))),
     EMPTY(new EmptyStateInitializer());
 
     public final GameStateInitializer initializer;

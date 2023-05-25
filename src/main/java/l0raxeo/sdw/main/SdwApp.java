@@ -1,13 +1,13 @@
 package l0raxeo.sdw.main;
-import l0raxeo.rendering.Window;
+import l0raxeo.rendering.AppWindow;
 
 public class SdwApp
 {
 
     public static void main(String[] args)
     {
-        Window window = Window.getInstance();
-        window.start();
+        AppWindow appWindow = AppWindow.getInstance();
+        appWindow.start();
     }
 
 }
