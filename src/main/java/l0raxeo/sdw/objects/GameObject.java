@@ -77,7 +77,7 @@ public class GameObject
         this.components.add(c);
         c.gameObject = this;
 
-        GameClient.getInstance().sendData("coidu," + Component.ID_COUNTER);
+        GameClient.getInstance().sendData("cidu," + Component.ID_COUNTER);
     }
 
     public void update(double dt) {
