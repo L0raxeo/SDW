@@ -62,7 +62,7 @@ public class GameServer extends Thread
         switch (parsedPacket[0])
         {
             case "l" -> addConnection(new ClientInfoServer(address, port, parsedPacket[1], ID_COUNTER++));
-            case "gon", "np", "comp", "goidu", "gbs", "gfs" -> sendDataToAllClients(strPacket);
+            case "gon", "np", "comp", "goidu", "gbs", "gfs", "cidu" -> sendDataToAllClients(strPacket);
             case "cm" -> System.out.println(parsedPacket[1]);
             case "lo" -> removeConnection(getClientInfo(Integer.parseInt(parsedPacket[1])));
             case "ctc" -> sendData("ctc,1", address, port);
