@@ -13,7 +13,8 @@ public class ClientPacketHandler
                     .getGameObjectWithUid(Integer.parseInt(parsedPacket[1]))
                     .getComponent(GameObjectNetwork.class).receive(packet);
         } catch (NullPointerException e) {
-            System.out.println("[Client] - WARNING: could not handle packet '" + parsedPacket[0] + "'");
+            e.printStackTrace();
+            //System.out.println("[Client] - WARNING: could not handle packet '" + parsedPacket[0] + "'");
         }
     }
 
