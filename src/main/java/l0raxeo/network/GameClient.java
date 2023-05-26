@@ -105,11 +105,11 @@ public class GameClient extends Thread
             case "np" -> {
                 Component[] playerComponents = {
                         new PlayerControlledTexture(),
-                        Objects.equals(parsedPacket[1], myUid) ? new PlayerController() : null,
+                        parsedPacket[1].equals(myUid) ? new PlayerController() : null,
                         new GameObjectNetwork(),
                         new HealthSystem(true),
                         new PlayerAttributes(parsedPacket[1]),
-                        Objects.equals(parsedPacket[1], myUid) ? new PlayerInventory() : null
+                        parsedPacket[1].equals(myUid) ? new PlayerInventory() : null
                 };
 
                 AppWindow.getScene().addGameObject(Prefabs.generate(
@@ -167,7 +167,7 @@ public class GameClient extends Thread
     public ClientInfo getPlayerClientInfo(String uid)
     {
         for (ClientInfo ci : getClientList())
-            if (Objects.equals(ci.uid(), uid))
+            if (ci.uid().equals(uid))
                 return ci;
 
         return null;

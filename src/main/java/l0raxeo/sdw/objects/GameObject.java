@@ -45,7 +45,7 @@ public class GameObject
     public Component getComponent(String uid)
     {
         for (Component c : components)
-            if (Objects.equals(c.uid(), uid))
+            if (c.uid().equals(uid))
                 return c;
 
         return null;

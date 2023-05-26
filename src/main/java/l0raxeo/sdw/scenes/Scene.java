@@ -38,7 +38,7 @@ public abstract class Scene
     public GameObject getGameObjectWithUid(String uid)
     {
         for (GameObject go : gameObjects)
-            if (Objects.equals(go.getUid(), uid))
+            if (go.getUid().equals(uid))
                 return go;
 
         return null;

@@ -55,7 +55,7 @@ public class FightStateInitializer extends GameStateInitializer
         {
             for (GameObject player : gameScene.getGameObjectsWithComponent(PlayerAttributes.class))
             {
-                if (Objects.equals(player.getComponent(PlayerAttributes.class).uid, GameClient.getInstance().myUid))
+                if (player.getComponent(PlayerAttributes.class).uid.equals(GameClient.getInstance().myUid))
                 {
                     gameScene.player = player;
                     break;

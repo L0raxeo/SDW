@@ -21,7 +21,6 @@ public class GameServer extends Thread
 
     private DatagramSocket socket;
     private boolean connected = true;
-    private int ID_COUNTER = 0;
 
     private final List<ClientInfoServer> connectedClients = new ArrayList<>();
 
@@ -66,7 +65,9 @@ public class GameServer extends Thread
             case "l" -> addConnection(new ClientInfoServer(address, port, parsedPacket[1], UUID.randomUUID().toString()));
             case "gon", "np", "comp", "gbs", "gfs" -> sendDataToAllClients(strPacket);
             case "cm" -> System.out.println(parsedPacket[1]);
-            case "lo" -> removeConnection(getClientInfo(parsedPacket[1]));
+            case "lo" -> {
+                removeConnection(getClientInfo(parsedPacket[1]));
+            }
             case "ctc" -> sendData("ctc,1", address, port);
             case "cts" -> {
                 if (Integer.parseInt(parsedPacket[1]) == 1) {
@@ -132,9 +133,9 @@ public class GameServer extends Thread
 
     public void removeConnection(ClientInfoServer client)
     {
-        System.out.println("[Server] Connection removed: " + client.username());
         sendDataToAllClients("lo," + client.uid());
         connectedClients.remove(client);
+        System.out.println("[Server] Connection removed: " + client.username());
     }
 
     public List<ClientInfoServer> getConnectedClients()
@@ -145,7 +146,7 @@ public class GameServer extends Thread
     public ClientInfoServer getClientInfo(String uid)
     {
         for (ClientInfoServer cis : connectedClients)
-            if (Objects.equals(cis.uid(), uid)) return cis;
+            if (cis.uid().equals(uid)) return cis;
 
         return null;
     }

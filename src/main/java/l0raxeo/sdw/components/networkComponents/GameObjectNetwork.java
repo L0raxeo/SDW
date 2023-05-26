@@ -72,7 +72,7 @@ public class GameObjectNetwork extends Component implements PacketTransceiver
 
     private void handleComponentPacket(String gameObjectUid, String compUid, String args)
     {
-        if (!Objects.equals(gameObjectUid, gameObject.getUid()))
+        if (!gameObjectUid.equals(gameObject.getUid()))
             throw new PacketMismatchException("Received packet for object of UID '" + gameObjectUid + "' in a GameObjectNetwork of a GameObject with UID '" + gameObject.getUid() + "'");
 
         gameObject.getComponent(compUid).handlePacketArgs(args);
