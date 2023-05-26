@@ -7,6 +7,8 @@ import l0raxeo.network.packetManagement.PacketTransceiver;
 import org.joml.Vector2i;
 import org.joml.Vector3i;
 
+import java.util.Objects;
+
 public class GameObjectNetwork extends Component implements PacketTransceiver
 {
 
@@ -23,7 +25,7 @@ public class GameObjectNetwork extends Component implements PacketTransceiver
         String packetId = parsedPacket[0];
         if (packetId.equals("gon"))
         {
-            int gameObjectUid = Integer.parseInt(parsedPacket[1]);
+            String gameObjectUid = parsedPacket[1];
             Vector3i position = new Vector3i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3]), Integer.parseInt(parsedPacket[4]));
             Vector2i scale = new Vector2i(Integer.parseInt(parsedPacket[5]), Integer.parseInt(parsedPacket[6]));
             float rotation = Float.parseFloat(parsedPacket[7]);
@@ -33,8 +35,8 @@ public class GameObjectNetwork extends Component implements PacketTransceiver
         else if (packetId.equals("comp"))
         {
             String[] parsedCompPacket = packet.split(",", 4);
-            int gameObjectUid = Integer.parseInt(parsedCompPacket[1]);
-            int compUid = Integer.parseInt(parsedCompPacket[2]);
+            String gameObjectUid = parsedCompPacket[1];
+            String compUid = parsedCompPacket[2];
             String args = parsedCompPacket[3];
             handleComponentPacket(gameObjectUid, compUid, args);
         }
@@ -55,9 +57,9 @@ public class GameObjectNetwork extends Component implements PacketTransceiver
         GameClient.getInstance().sendData(packet.getBytes());
     }
 
-    private void handleGameObjectPacket(int gameObjectUid, Vector3i position, Vector2i scale, float rotation, boolean isDead)
+    private void handleGameObjectPacket(String gameObjectUid, Vector3i position, Vector2i scale, float rotation, boolean isDead)
     {
-        if (gameObjectUid != gameObject.getUid())
+        if (!Objects.equals(gameObjectUid, gameObject.getUid()))
             throw new PacketMismatchException("Received packet for object of UID '" + gameObjectUid + "' in a GameObjectNetwork of a GameObject with UID '" + gameObject.getUid() + "'");
 
         gameObject.transform.setPosition(position);
@@ -68,9 +70,9 @@ public class GameObjectNetwork extends Component implements PacketTransceiver
             gameObject.die();
     }
 
-    private void handleComponentPacket(int gameObjectUid, int compUid, String args)
+    private void handleComponentPacket(String gameObjectUid, String compUid, String args)
     {
-        if (gameObjectUid != gameObject.getUid())
+        if (!Objects.equals(gameObjectUid, gameObject.getUid()))
             throw new PacketMismatchException("Received packet for object of UID '" + gameObjectUid + "' in a GameObjectNetwork of a GameObject with UID '" + gameObject.getUid() + "'");
 
         gameObject.getComponent(compUid).handlePacketArgs(args);

@@ -27,13 +27,6 @@ public class PlayerController extends Component
     public int xMouseCamOffset;
     public int yMouseCamOffset;
 
-    private final int clientUid;
-
-    public PlayerController(int clientUid)
-    {
-        this.clientUid = clientUid;
-    }
-
     @Override
     public void update(double dt)
     {

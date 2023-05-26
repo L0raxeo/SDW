@@ -3,14 +3,12 @@ package l0raxeo.sdw.components;
 import l0raxeo.sdw.objects.GameObject;
 
 import java.awt.*;
+import java.util.UUID;
 
 public abstract class Component
 {
 
-    // component class in general
-    public static int ID_COUNTER = 0;
-    // associated with individual components/objects
-    private int uid = -1;
+    private String uid;
 
     public transient GameObject gameObject = null;
 
@@ -25,11 +23,10 @@ public abstract class Component
 
     public void generateId()
     {
-        if (this.uid == -1)
-            this.uid = ID_COUNTER++;
+        this.uid = UUID.randomUUID().toString();
     }
 
-    public int uid()
+    public String uid()
     {
         return uid;
     }
@@ -40,11 +37,5 @@ public abstract class Component
     }
 
     public void handlePacketArgs(String args) {}
-
-    public static void checkAndUpdateIdCounter(int count)
-    {
-        if (count > ID_COUNTER)
-            ID_COUNTER = count;
-    }
 
 }

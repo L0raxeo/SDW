@@ -12,6 +12,7 @@ import l0raxeo.sdw.scenes.game.map.MapHandler;
 import l0raxeo.sdw.scenes.game.map.items.ItemState;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class FightStateInitializer extends GameStateInitializer
 {
@@ -54,7 +55,7 @@ public class FightStateInitializer extends GameStateInitializer
         {
             for (GameObject player : gameScene.getGameObjectsWithComponent(PlayerAttributes.class))
             {
-                if (player.getComponent(PlayerAttributes.class).uid == GameClient.getInstance().myUid)
+                if (Objects.equals(player.getComponent(PlayerAttributes.class).uid, GameClient.getInstance().myUid))
                 {
                     gameScene.player = player;
                     break;

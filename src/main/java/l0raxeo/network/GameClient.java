@@ -22,13 +22,14 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameClient extends Thread
 {
 
     private static GameClient instance;
     public final List<ClientInfo> clientList = new ArrayList<>();
-    public int myUid;
+    public String myUid;
 
     private InetAddress ipAddress;
     private int port;
@@ -79,7 +80,7 @@ public class GameClient extends Thread
             case "gon", "comp" -> ClientPacketHandler.handleGameObjectNetworkAndComponentNetworkPacket(strPacket, parsedPacket);
             case "cm" -> ClientPacketHandler.handleConsoleMessagePacket(parsedPacket[1]);
             case "lc" -> {
-                myUid = Integer.parseInt(parsedPacket[1]);
+                myUid = parsedPacket[1];
                 System.out.println("[Client]: Connected to server! My UID: " + myUid);
             }
             case "pl" -> {
@@ -87,10 +88,11 @@ public class GameClient extends Thread
                 for (int i = 1; i < parsedPacket.length; i += 2)
                     getClientList().add(new ClientInfo(
                             parsedPacket[i],
-                            Integer.parseInt(parsedPacket[i + 1]))
+                            parsedPacket[i + 1]
+                            )
                     );
             }
-            case "lo" -> getClientList().remove(getPlayerClientInfo(Integer.parseInt(parsedPacket[1])));
+            case "lo" -> getClientList().remove(getPlayerClientInfo(parsedPacket[1]));
             case "ctc" -> {
                 if (Integer.parseInt(parsedPacket[1]) == 1)
                     MultiplayerHandler.clientConnectionValid = true;
@@ -103,22 +105,20 @@ public class GameClient extends Thread
             case "np" -> {
                 Component[] playerComponents = {
                         new PlayerControlledTexture(),
-                        Integer.parseInt(parsedPacket[1]) == myUid ? new PlayerController(Integer.parseInt(parsedPacket[1])): null,
+                        Objects.equals(parsedPacket[1], myUid) ? new PlayerController() : null,
                         new GameObjectNetwork(),
                         new HealthSystem(true),
-                        new PlayerAttributes(Integer.parseInt(parsedPacket[1])),
-                        Integer.parseInt(parsedPacket[1]) == myUid ? new PlayerInventory() : null
+                        new PlayerAttributes(parsedPacket[1]),
+                        Objects.equals(parsedPacket[1], myUid) ? new PlayerInventory() : null
                 };
 
                 AppWindow.getScene().addGameObject(Prefabs.generate(
-                        getPlayerClientInfo(Integer.parseInt(parsedPacket[1])).getUsername(),
+                        getPlayerClientInfo(parsedPacket[1]).getUsername(),
                         new Vector3i(Integer.parseInt(parsedPacket[2]), Integer.parseInt(parsedPacket[3]), 0),
                         new Vector2i(46, 76),
                         playerComponents
                 ));
             }
-            case "goidu" -> GameObject.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
-            case "cidu" -> Component.checkAndUpdateIdCounter(Integer.parseInt(parsedPacket[1]));
             case "gbs" -> GameState.setState(GameState.BUILD);
             case "gfs" -> GameState.setState(GameState.FIGHT);
         }
@@ -164,10 +164,10 @@ public class GameClient extends Thread
         return clientList;
     }
 
-    public ClientInfo getPlayerClientInfo(int uid)
+    public ClientInfo getPlayerClientInfo(String uid)
     {
         for (ClientInfo ci : getClientList())
-            if (ci.uid() == uid)
+            if (Objects.equals(ci.uid(), uid))
                 return ci;
 
         return null;

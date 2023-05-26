@@ -5,9 +5,9 @@ import l0raxeo.sdw.components.Component;
 public class PlayerAttributes extends Component
 {
 
-    public int uid;
+    public String uid;
 
-    public PlayerAttributes(int uid)
+    public PlayerAttributes(String uid)
     {
         this.uid = uid;
     }

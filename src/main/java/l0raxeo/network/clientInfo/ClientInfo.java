@@ -1,6 +1,6 @@
 package l0raxeo.network.clientInfo;
 
-public record ClientInfo(String username, int uid)
+public record ClientInfo(String username, String uid)
 {
 
     public String getUsername()
@@ -8,7 +8,7 @@ public record ClientInfo(String username, int uid)
         return username;
     }
 
-    public int getUid()
+    public String getUid()
     {
         return uid;
     }

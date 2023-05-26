@@ -8,6 +8,7 @@ import l0raxeo.rendering.AppWindow;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Scene
 {
@@ -32,25 +33,13 @@ public abstract class Scene
     public void addGameObject(GameObject go) {
         gameObjects.add(go);
         go.start();
-
-        GameClient.getInstance().sendData("goidu," + GameObject.ID_COUNTER);
     }
 
-    public GameObject getGameObjectWithUid(int uid)
+    public GameObject getGameObjectWithUid(String uid)
     {
-        int low = 0;
-        int high = getGameObjects().size() - 1;
-
-        while (low <= high)
-        {
-            int midIndex = (low + high) >>> 1;
-            Comparable<Integer> midUid = getGameObjects().get(midIndex).getUid();
-            int cmp = midUid.compareTo(uid);
-
-            if (cmp < 0) low = midIndex + 1;
-            else if (cmp > 0) high = midIndex - 1;
-            else return getGameObjects().get(midIndex);
-        }
+        for (GameObject go : gameObjects)
+            if (Objects.equals(go.getUid(), uid))
+                return go;
 
         return null;
     }

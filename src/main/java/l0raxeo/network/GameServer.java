@@ -11,6 +11,8 @@ import java.net.SocketException;
 import java.nio.channels.AsynchronousCloseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class GameServer extends Thread
 {
@@ -61,10 +63,10 @@ public class GameServer extends Thread
 
         switch (parsedPacket[0])
         {
-            case "l" -> addConnection(new ClientInfoServer(address, port, parsedPacket[1], ID_COUNTER++));
-            case "gon", "np", "comp", "goidu", "gbs", "gfs", "cidu" -> sendDataToAllClients(strPacket);
+            case "l" -> addConnection(new ClientInfoServer(address, port, parsedPacket[1], UUID.randomUUID().toString()));
+            case "gon", "np", "comp", "gbs", "gfs" -> sendDataToAllClients(strPacket);
             case "cm" -> System.out.println(parsedPacket[1]);
-            case "lo" -> removeConnection(getClientInfo(Integer.parseInt(parsedPacket[1])));
+            case "lo" -> removeConnection(getClientInfo(parsedPacket[1]));
             case "ctc" -> sendData("ctc,1", address, port);
             case "cts" -> {
                 if (Integer.parseInt(parsedPacket[1]) == 1) {
@@ -140,10 +142,10 @@ public class GameServer extends Thread
         return this.connectedClients;
     }
 
-    public ClientInfoServer getClientInfo(int uid)
+    public ClientInfoServer getClientInfo(String uid)
     {
         for (ClientInfoServer cis : connectedClients)
-            if (cis.uid() == uid) return cis;
+            if (Objects.equals(cis.uid(), uid)) return cis;
 
         return null;
     }

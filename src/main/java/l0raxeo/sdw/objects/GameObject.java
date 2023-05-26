@@ -6,16 +6,16 @@ import l0raxeo.sdw.components.Component;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class GameObject
 {
 
-    // Object ID System
-    public static int ID_COUNTER = 0;
 
     private final String name;
     private final List<Component> components;
-    private int uid = -1;
+    private String uid = "";
     public Transform transform;
     private boolean isDead = false;
 
@@ -42,10 +42,10 @@ public class GameObject
         return null;
     }
 
-    public Component getComponent(int uid)
+    public Component getComponent(String uid)
     {
         for (Component c : components)
-            if (c.uid() == uid)
+            if (Objects.equals(c.uid(), uid))
                 return c;
 
         return null;
@@ -76,8 +76,6 @@ public class GameObject
         c.generateId();
         this.components.add(c);
         c.gameObject = this;
-
-        GameClient.getInstance().sendData("cidu," + Component.ID_COUNTER);
     }
 
     public void update(double dt) {
@@ -103,7 +101,7 @@ public class GameObject
         return this.name;
     }
 
-    public int getUid()
+    public String getUid()
     {
         return this.uid;
     }
@@ -128,14 +126,7 @@ public class GameObject
 
     private void generateUid()
     {
-        if (this.uid == -1)
-            this.uid = ID_COUNTER++;
-    }
-
-    public static void checkAndUpdateIdCounter(int count)
-    {
-        if (count > ID_COUNTER)
-            ID_COUNTER = count;
+        this.uid = UUID.randomUUID().toString();
     }
 
 }
